@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Crash Demo</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Tahoma, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 50% 20%, #182a55 0%, #0b1228 40%, #050812 100%);
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ---------- Header ---------- */
+
+    header {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 25px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: rgba(5, 10, 25, .75);
+      backdrop-filter: blur(15px);
+    }
+
+    .logo {
+      font-size: 23px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: #48a7ff;
+    }
+
+    .demo-badge {
+      background: rgba(255, 193, 7, .12);
+      color: #ffd45c;
+      border: 1px solid rgba(255, 193, 7, .25);
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+    }
+
+    /* ---------- Main ---------- */
+
+    main {
+      width: min(1100px, 94%);
+      margin: 25px auto;
+    }
+
+    /* ---------- Game ---------- */
+
+    .game-card {
+      background: rgba(10, 18, 40, .78);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 22px;
+      padding: 18px;
+      box-shadow: 0 20px 70px rgba(0,0,0,.35);
+      backdrop-filter: blur(15px);
+    }
+
+    .game-area {
+      height: 480px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 17px;
+      background:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
+        radial-gradient(circle at 50% 70%, #132b54, #071022 70%);
+      background-size: 45px 45px, 45px 45px, auto;
+    }
+
+    /* Glow */
+
+    .game-area::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(
+        circle at center,
+        transparent 25%,
+        rgba(0,0,0,.45) 100%
+      );
+    }
+
+    /* ---------- Multiplier ---------- */
+
+    .multiplier {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+      text-align: center;
+      user-select: none;
+    }
+
+    .multiplier-number {
+      font-size: clamp(55px, 9vw, 105px);
+      font-weight: 900;
+      letter-spacing: -4px;
+      text-shadow:
+        0 0 20px rgba(55, 170, 255, .45),
+        0 0 60px rgba(55, 170, 255, .2);
+      color: #f5f9ff;
+      transition: .2s;
+    }
+
+    .multiplier-label {
+      color: #91a6c9;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .crashed .multiplier-number {
+      color: #ff5666;
+      text-shadow:
+        0 0 20px rgba(255, 65, 85, .5),
+        0 0 60px rgba(255, 65, 85, .25);
+    }
+
+    /* ---------- Rocket ---------- */
+
+    .rocket {
+      position: absolute;
+      left: 12%;
+      bottom: 15%;
+      font-size: 48px;
+      z-index: 4;
+      transform: rotate(-20deg);
+      filter: drop-shadow(0 0 12px rgba(75,170,255,.8));
+      transition: left .05s linear, bottom .05s linear;
+    }
+
+    .rocket::after {
+      content: "";
+      position: absolute;
+      width: 80px;
+      height: 10px;
+      left: -60px;
+      top: 30px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,150,30,.8),
+        rgba(255,230,90,.9)
+      );
+      filter: blur(5px);
+      border-radius: 50%;
+    }
+
+    /* ---------- Status ---------- */
+
+    .status {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      z-index: 10;
+      padding: 8px 13px;
+      border-radius: 10px;
+      background: rgba(0,0,0,.3);
+      color: #8fa5c7;
+      font-size: 13px;
+    }
+
+    .status.running {
+      color: #55d8ff;
+    }
+
+    .status.crashed {
+      color: #ff6877;
+    }
+
+    /* ---------- Controls ---------- */
+
+    .controls {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+    }
+
+    .score-box {
+      min-height: 65px;
+      border-radius: 15px;
+      padding: 12px 16px;
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.07);
+    }
+
+    .score-title {
+      color: #8193b3;
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+
+    .score {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    button {
+      border: none;
+      border-radius: 15px;
+      padding: 0 30px;
+      min-width: 180px;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      background: linear-gradient(135deg, #168cff, #5c54ff);
+      box-shadow: 0 8px 25px rgba(45,110,255,.25);
+      transition: .2s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(45,110,255,.35);
+    }
+
+    button:active {
+      transform: scale(.97);
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: .5;
+      transform: none;
+    }
+
+    /* ---------- History ---------- */
+
+    .history-card {
+      margin-top: 18px;
+      background: rgba(10, 18, 40, .78);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .history-title {
+      font-size: 15px;
+      margin-bottom: 13px;
+      color: #cbd8ee;
+    }
+
+    .history {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .history-item {
+      padding: 8px 13px;
+      border-radius: 10px;
+      font-size: 13px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.06);
+    }
+
+    .history-item.low {
+      color: #ff7782;
+    }
+
+    .history-item.medium {
+      color: #ffc857;
+    }
+
+    .history-item.high {
+      color: #55e0a0;
+    }
+
+    /* ---------- Info ---------- */
+
+    .info {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .info-box {
+      background: rgba(255,255,255,.035);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 15px;
+      padding: 17px;
+    }
+
+    .info-box h3 {
+      font-size: 14px;
+      margin-bottom: 7px;
+    }
+
+    .info-box p {
+      color: #8192af;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    footer {
+      text-align: center;
+      color: #53627c;
+      font-size: 12px;
+      padding: 25px 0;
+    }
+
+    /* ---------- Crash Animation ---------- */
+
+    @keyframes shake {
+      0% { transform: translate(-50%, -50%); }
+      25% { transform: translate(-48%, -52%); }
+      50% { transform: translate(-52%, -48%); }
+      75% { transform: translate(-49%, -51%); }
+      100% { transform: translate(-50%, -50%); }
+    }
+
+    .crashed .multiplier {
+      animation: shake .35s ease;
+    }
+
+    /* ---------- Mobile ---------- */
+
+    @media (max-width: 700px) {
+
+      header {
+        padding: 0 15px;
+      }
+
+      .logo {
+        font-size: 18px;
+      }
+
+      .game-card {
+        padding: 10px;
+      }
+
+      .game-area {
+        height: 390px;
+      }
+
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+      button {
+        min-height: 58px;
+        width: 100%;
+      }
+
+      .info {
+        grid-template-columns: 1fr;
+      }
+
+      .rocket {
+        font-size: 38px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    CRASH <span>DEMO</span>
+  </div>
+
+  <div class="demo-badge">
+    حالت نمایشی
+  </div>
+</header>
+
+
+<main>
+
+  <section class="game-card">
+
+    <div class="game-area" id="gameArea">
+
+      <div class="status" id="status">
+        آماده شروع
+      </div>
+
+      <div class="multiplier">
+
+        <div class="multiplier-number" id="multiplier">
+          1.00x
+        </div>
+
+        <div class="multiplier-label">
+          ضریب نمایشی
+        </div>
+
+      </div>
+
+      <div class="rocket" id="rocket">
+        🚀
+      </div>
+
+    </div>
+
+
+    <div class="controls">
+
+      <div class="score-box">
+
+        <div class="score-title">
+          امتیاز نمایشی شما
+        </div>
+
+        <div class="score" id="score">
+          0
+        </div>
+
+      </div>
+
+      <button id="startBtn">
+        شروع دور جدید
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <section class="history-card">
+
+    <div class="history-title">
+      آخرین ضرایب نمایشی
+    </div>
+
+    <div class="history" id="history">
+      <div class="history-item medium">1.42x</div>
+      <div class="history-item high">3.18x</div>
+      <div class="history-item low">1.09x</div>
+      <div class="history-item high">7.25x</div>
+      <div class="history-item medium">2.31x</div>
+    </div>
+
+  </section>
+
+
+  <section class="info">
+
+    <div class="info-box">
+
+      <h3>🚀 ضریب</h3>
+
+      <p>
+        ضریب در هر دور از 1.00x شروع می‌شود
+        و به صورت نمایشی افزایش پیدا می‌کند.
+      </p>
+
+    </div>
+
+
+    <div class="info-box">
+
+      <h3>💥 توقف</h3>
+
+      <p>
+        هر دور در یک زمان تصادفی متوقف می‌شود
+        و نتیجه فقط برای نمایش است.
+      </p>
+
+    </div>
+
+
+    <div class="info-box">
+
+      <h3>🎮 امتیاز</h3>
+
+      <p>
+        امتیازها کاملاً مجازی هستند و هیچ ارزش
+        مالی یا قابلیت برداشت ندارند.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <footer>
+    Crash Demo — ساخته شده برای آموزش و سرگرمی
+  </footer>
+
+</main>
+
+
+<script>
+
+  const multiplierElement = document.getElementById("multiplier");
+  const startButton = document.getElementById("startBtn");
+  const statusElement = document.getElementById("status");
+  const gameArea = document.getElementById("gameArea");
+  const rocket = document.getElementById("rocket");
+  const scoreElement = document.getElementById("score");
+  const historyElement = document.getElementById("history");
+
+  let multiplier = 1.00;
+  let running = false;
+  let animationFrame = null;
+  let startTime = 0;
+  let crashPoint = 0;
+  let score = 0;
+
+
+  function generateCrashPoint() {
+
+    /*
+      فقط برای شبیه‌سازی نمایشی.
+      هیچ سیستم شرط‌بندی یا پول واقعی وجود ندارد.
+    */
+
+    const random = Math.random();
+
+    if (random < 0.55) {
+      return 1.10 + Math.random() * 1.30;
+    }
+
+    if (random < 0.85) {
+      return 2.40 + Math.random() * 3.00;
+    }
+
+    if (random < 0.97) {
+      return 5.40 + Math.random() * 7.00;
+    }
+
+    return 12 + Math.random() * 15;
+  }
+
+
+  function startGame() {
+
+    if (running) return;
+
+    running = true;
+
+    multiplier = 1.00;
+
+    crashPoint = generateCrashPoint();
+
+    startTime = performance.now();
+
+    gameArea.classList.remove("crashed");
+
+    statusElement.textContent = "در حال اجرا...";
+    statusElement.className = "status running";
+
+    startButton.disabled = true;
+    startButton.textContent = "در حال اجرا...";
+
+    rocket.style.left = "12%";
+    rocket.style.bottom = "15%";
+
+    animationFrame = requestAnimationFrame(updateGame);
+  }
+
+
+  function updateGame(currentTime) {
+
+    if (!running) return;
+
+    const elapsed = (currentTime - startTime) / 1000;
+
+    /*
+      افزایش نرم ضریب
+    */
+
+    multiplier = Math.exp(elapsed * 0.18);
+
+    multiplier = Math.max(1, multiplier);
+
+    multiplierElement.textContent =
+      multiplier.toFixed(2) + "x";
+
+
+    /*
+      حرکت موشک
+    */
+
+    const progress = Math.min(multiplier / Math.max(crashPoint, 2), 1);
+
+    const left = 12 + progress * 72;
+    const bottom = 15 + progress * 65;
+
+    rocket.style.left = left + "%";
+    rocket.style.bottom = bottom + "%";
+
+
+    /*
+      بررسی توقف
+    */
+
+    if (multiplier >= crashPoint) {
+
+      multiplier = crashPoint;
+
+      multiplierElement.textContent =
+        multiplier.toFixed(2) + "x";
+
+      crashGame();
+
+      return;
+    }
+
+
+    animationFrame = requestAnimationFrame(updateGame);
+  }
+
+
+  function crashGame() {
+
+    running = false;
+
+    cancelAnimationFrame(animationFrame);
+
+    gameArea.classList.add("crashed");
+
+    statusElement.textContent =
+      "💥 توقف در " + multiplier.toFixed(2) + "x";
+
+    statusElement.className = "status crashed";
+
+    startButton.disabled = false;
+    startButton.textContent = "شروع دور جدید";
+
+
+    /*
+      امتیاز صرفاً نمایشی
+    */
+
+    const earnedScore =
+      Math.floor(multiplier * 10);
+
+    score += earnedScore;
+
+    scoreElement.textContent =
+      score.toLocaleString("fa-IR");
+
+
+    addHistory(multiplier);
+  }
+
+
+  function addHistory(value) {
+
+    const item = document.createElement("div");
+
+    item.className = "history-item";
+
+    if (value < 2) {
+
+      item.classList.add("low");
+
+    } else if (value < 5) {
+
+      item.classList.add("medium");
+
+    } else {
+
+      item.classList.add("high");
+
+    }
+
+    item.textContent =
+      value.toFixed(2) + "x";
+
+    historyElement.prepend(item);
+
+
+    /*
+      فقط 10 نتیجه آخر
+    */
+
+    while (historyElement.children.length > 10) {
+
+      historyElement.removeChild(
+        historyElement.lastChild
+      );
+
+    }
+  }
+
+
+  startButton.addEventListener(
+    "click",
+    startGame
+  );
+
+
+  /*
+    شروع خودکار اولین دور بعد از 1 ثانیه
+  */
+
+  setTimeout(() => {
+
+    startGame();
+
+  }, 1000);
+
+</script>
+
+</body>
+</html>
