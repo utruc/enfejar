@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UTRUX — CRASH</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>UTRUX Rocket</title>
 
 <style>
 *{
@@ -12,423 +12,476 @@
     padding:0;
 }
 
+:root{
+    --bg:#07111f;
+    --panel:#0c1828;
+    --panel2:#101f32;
+    --line:rgba(255,255,255,.07);
+    --text:#fff;
+    --muted:#8190a5;
+    --blue:#238cff;
+    --green:#27d17f;
+    --red:#ff4d67;
+    --gold:#ffc857;
+}
+
 body{
-    background:
-        radial-gradient(circle at 50% 30%, #132d5c 0%, #07152d 45%, #020817 100%);
-    color:white;
-    font-family:Arial, sans-serif;
     min-height:100vh;
+    background:
+        radial-gradient(circle at 50% -10%,#183b68 0%,transparent 42%),
+        #050c16;
+    color:var(--text);
+    font-family:Arial,Helvetica,sans-serif;
     overflow-x:hidden;
 }
 
+button,
+input{
+    font:inherit;
+}
+
+/* HEADER */
+
 .header{
-    height:70px;
+    height:64px;
+    padding:0 15px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 22px;
-    border-bottom:1px solid rgba(255,255,255,.08);
-    background:rgba(2,8,23,.7);
-    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+    background:rgba(5,12,22,.88);
+    backdrop-filter:blur(18px);
+    position:sticky;
+    top:0;
+    z-index:100;
 }
 
-.logo{
-    font-size:24px;
+.brand{
     font-weight:900;
-    letter-spacing:2px;
+    font-size:20px;
+    letter-spacing:1.5px;
 }
 
 .balance{
     display:flex;
     align-items:center;
     gap:7px;
-    font-size:18px;
-    font-weight:bold;
+    background:#0d1a2a;
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:7px 11px;
+    font-weight:800;
 }
 
 .coin{
-    width:25px;
-    height:25px;
+    width:22px;
+    height:22px;
 }
 
-.crash-title{
-    font-weight:900;
-    letter-spacing:2px;
-    color:#60a5fa;
-}
+/* MAIN */
 
-.main{
-    max-width:1200px;
+.container{
+    width:min(100%,850px);
     margin:auto;
-    padding:18px;
+    padding:12px;
 }
+
+/* GAME */
 
 .game{
-    height:500px;
-    position:relative;
+    height:470px;
+    border:1px solid var(--line);
+    border-radius:22px;
     overflow:hidden;
-    border-radius:20px;
-    border:1px solid rgba(255,255,255,.08);
+    position:relative;
     background:
-        radial-gradient(circle at 50% 80%,rgba(37,99,235,.18),transparent 40%),
-        linear-gradient(180deg,#081a35,#020817);
+        radial-gradient(circle at 50% 70%,rgba(35,140,255,.16),transparent 35%),
+        linear-gradient(180deg,#08182a,#050b14);
 }
+
+/* stars */
+
+.stars{
+    position:absolute;
+    inset:0;
+    background-image:
+        radial-gradient(circle,#fff 1px,transparent 1px),
+        radial-gradient(circle,#8fc8ff 1px,transparent 1px);
+    background-size:91px 83px,137px 121px;
+    background-position:10px 20px,40px 70px;
+    opacity:.18;
+}
+
+/* grid */
 
 .grid{
     position:absolute;
-    inset:0;
-    opacity:.16;
+    left:-20%;
+    right:-20%;
+    bottom:-120px;
+    height:300px;
+    opacity:.14;
+    transform:perspective(350px) rotateX(58deg);
     background-image:
-        linear-gradient(rgba(255,255,255,.1) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,255,255,.1) 1px,transparent 1px);
-    background-size:55px 55px;
-    transform:perspective(400px) rotateX(55deg) scale(1.5);
-    transform-origin:bottom;
+        linear-gradient(rgba(50,150,255,.5) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(50,150,255,.5) 1px,transparent 1px);
+    background-size:45px 45px;
 }
+
+/* status */
+
+.status{
+    position:absolute;
+    top:18px;
+    left:50%;
+    transform:translateX(-50%);
+    color:var(--muted);
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:1.5px;
+    z-index:10;
+}
+
+/* multiplier */
 
 .multiplier{
     position:absolute;
     left:50%;
-    top:50%;
+    top:48%;
     transform:translate(-50%,-50%);
-    font-size:65px;
+    font-size:72px;
     font-weight:900;
-    text-shadow:0 0 30px rgba(96,165,250,.35);
-    z-index:5;
+    letter-spacing:-3px;
+    text-shadow:0 0 35px rgba(35,140,255,.35);
+    z-index:10;
 }
 
-.status{
-    position:absolute;
-    top:20px;
-    left:50%;
-    transform:translateX(-50%);
-    color:#94a3b8;
-    font-size:14px;
-    z-index:6;
+.multiplier.crashed{
+    color:var(--red);
+    text-shadow:0 0 35px rgba(255,77,103,.35);
 }
 
-.jet{
+/* rocket */
+
+.rocket-wrap{
     position:absolute;
     left:35px;
-    bottom:35px;
-    width:115px;
-    height:45px;
-    z-index:4;
-    transition:none;
+    bottom:45px;
+    width:92px;
+    height:150px;
+    transform:rotate(-28deg);
+    z-index:8;
+    will-change:left,bottom;
 }
 
-.jet-body{
+.rocket{
     position:absolute;
-    width:90px;
-    height:18px;
-    top:12px;
-    left:10px;
-    background:linear-gradient(90deg,#dbeafe,#64748b 55%,#e2e8f0);
-    border-radius:50% 15px 15px 50%;
-    transform:skewX(-12deg);
+    width:45px;
+    height:100px;
+    left:23px;
+    top:15px;
+    border-radius:50% 50% 42% 42%;
+    background:linear-gradient(90deg,#d8e7f5,#fff 48%,#8da4bd);
+    box-shadow:
+        inset -7px 0 12px rgba(0,0,0,.2),
+        0 0 18px rgba(255,255,255,.15);
 }
 
-.jet-nose{
+.rocket:before{
+    content:"";
     position:absolute;
-    right:2px;
-    top:12px;
-    width:30px;
-    height:18px;
-    background:#e2e8f0;
-    clip-path:polygon(0 0,100% 50%,0 100%);
+    top:-18px;
+    left:0;
+    width:45px;
+    height:38px;
+    background:#f1f7fc;
+    border-radius:50% 50% 15% 15%;
 }
 
-.jet-wing{
+.window{
     position:absolute;
-    left:35px;
-    top:3px;
-    width:48px;
-    height:20px;
-    background:#64748b;
-    clip-path:polygon(0 0,100% 50%,0 100%);
+    width:15px;
+    height:15px;
+    border-radius:50%;
+    background:#228cff;
+    border:3px solid #31506d;
+    left:15px;
+    top:22px;
+    box-shadow:0 0 10px rgba(35,140,255,.8);
 }
 
-.jet-tail{
+.fin-left,
+.fin-right{
     position:absolute;
-    left:8px;
-    top:2px;
+    bottom:13px;
     width:25px;
-    height:30px;
-    background:#475569;
-    clip-path:polygon(100% 0,100% 100%,0 65%);
+    height:38px;
+    background:#55708c;
+}
+
+.fin-left{
+    left:-20px;
+    clip-path:polygon(100% 0,100% 100%,0 100%);
+}
+
+.fin-right{
+    right:-20px;
+    clip-path:polygon(0 0,100% 100%,0 100%);
 }
 
 .flame{
     position:absolute;
-    left:0;
-    top:15px;
-    width:25px;
-    height:13px;
-    background:linear-gradient(90deg,#f97316,#facc15,transparent);
-    clip-path:polygon(100% 50%,0 0,20% 50%,0 100%);
-    filter:blur(1px);
+    left:8px;
+    bottom:-45px;
+    width:29px;
+    height:65px;
+    background:linear-gradient(
+        180deg,
+        #fff 0%,
+        #ffdd45 25%,
+        #ff8a21 55%,
+        #ff3658 100%
+    );
+    clip-path:polygon(
+        50% 100%,
+        0 25%,
+        30% 40%,
+        38% 0,
+        62% 40%,
+        100% 25%
+    );
+    filter:drop-shadow(0 0 12px #ff6b2c);
+    animation:flame .08s infinite alternate;
 }
+
+@keyframes flame{
+    from{
+        transform:scaleY(.9);
+    }
+    to{
+        transform:scaleY(1.1);
+    }
+}
+
+/* explosion */
 
 .explosion{
     position:absolute;
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-50%) scale(0);
     width:180px;
     height:180px;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%) scale(.1);
     border-radius:50%;
-    background:
-        radial-gradient(circle,#fff 0 8%,#facc15 10% 25%,#f97316 35%,#ef4444 50%,transparent 70%);
     opacity:0;
-    z-index:20;
+    z-index:30;
+    background:
+        radial-gradient(circle,
+        #fff 0 5%,
+        #ffe16b 8%,
+        #ff9f1c 24%,
+        #ff4d3d 42%,
+        rgba(255,50,60,.2) 65%,
+        transparent 72%);
 }
 
 .explosion.active{
-    animation:boom .8s ease-out forwards;
+    animation:explode .9s forwards;
 }
 
-@keyframes boom{
+@keyframes explode{
     0%{
-        transform:translate(-50%,-50%) scale(.2);
         opacity:1;
+        transform:translate(-50%,-50%) scale(.15);
     }
-    70%{
-        transform:translate(-50%,-50%) scale(1.5);
-        opacity:.9;
+    45%{
+        opacity:1;
+        transform:translate(-50%,-50%) scale(1.15);
     }
     100%{
-        transform:translate(-50%,-50%) scale(2);
         opacity:0;
+        transform:translate(-50%,-50%) scale(1.8);
     }
 }
+
+/* countdown */
 
 .countdown{
     position:absolute;
     inset:0;
+    z-index:40;
     display:none;
     align-items:center;
     justify-content:center;
-    background:rgba(0,0,0,.3);
-    backdrop-filter:blur(3px);
-    z-index:30;
+    background:rgba(3,9,17,.48);
+    backdrop-filter:blur(5px);
 }
 
-.countdown-number{
-    font-size:150px;
+.count-number{
+    font-size:145px;
     font-weight:900;
-    text-shadow:0 0 50px rgba(96,165,250,.7);
-    animation:countPop .8s ease;
+    text-shadow:0 0 50px rgba(35,140,255,.7);
 }
 
-@keyframes countPop{
-    from{
-        transform:scale(1.5);
-        opacity:0;
-    }
-    to{
-        transform:scale(1);
-        opacity:1;
-    }
+/* controls */
+
+.control-area{
+    margin-top:10px;
 }
 
-/* BET PANEL */
-
-.controls{
-    margin-top:15px;
-    display:flex;
-    justify-content:center;
-}
-
-.betting-btn,
-.start-btn,
-.withdraw-btn{
+.betting{
+    width:100%;
     border:0;
-    border-radius:12px;
-    font-weight:900;
-    letter-spacing:1px;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.betting-btn{
-    min-width:230px;
-    padding:16px 35px;
-    background:#2563eb;
+    border-radius:15px;
+    padding:17px;
+    background:var(--blue);
     color:white;
     font-size:17px;
+    font-weight:900;
+    cursor:pointer;
+    box-shadow:0 8px 25px rgba(35,140,255,.18);
 }
 
-.betting-btn:hover{
-    background:#3b82f6;
-    transform:translateY(-2px);
+.betting:disabled{
+    opacity:.45;
+    cursor:not-allowed;
 }
 
-.bet-panel{
+.panel{
     display:none;
-    width:100%;
-    max-width:500px;
-    margin:auto;
-    padding:18px;
-    border:1px solid rgba(255,255,255,.1);
-    background:rgba(15,23,42,.9);
-    border-radius:18px;
-    box-shadow:0 15px 50px rgba(0,0,0,.35);
+    padding:13px;
+    margin-top:9px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:17px;
 }
 
-.bet-panel.active{
+.panel.show{
     display:block;
 }
 
-.bet-title{
-    text-align:center;
-    font-weight:900;
-    margin-bottom:13px;
-    letter-spacing:1px;
-}
-
-.bet-row{
+.input-row{
     display:flex;
-    gap:10px;
+    gap:8px;
 }
 
-.amount-input{
+.amount{
     flex:1;
     min-width:0;
-    padding:15px;
+    background:#07111d;
+    border:1px solid #23364c;
     border-radius:11px;
-    border:1px solid #334155;
-    background:#020817;
     color:white;
+    padding:14px;
     outline:none;
-    font-size:17px;
-    font-weight:bold;
 }
 
-.amount-input:focus{
-    border-color:#3b82f6;
+.amount:focus{
+    border-color:var(--blue);
 }
 
-.start-btn{
-    padding:0 25px;
-    background:#22c55e;
-    color:#04120a;
+.action{
+    min-width:105px;
+    border:0;
+    border-radius:11px;
+    background:var(--green);
+    color:#03140b;
+    font-weight:900;
+    cursor:pointer;
 }
 
-.start-btn:hover{
-    background:#4ade80;
+.action.withdraw{
+    background:var(--gold);
 }
 
-.withdraw-btn{
-    padding:0 25px;
-    background:#f59e0b;
-    color:#211000;
-}
-
-.withdraw-btn:hover{
-    background:#fbbf24;
-}
-
-.bet-message{
-    min-height:22px;
+.message{
+    min-height:20px;
     text-align:center;
-    margin-top:10px;
-    color:#94a3b8;
-    font-size:13px;
+    color:var(--muted);
+    font-size:12px;
+    padding-top:8px;
 }
+
+/* players */
 
 .players{
-    margin-top:15px;
+    margin-top:10px;
+    background:var(--panel);
+    border:1px solid var(--line);
     border-radius:18px;
     overflow:hidden;
-    border:1px solid rgba(255,255,255,.08);
-    background:rgba(2,8,23,.7);
 }
 
-.players-header,
+.players-head,
 .player{
     display:grid;
-    grid-template-columns:1fr 110px 110px;
+    grid-template-columns:1fr 95px 105px;
+    gap:8px;
     align-items:center;
-    gap:10px;
-    padding:13px 16px;
+    padding:13px 14px;
 }
 
-.players-header{
-    color:#64748b;
-    font-size:12px;
+.players-head{
+    color:#607086;
+    font-size:10px;
+    font-weight:800;
     text-transform:uppercase;
-    border-bottom:1px solid rgba(255,255,255,.07);
+    border-bottom:1px solid var(--line);
 }
 
 .player{
-    border-bottom:1px solid rgba(255,255,255,.05);
+    border-bottom:1px solid rgba(255,255,255,.045);
+    font-size:13px;
 }
 
 .player:last-child{
     border-bottom:0;
 }
 
+.player.you{
+    background:rgba(35,140,255,.09);
+}
+
 .player-name{
-    font-weight:bold;
+    font-weight:800;
 }
 
-.player-amount{
+.bet-value{
     text-align:right;
-    color:#cbd5e1;
+    color:#a6b5c7;
 }
 
-.player-value{
+.current-value{
     text-align:right;
-    color:#60a5fa;
-    font-weight:bold;
+    color:#54a8ff;
+    font-weight:900;
 }
 
-.user-row{
-    background:rgba(37,99,235,.09);
-}
+/* mobile */
 
 @media(max-width:600px){
 
-    .header{
-        padding:0 12px;
-    }
-
-    .logo{
-        font-size:20px;
-    }
-
-    .crash-title{
-        font-size:13px;
-    }
-
     .game{
         height:420px;
+        border-radius:19px;
     }
 
     .multiplier{
-        font-size:50px;
+        font-size:57px;
     }
 
-    .countdown-number{
+    .count-number{
         font-size:110px;
     }
 
-    .players-header,
+    .players-head,
     .player{
-        grid-template-columns:1fr 85px 90px;
+        grid-template-columns:1fr 80px 90px;
         padding:12px 10px;
-        font-size:12px;
-    }
-
-    .bet-row{
-        flex-direction:column;
-    }
-
-    .start-btn,
-    .withdraw-btn{
-        height:48px;
+        font-size:11px;
     }
 }
+
 </style>
 </head>
 
@@ -436,100 +489,116 @@ body{
 
 <header class="header">
 
-    <div class="logo">UTRUX</div>
+    <div class="brand">UTRUX</div>
 
     <div class="balance">
         <span id="balance">100.00</span>
 
         <svg class="coin" viewBox="0 0 100 100">
             <circle cx="50" cy="50" r="47" fill="#1689e8"/>
-            <circle cx="50" cy="50" r="38" fill="#0b6fc2"/>
+            <circle cx="50" cy="50" r="38" fill="#0c72c8"/>
             <path
-                d="M35 25h30v8H56v35h-9V33H35z
-                   M30 45h40v8H30z"
+                d="M35 24h30v9H56v34h-9V33H35zM30 45h40v9H30z"
                 fill="white"/>
         </svg>
     </div>
 
-    <div class="crash-title">CRASH</div>
-
 </header>
 
 
-<main class="main">
+<main class="container">
 
     <section class="game">
 
+        <div class="stars"></div>
         <div class="grid"></div>
 
-        <div class="status" id="status">
-            WAITING
+        <div
+            class="status"
+            id="status">
+            BETTING OPEN
         </div>
 
-        <div class="multiplier" id="multiplier">
+        <div
+            class="multiplier"
+            id="multiplier">
             1.00x
         </div>
 
-        <div class="jet" id="jet">
 
-            <div class="flame"></div>
-            <div class="jet-body"></div>
-            <div class="jet-nose"></div>
-            <div class="jet-wing"></div>
-            <div class="jet-tail"></div>
+        <div
+            class="rocket-wrap"
+            id="rocketWrap">
+
+            <div class="rocket">
+
+                <div class="window"></div>
+
+                <div class="fin-left"></div>
+                <div class="fin-right"></div>
+
+                <div class="flame"></div>
+
+            </div>
 
         </div>
 
-        <div class="explosion" id="explosion"></div>
 
-        <div class="countdown" id="countdown">
-            <div class="countdown-number" id="countdownNumber">
+        <div
+            class="explosion"
+            id="explosion">
+        </div>
+
+
+        <div
+            class="countdown"
+            id="countdown">
+
+            <div
+                class="count-number"
+                id="countNumber">
                 10
             </div>
+
         </div>
 
     </section>
 
 
-    <!-- BETTING -->
-
-    <section class="controls">
+    <section class="control-area">
 
         <button
-            class="betting-btn"
+            class="betting"
             id="bettingBtn">
             BETTING
         </button>
 
+
         <div
-            class="bet-panel"
-            id="betPanel">
+            class="panel"
+            id="panel">
 
-            <div class="bet-title">
-                ENTER AMOUNT
-            </div>
-
-            <div class="bet-row">
+            <div class="input-row">
 
                 <input
-                    id="amountInput"
-                    class="amount-input"
+                    class="amount"
+                    id="amount"
                     type="number"
                     min="0.1"
                     step="0.1"
-                    placeholder="Amount TON">
+                    placeholder="Amount">
 
                 <button
-                    id="startBtn"
-                    class="start-btn">
+                    class="action"
+                    id="actionBtn">
                     START
                 </button>
 
             </div>
 
             <div
-                class="bet-message"
-                id="betMessage">
+                class="message"
+                id="message">
             </div>
 
         </div>
@@ -537,11 +606,9 @@ body{
     </section>
 
 
-    <!-- PLAYERS -->
-
     <section class="players">
 
-        <div class="players-header">
+        <div class="players-head">
             <div>PLAYER</div>
             <div style="text-align:right">BET</div>
             <div style="text-align:right">VALUE</div>
@@ -556,32 +623,56 @@ body{
 
 <script>
 
-const balanceEl = document.getElementById("balance");
-const bettingBtn = document.getElementById("bettingBtn");
-const betPanel = document.getElementById("betPanel");
-const amountInput = document.getElementById("amountInput");
-const startBtn = document.getElementById("startBtn");
-const betMessage = document.getElementById("betMessage");
+/* ================================
+   ELEMENTS
+================================ */
 
-const multiplierEl = document.getElementById("multiplier");
-const statusEl = document.getElementById("status");
-const jet = document.getElementById("jet");
+const balanceEl =
+    document.getElementById("balance");
 
-const explosion = document.getElementById("explosion");
+const bettingBtn =
+    document.getElementById("bettingBtn");
 
-const countdown = document.getElementById("countdown");
-const countdownNumber = document.getElementById("countdownNumber");
+const panel =
+    document.getElementById("panel");
 
-const playersList = document.getElementById("playersList");
+const amountInput =
+    document.getElementById("amount");
+
+const actionBtn =
+    document.getElementById("actionBtn");
+
+const message =
+    document.getElementById("message");
+
+const multiplierEl =
+    document.getElementById("multiplier");
+
+const statusEl =
+    document.getElementById("status");
+
+const rocket =
+    document.getElementById("rocketWrap");
+
+const explosion =
+    document.getElementById("explosion");
+
+const countdown =
+    document.getElementById("countdown");
+
+const countNumber =
+    document.getElementById("countNumber");
+
+const playersList =
+    document.getElementById("playersList");
 
 
-/* =========================
+/* ================================
    BALANCE
-========================= */
+================================ */
 
-let balance = parseFloat(
-    localStorage.getItem("utruxBalance")
-);
+let balance =
+    parseFloat(localStorage.getItem("utruxRocketBalance"));
 
 if(!Number.isFinite(balance)){
     balance = 100;
@@ -589,24 +680,26 @@ if(!Number.isFinite(balance)){
 
 function saveBalance(){
     localStorage.setItem(
-        "utruxBalance",
+        "utruxRocketBalance",
         balance.toFixed(2)
     );
 }
 
 function updateBalance(){
-    balanceEl.textContent = balance.toFixed(2);
+    balanceEl.textContent =
+        balance.toFixed(2);
+
     saveBalance();
 }
 
 updateBalance();
 
 
-/* =========================
-   GAME STATE
-========================= */
+/* ================================
+   STATE
+================================ */
 
-let phase = "waiting";
+let phase = "betting";
 
 let multiplier = 1;
 
@@ -616,129 +709,110 @@ let roundTimer = null;
 
 let countdownTimer = null;
 
-let joinedAmount = 0;
+let waitTimer = null;
 
 let hasBet = false;
 
-let players = [];
+let betAmount = 0;
+
+let cashedValue = 0;
 
 
-/* =========================
-   FAKE NAMES
-========================= */
+/* ================================
+   NAMES
+================================ */
 
 const names = [
     "Alex",
     "Shadow",
-    "CryptoX",
     "Nexus",
-    "Arman",
-    "Storm",
-    "Hunter",
-    "Zero",
     "Phoenix",
-    "Dark",
     "Nova",
-    "Titan",
     "Ghost",
-    "Max",
+    "Titan",
     "Viper",
+    "Storm",
+    "Zero",
     "Wolf",
-    "King",
-    "Blaze",
     "Neo",
-    "Lucky"
+    "Blaze",
+    "Lucky",
+    "Hunter",
+    "Max",
+    "Dark",
+    "King"
 ];
 
 
-/* =========================
-   FAKE AMOUNT
-========================= */
+/* ================================
+   FAKE BET
+================================ */
 
-function fakeAmount(){
+function fakeBet(){
 
     const r = Math.random();
 
-    if(r < 0.80){
-
-        return 0.1 + Math.random() * 0.9;
-
+    if(r < .80){
+        return .1 + Math.random() * .9;
     }
 
-    if(r < 0.93){
-
+    if(r < .93){
         return 1 + Math.random() * 9;
-
     }
 
-    if(r < 0.98){
-
+    if(r < .98){
         return 10 + Math.random() * 90;
-
     }
 
     return 100 + Math.random() * 900;
 }
 
 
-/* =========================
-   CRASH POINT
-========================= */
+/* ================================
+   CRASH
+================================ */
 
-function generateCrashPoint(){
+function getCrashPoint(){
 
     const r = Math.random();
 
-    if(r < 0.40){
+    if(r < .40)
+        return 1 + Math.random() * .3;
 
-        return 1 + Math.random() * 0.30;
+    if(r < .75)
+        return 1.3 + Math.random() * 1.2;
 
-    }
+    if(r < .845)
+        return 2.5 + Math.random() * 2.5;
 
-    if(r < 0.75){
-
-        return 1.30 + Math.random() * 1.20;
-
-    }
-
-    if(r < 0.845){
-
-        return 2.50 + Math.random() * 2.50;
-
-    }
-
-    if(r < 0.945){
-
+    if(r < .945)
         return 5 + Math.random() * 2;
 
-    }
-
-    if(r < 0.95){
-
+    if(r < .95)
         return 100 + Math.random() * 100;
-
-    }
 
     return 7 + Math.random() * 18;
 }
 
 
-/* =========================
-   CREATE PLAYERS
-========================= */
+/* ================================
+   PLAYERS
+================================ */
+
+let players = [];
 
 function createPlayers(){
 
     players = [];
 
-    const shuffled = [...names]
-        .sort(() => Math.random() - 0.5);
+    const shuffled =
+        [...names].sort(() => Math.random() - .5);
 
-    for(let i = 0; i < 7; i++){
+    for(let i=0;i<7;i++){
 
         players.push({
-            name: shuffled[i],
-            amount: fakeAmount()
+            name:shuffled[i],
+            bet:fakeBet()
         });
 
     }
@@ -747,10 +821,6 @@ function createPlayers(){
 }
 
 
-/* =========================
-   RENDER PLAYERS
-========================= */
-
 function renderPlayers(){
 
     let html = "";
@@ -758,70 +828,73 @@ function renderPlayers(){
     if(hasBet){
 
         html += `
-            <div class="player user-row">
+        <div class="player you">
 
-                <div class="player-name">
-                    YOU
-                </div>
-
-                <div class="player-amount">
-                    ${joinedAmount.toFixed(2)} TON
-                </div>
-
-                <div
-                    class="player-value"
-                    id="userValue">
-                    ${joinedAmount.toFixed(2)} TON
-                </div>
-
+            <div class="player-name">
+                YOU
             </div>
+
+            <div class="bet-value">
+                ${betAmount.toFixed(2)}
+            </div>
+
+            <div
+                class="current-value"
+                id="userValue">
+                ${betAmount.toFixed(2)}
+            </div>
+
+        </div>
         `;
 
     }
 
-    players.forEach(player => {
+
+    players.forEach(p => {
 
         html += `
-            <div class="player">
+        <div class="player">
 
-                <div class="player-name">
-                    ${player.name}
-                </div>
-
-                <div class="player-amount">
-                    ${player.amount.toFixed(2)} TON
-                </div>
-
-                <div
-                    class="player-value"
-                    data-base="${player.amount}">
-                    ${player.amount.toFixed(2)} TON
-                </div>
-
+            <div class="player-name">
+                ${p.name}
             </div>
+
+            <div class="bet-value">
+                ${p.bet.toFixed(2)}
+            </div>
+
+            <div
+                class="current-value"
+                data-bet="${p.bet}">
+                ${p.bet.toFixed(2)}
+            </div>
+
+        </div>
         `;
 
     });
 
+
     playersList.innerHTML = html;
+
 }
 
 
-/* =========================
-   UPDATE VALUES
-========================= */
+/* ================================
+   VALUES
+================================ */
 
-function updatePlayerValues(){
+function updateValues(){
 
     document
-        .querySelectorAll("[data-base]")
+        .querySelectorAll("[data-bet]")
         .forEach(el => {
 
-            const base =
-                parseFloat(el.dataset.base);
+            const bet =
+                parseFloat(el.dataset.bet);
 
             el.textContent =
-                (base * multiplier).toFixed(2) + " TON";
+                (bet * multiplier).toFixed(2);
 
         });
 
@@ -832,291 +905,292 @@ function updatePlayerValues(){
     if(userValue && hasBet){
 
         userValue.textContent =
-            (joinedAmount * multiplier).toFixed(2)
-            + " TON";
+            (betAmount * multiplier).toFixed(2);
 
     }
-}
-
-
-/* =========================
-   BETTING BUTTON
-========================= */
-
-bettingBtn.addEventListener("click", () => {
-
-    if(hasBet){
-
-        betMessage.textContent =
-            "You already joined this round.";
-
-        return;
-
-    }
-
-    betPanel.classList.toggle("active");
-
-    if(betPanel.classList.contains("active")){
-
-        amountInput.focus();
-
-    }
-
-});
-
-
-/* =========================
-   START / WITHDRAW
-========================= */
-
-startBtn.addEventListener("click", () => {
-
-    /* WITHDRAW */
-
-    if(hasBet){
-
-        withdraw();
-
-        return;
-
-    }
-
-
-    /* START */
-
-    if(phase !== "waiting"){
-
-        betMessage.textContent =
-            "Wait for the next round.";
-
-        return;
-
-    }
-
-    const amount =
-        parseFloat(amountInput.value);
-
-
-    if(!Number.isFinite(amount) || amount <= 0){
-
-        betMessage.textContent =
-            "Enter a valid amount.";
-
-        return;
-
-    }
-
-
-    if(amount > balance){
-
-        betMessage.textContent =
-            "Not enough TON.";
-
-        return;
-
-    }
-
-
-    /* DEDUCT */
-
-    balance -= amount;
-
-    joinedAmount = amount;
-
-    hasBet = true;
-
-    updateBalance();
-
-
-    /* CHANGE START TO WITHDRAW */
-
-    startBtn.textContent = "WITHDRAW";
-
-    startBtn.classList.remove("start-btn");
-
-    startBtn.classList.add("withdraw-btn");
-
-    amountInput.disabled = true;
-
-    betMessage.textContent =
-        "Bet accepted.";
-
-    renderPlayers();
-
-});
-
-
-/* =========================
-   WITHDRAW
-========================= */
-
-function withdraw(){
-
-    if(!hasBet){
-
-        return;
-
-    }
-
-
-    /*
-       Demo only:
-       The current displayed value is returned
-       to the virtual balance.
-    */
-
-    const value =
-        joinedAmount * multiplier;
-
-
-    balance += value;
-
-    joinedAmount = 0;
-
-    hasBet = false;
-
-
-    updateBalance();
-
-
-    amountInput.disabled = false;
-
-    amountInput.value = "";
-
-    startBtn.textContent = "START";
-
-    startBtn.classList.remove("withdraw-btn");
-
-    startBtn.classList.add("start-btn");
-
-    betMessage.textContent =
-        "Withdraw completed.";
-
-
-    renderPlayers();
 
 }
 
 
-/* =========================
-   RESET BET FOR NEW ROUND
-========================= */
+/* ================================
+   ROCKET
+================================ */
 
-function resetBet(){
+function resetRocket(){
 
-    /*
-       If player did not withdraw before crash,
-       the original amount is returned.
-       No real-money payout exists.
-    */
-
-    if(hasBet){
-
-        balance += joinedAmount;
-
-    }
-
-    joinedAmount = 0;
-
-    hasBet = false;
-
-    amountInput.disabled = false;
-
-    amountInput.value = "";
-
-    startBtn.textContent = "START";
-
-    startBtn.classList.remove("withdraw-btn");
-
-    startBtn.classList.add("start-btn");
-
-    updateBalance();
-
-    renderPlayers();
+    rocket.style.left = "35px";
+    rocket.style.bottom = "45px";
 
 }
 
 
-/* =========================
-   JET POSITION
-========================= */
-
-function resetJet(){
-
-    jet.style.left = "35px";
-    jet.style.bottom = "35px";
-
-}
-
-
-function updateJet(){
+function moveRocket(){
 
     const progress =
         Math.min(
             1,
             (multiplier - 1) /
-            Math.max(1, crashPoint - 1)
+            Math.max(.5,crashPoint - 1)
         );
 
     const x =
-        35 + progress * 700;
+        35 + progress * 690;
 
     const y =
-        35 + progress * 300;
+        45 + progress * 300;
 
-    jet.style.left = x + "px";
-
-    jet.style.bottom = y + "px";
+    rocket.style.left = x + "px";
+    rocket.style.bottom = y + "px";
 
 }
 
 
-/* =========================
+/* ================================
+   BETTING
+================================ */
+
+bettingBtn.addEventListener(
+    "click",
+    () => {
+
+        if(phase !== "betting"){
+
+            message.textContent =
+                "Wait for the next round.";
+
+            panel.classList.add("show");
+
+            return;
+
+        }
+
+
+        panel.classList.toggle("show");
+
+        if(panel.classList.contains("show")){
+            amountInput.focus();
+        }
+
+    }
+);
+
+
+/* ================================
+   START / WITHDRAW
+================================ */
+
+actionBtn.addEventListener(
+    "click",
+    () => {
+
+        /* WITHDRAW */
+
+        if(hasBet){
+
+            withdraw();
+
+            return;
+
+        }
+
+
+        /* START */
+
+        if(phase !== "betting"){
+
+            message.textContent =
+                "Betting is closed.";
+
+            return;
+
+        }
+
+
+        const value =
+            parseFloat(amountInput.value);
+
+
+        if(!Number.isFinite(value) || value <= 0){
+
+            message.textContent =
+                "Enter a valid amount.";
+
+            return;
+
+        }
+
+
+        if(value > balance){
+
+            message.textContent =
+                "Not enough TON.";
+
+            return;
+
+        }
+
+
+        balance -= value;
+
+        betAmount = value;
+
+        hasBet = true;
+
+        updateBalance();
+
+
+        actionBtn.textContent =
+            "WITHDRAW";
+
+        actionBtn.classList.add(
+            "withdraw"
+        );
+
+        amountInput.disabled = true;
+
+        message.textContent =
+            "Bet accepted.";
+
+        renderPlayers();
+
+    }
+);
+
+
+/* ================================
+   WITHDRAW
+================================ */
+
+function withdraw(){
+
+    if(!hasBet)
+        return;
+
+
+    const value =
+        betAmount * multiplier;
+
+
+    balance += value;
+
+    cashedValue = value;
+
+    hasBet = false;
+
+    betAmount = 0;
+
+
+    updateBalance();
+
+
+    amountInput.disabled = false;
+    amountInput.value = "";
+
+    actionBtn.textContent =
+        "START";
+
+    actionBtn.classList.remove(
+        "withdraw"
+    );
+
+    message.textContent =
+        "Withdraw: " +
+        cashedValue.toFixed(2) +
+        " TON";
+
+
+    renderPlayers();
+
+}
+
+
+/* ================================
+   RESET BET
+================================ */
+
+function resetBet(){
+
+    /*
+      If the player did not withdraw,
+      return only the original entry amount.
+    */
+
+    if(hasBet){
+
+        balance += betAmount;
+
+    }
+
+    hasBet = false;
+
+    betAmount = 0;
+
+    amountInput.disabled = false;
+    amountInput.value = "";
+
+    actionBtn.textContent =
+        "START";
+
+    actionBtn.classList.remove(
+        "withdraw"
+    );
+
+    updateBalance();
+
+    renderPlayers();
+
+}
+
+
+/* ================================
    START ROUND
-========================= */
+================================ */
 
 function startRound(){
 
     clearInterval(roundTimer);
+    clearInterval(waitTimer);
 
-    phase = "waiting";
+    phase = "betting";
 
     multiplier = 1;
 
-    crashPoint = generateCrashPoint();
+    crashPoint =
+        getCrashPoint();
 
-    resetJet();
+    resetRocket();
 
     multiplierEl.textContent =
         "1.00x";
 
+    multiplierEl.classList.remove(
+        "crashed"
+    );
+
     statusEl.textContent =
         "BETTING OPEN";
+
+    bettingBtn.disabled = false;
 
     createPlayers();
 
 
-    /*
-       5 seconds for betting.
-    */
+    let seconds = 5;
 
-    let wait = 5;
+    message.textContent =
+        "Betting is open";
 
-    bettingBtn.disabled = false;
 
-    betMessage.textContent =
-        "Betting is open.";
-
-    const waitTimer =
+    waitTimer =
         setInterval(() => {
 
-            wait--;
+            seconds--;
 
-            if(wait <= 0){
+            if(seconds <= 0){
 
                 clearInterval(waitTimer);
 
-                beginFlight();
+                startFlight();
 
             }
 
@@ -1125,51 +1199,56 @@ function startRound(){
 }
 
 
-/* =========================
+/* ================================
    FLIGHT
-========================= */
+================================ */
 
-function beginFlight(){
+function startFlight(){
 
     phase = "running";
 
     statusEl.textContent =
-        "FLYING";
+        "ROCKET FLYING";
 
     bettingBtn.disabled = true;
 
-    betPanel.classList.remove("active");
-
-    let speed = 0.012;
-
-    roundTimer = setInterval(() => {
-
-        multiplier += speed;
-
-        speed += 0.00025;
-
-        multiplierEl.textContent =
-            multiplier.toFixed(2) + "x";
-
-        updatePlayerValues();
-
-        updateJet();
+    panel.classList.remove("show");
 
 
-        if(multiplier >= crashPoint){
+    let acceleration = .012;
 
-            crash();
 
-        }
+    roundTimer =
+        setInterval(() => {
 
-    },50);
+            multiplier += acceleration;
+
+            acceleration += .00025;
+
+
+            multiplierEl.textContent =
+                multiplier.toFixed(2) + "x";
+
+
+            updateValues();
+
+            moveRocket();
+
+
+            if(multiplier >= crashPoint){
+
+                crash();
+
+            }
+
+        },50);
 
 }
 
 
-/* =========================
+/* ================================
    CRASH
-========================= */
+================================ */
 
 function crash(){
 
@@ -1178,75 +1257,67 @@ function crash(){
     phase = "crashed";
 
     statusEl.textContent =
-        "CRASH";
+        "CRASHED";
 
-    explosion.classList.remove("active");
+    multiplierEl.classList.add(
+        "crashed"
+    );
+
+    explosion.classList.remove(
+        "active"
+    );
 
     void explosion.offsetWidth;
 
-    explosion.classList.add("active");
+    explosion.classList.add(
+        "active"
+    );
 
 
     setTimeout(() => {
 
         startCountdown();
 
-    },800);
+    },700);
 
 }
 
 
-/* =========================
-   COUNTDOWN 10 → 1
-========================= */
+/* ================================
+   COUNTDOWN
+================================ */
 
 function startCountdown(){
 
     countdown.style.display =
         "flex";
 
-    let number = 10;
+    let n = 10;
 
-    countdownNumber.textContent =
-        number;
+    countNumber.textContent = n;
 
 
     countdownTimer =
         setInterval(() => {
 
-            number--;
+            n--;
 
-            if(number >= 1){
+            if(n >= 1){
 
-                countdownNumber.textContent =
-                    number;
-
-                countdownNumber.style.animation =
-                    "none";
-
-                void countdownNumber.offsetWidth;
-
-                countdownNumber.style.animation =
-                    "countPop .8s ease";
+                countNumber.textContent = n;
 
             }
             else{
 
-                clearInterval(countdownTimer);
+                clearInterval(
+                    countdownTimer
+                );
 
                 countdown.style.display =
                     "none";
 
 
-                /*
-                   Return old bet if it wasn't withdrawn.
-                */
-
                 resetBet();
-
-                /*
-                   New round
-                */
 
                 startRound();
 
@@ -1257,11 +1328,13 @@ function startCountdown(){
 }
 
 
-/* =========================
-   INITIAL
-========================= */
+/* ================================
+   START
+================================ */
 
-renderPlayers();
+createPlayers();
+
+resetRocket();
 
 startRound();
 
