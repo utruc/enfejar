@@ -1,10 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>GRAM CRASH - DEMO</title>
+<title>Crash Demo</title>
 
 <style>
 *{
@@ -14,286 +15,434 @@
 }
 
 body{
-    font-family:Tahoma,Arial,sans-serif;
     min-height:100vh;
-    color:white;
+    font-family:Tahoma,Arial,sans-serif;
+    color:#fff;
     background:
-        radial-gradient(circle at 50% 20%,#172b55 0%,#091329 45%,#030711 100%);
+        radial-gradient(circle at 50% 0%,#18335e 0%,#0a1429 38%,#030711 100%);
+    overflow-x:hidden;
 }
 
 header{
-    height:70px;
+    height:68px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 25px;
-    background:rgba(3,8,20,.8);
+    padding:0 24px;
+    background:rgba(3,8,20,.82);
     border-bottom:1px solid rgba(255,255,255,.08);
-    backdrop-filter:blur(15px);
+    backdrop-filter:blur(14px);
 }
 
 .logo{
     font-size:22px;
-    font-weight:bold;
+    font-weight:900;
+    letter-spacing:.5px;
 }
 
 .logo span{
-    color:#36a8ff;
+    color:#38a8ff;
 }
 
 .demo{
-    color:#ffd45c;
-    background:rgba(255,210,80,.1);
-    border:1px solid rgba(255,210,80,.2);
-    padding:8px 14px;
-    border-radius:20px;
+    color:#ffd35a;
     font-size:12px;
+    padding:7px 13px;
+    border-radius:20px;
+    background:rgba(255,211,90,.1);
+    border:1px solid rgba(255,211,90,.2);
 }
 
 .container{
-    width:min(1100px,94%);
-    margin:25px auto;
+    width:min(1150px,94%);
+    margin:22px auto;
 }
 
-.topbar{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
-    margin-bottom:15px;
-}
-
-.box{
-    background:rgba(10,20,42,.75);
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:16px;
-    padding:16px;
-}
-
-.label{
-    color:#7f91b1;
-    font-size:12px;
-    margin-bottom:7px;
+.top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:14px;
 }
 
 .balance{
-    font-size:25px;
-    font-weight:bold;
-    color:#5fd6ff;
+    padding:11px 16px;
+    border-radius:13px;
+    background:rgba(255,255,255,.045);
+    border:1px solid rgba(255,255,255,.07);
 }
+
+.balance small{
+    color:#7e91b1;
+    margin-left:7px;
+}
+
+.balance strong{
+    color:#55d6ff;
+}
+
+.status{
+    color:#8397b7;
+    font-size:13px;
+}
+
+/* GAME */
 
 .game{
     position:relative;
     height:500px;
     overflow:hidden;
     border-radius:22px;
+    border:1px solid rgba(255,255,255,.08);
     background:
         linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
         linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px),
-        linear-gradient(#08172e,#030917);
-    background-size:50px 50px;
-    border:1px solid rgba(255,255,255,.08);
-    box-shadow:0 20px 70px rgba(0,0,0,.4);
+        radial-gradient(circle at 50% 75%,#112b51,#050b18 72%);
+    background-size:48px 48px,48px 48px,auto;
+    box-shadow:0 25px 80px rgba(0,0,0,.42);
 }
+
+/* horizon */
+
+.horizon{
+    position:absolute;
+    bottom:20%;
+    left:0;
+    width:100%;
+    height:1px;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(55,165,255,.28),
+        transparent
+    );
+}
+
+/* MULTIPLIER */
 
 .multiplier{
     position:absolute;
-    top:43%;
+    z-index:8;
+    top:40%;
     left:50%;
     transform:translate(-50%,-50%);
-    z-index:5;
     text-align:center;
+    pointer-events:none;
 }
 
 .number{
-    font-size:clamp(55px,10vw,105px);
+    font-size:clamp(58px,10vw,108px);
     font-weight:900;
-    text-shadow:0 0 35px rgba(50,170,255,.4);
+    letter-spacing:-4px;
+    text-shadow:
+        0 0 20px rgba(55,170,255,.45),
+        0 0 60px rgba(55,170,255,.18);
 }
 
 .number.crashed{
     color:#ff5265;
-    text-shadow:0 0 35px rgba(255,60,80,.5);
+    text-shadow:
+        0 0 20px rgba(255,65,85,.55),
+        0 0 60px rgba(255,65,85,.25);
 }
 
 .state{
     margin-top:7px;
-    color:#8498b9;
     font-size:13px;
+    color:#8397b7;
 }
+
+/* PLANE */
 
 .plane{
     position:absolute;
-    left:8%;
-    bottom:12%;
-    font-size:58px;
+    z-index:6;
+    left:7%;
+    bottom:11%;
+    width:105px;
+    height:48px;
     transform:rotate(-12deg);
-    z-index:4;
-    filter:drop-shadow(0 0 15px rgba(60,180,255,.8));
-    transition:left .05s linear,bottom .05s linear;
+    transition:left .04s linear,bottom .04s linear;
+    filter:
+        drop-shadow(0 0 8px rgba(70,175,255,.75))
+        drop-shadow(0 0 18px rgba(40,120,255,.25));
 }
 
-.plane::after{
-    content:"";
+/*
+  جنگنده گرافیکی ساخته شده با CSS
+*/
+
+.jet-body{
     position:absolute;
-    width:90px;
+    width:94px;
+    height:16px;
+    top:15px;
+    left:7px;
+    background:linear-gradient(
+        180deg,
+        #dce8f5,
+        #778aa1 48%,
+        #29384c
+    );
+    clip-path:polygon(
+        0 50%,
+        21% 31%,
+        62% 31%,
+        100% 0,
+        78% 50%,
+        100% 100%,
+        62% 69%,
+        21% 69%
+    );
+}
+
+.jet-wing{
+    position:absolute;
+    width:56px;
+    height:20px;
+    top:14px;
+    left:27px;
+    background:#596c82;
+    clip-path:polygon(0 50%,100% 0,72% 100%);
+}
+
+.jet-tail{
+    position:absolute;
+    width:27px;
+    height:24px;
+    left:11px;
+    top:5px;
+    background:#66798d;
+    clip-path:polygon(0 100%,100% 0,100% 100%);
+}
+
+.jet-cockpit{
+    position:absolute;
+    width:20px;
     height:8px;
-    right:50px;
-    top:30px;
+    top:10px;
+    right:22px;
+    border-radius:70% 20% 20% 70%;
+    background:linear-gradient(90deg,#6ce3ff,#153c68);
+}
+
+.flame{
+    position:absolute;
+    left:-14px;
+    top:19px;
+    width:32px;
+    height:8px;
+    border-radius:50%;
     background:linear-gradient(
         90deg,
         transparent,
-        #ffb52e,
-        #fff
+        #ff7b18,
+        #ffe75b
     );
-    filter:blur(5px);
-    border-radius:50%;
+    filter:blur(3px);
+    animation:flame .08s infinite alternate;
 }
+
+@keyframes flame{
+    from{width:22px;opacity:.65}
+    to{width:38px;opacity:1}
+}
+
+/* EXPLOSION */
 
 .explosion{
     display:none;
     position:absolute;
+    z-index:20;
     left:50%;
-    top:50%;
+    top:48%;
     transform:translate(-50%,-50%);
-    font-size:100px;
-    z-index:10;
-    animation:boom .55s ease-out;
+    width:160px;
+    height:160px;
 }
 
 .explosion.show{
     display:block;
+    animation:explode .8s ease-out forwards;
 }
 
-@keyframes boom{
+.fireball{
+    position:absolute;
+    width:95px;
+    height:95px;
+    left:32px;
+    top:30px;
+    border-radius:50%;
+    background:
+        radial-gradient(
+            circle,
+            #fff9a5 0 12%,
+            #ffd13d 22%,
+            #ff7027 48%,
+            #d92920 68%,
+            transparent 72%
+        );
+    filter:blur(2px);
+}
+
+.smoke{
+    position:absolute;
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background:rgba(60,68,82,.8);
+    filter:blur(9px);
+    animation:smoke 1s ease-out forwards;
+}
+
+.s1{left:5px;top:60px}
+.s2{right:5px;top:45px}
+.s3{left:48px;top:5px}
+
+@keyframes explode{
     0%{
-        transform:translate(-50%,-50%) scale(.2);
         opacity:0;
+        transform:translate(-50%,-50%) scale(.25);
     }
 
-    35%{
-        transform:translate(-50%,-50%) scale(1.5);
+    25%{
         opacity:1;
+        transform:translate(-50%,-50%) scale(1.25);
     }
 
     100%{
-        transform:translate(-50%,-50%) scale(2.3);
         opacity:0;
+        transform:translate(-50%,-50%) scale(1.8);
     }
 }
 
-.controls{
-    margin-top:15px;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
+@keyframes smoke{
+    0%{
+        opacity:.7;
+        transform:scale(.4);
+    }
+
+    100%{
+        opacity:0;
+        transform:translateY(-60px) scale(1.5);
+    }
 }
 
-input{
-    width:100%;
-    height:55px;
-    padding:0 16px;
-    color:white;
-    background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,255,255,.1);
-    border-radius:14px;
-    outline:none;
-    font-size:16px;
+/* COUNTDOWN */
+
+.countdown{
+    display:none;
+    position:absolute;
+    z-index:30;
+    inset:0;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    background:rgba(2,7,17,.25);
 }
 
-input:focus{
-    border-color:#319cff;
-}
-
-button{
-    height:55px;
-    border:0;
-    border-radius:14px;
-    color:white;
-    font-weight:bold;
-    font-size:15px;
-    cursor:pointer;
-    transition:.2s;
-}
-
-button:hover{
-    transform:translateY(-2px);
-}
-
-.start{
-    background:linear-gradient(135deg,#168cff,#5b55ff);
-}
-
-.cashout{
-    background:linear-gradient(135deg,#00b879,#00d59a);
-}
-
-button:disabled{
-    opacity:.4;
-    cursor:not-allowed;
-    transform:none;
-}
-
-.history{
-    margin-top:15px;
-    padding:18px;
-    background:rgba(10,20,42,.75);
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:18px;
-}
-
-.history h3{
-    font-size:14px;
-    margin-bottom:12px;
-}
-
-.items{
+.countdown.show{
     display:flex;
-    flex-wrap:wrap;
-    gap:8px;
 }
 
-.item{
-    padding:8px 12px;
-    border-radius:9px;
-    background:rgba(255,255,255,.05);
+.countdown-number{
+    font-size:75px;
+    font-weight:900;
+    text-shadow:0 0 35px rgba(60,170,255,.5);
+}
+
+.countdown-text{
+    color:#8ba0c1;
+    font-size:13px;
+    margin-top:5px;
+}
+
+/* PLAYERS */
+
+.players{
+    margin-top:14px;
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:18px;
+    background:rgba(7,15,31,.78);
+    overflow:hidden;
+}
+
+.players-title{
+    padding:13px 16px;
+    color:#9cafcc;
+    font-size:13px;
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.player{
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr;
+    align-items:center;
+    min-height:48px;
+    padding:0 16px;
+    border-bottom:1px solid rgba(255,255,255,.035);
     font-size:12px;
 }
 
-.low{
-    color:#ff6878;
+.player:last-child{
+    border-bottom:0;
 }
 
-.high{
-    color:#5be0a0;
+.player.you{
+    background:rgba(50,155,255,.08);
 }
 
-.notice{
-    text-align:center;
-    color:#566985;
-    font-size:11px;
-    margin-top:18px;
+.name{
+    font-weight:bold;
+}
+
+.you .name{
+    color:#5ccaff;
+}
+
+.bet{
+    color:#8d9fbd;
+}
+
+.result{
+    text-align:left;
+    color:#58dca1;
+}
+
+.result.crashed{
+    color:#ff6676;
 }
 
 @media(max-width:650px){
 
     header{
-        padding:0 15px;
+        padding:0 14px;
     }
 
-    .topbar{
-        grid-template-columns:1fr;
+    .logo{
+        font-size:18px;
+    }
+
+    .container{
+        width:95%;
     }
 
     .game{
-        height:420px;
-    }
-
-    .controls{
-        grid-template-columns:1fr;
+        height:410px;
     }
 
     .plane{
-        font-size:45px;
+        transform:scale(.8) rotate(-12deg);
+        transform-origin:center;
+    }
+
+    .player{
+        grid-template-columns:1.2fr 1fr 1fr;
+        padding:0 10px;
+    }
+
+    .number{
+        font-size:62px;
     }
 }
 </style>
@@ -302,47 +451,38 @@ button:disabled{
 <body>
 
 <header>
-
     <div class="logo">
-        GRAM <span>CRASH</span>
+        CRASH <span>DEMO</span>
     </div>
 
     <div class="demo">
-        DEMO
+        حالت تمرینی
     </div>
-
 </header>
 
 
 <div class="container">
 
-    <div class="topbar">
+    <div class="top">
 
-        <div class="box">
-            <div class="label">
-                موجودی مجازی
-            </div>
-
-            <div class="balance">
-                <span id="balance">100.00</span> GRAM
-            </div>
+        <div class="status" id="status">
+            آماده شروع
         </div>
 
-
-        <div class="box">
-            <div class="label">
-                وضعیت
-            </div>
-
-            <div id="status">
-                آماده شروع
-            </div>
+        <div class="balance">
+            <small>امتیاز مجازی</small>
+            <strong>
+                <span id="balance">100.00</span> GRAM
+            </strong>
         </div>
 
     </div>
 
 
     <div class="game" id="game">
+
+        <div class="horizon"></div>
+
 
         <div class="multiplier">
 
@@ -357,7 +497,7 @@ button:disabled{
                 class="state"
                 id="state"
             >
-                برای شروع مقدار را وارد کنید
+                دور جدید به‌زودی
             </div>
 
         </div>
@@ -367,7 +507,13 @@ button:disabled{
             class="plane"
             id="plane"
         >
-            ✈️
+
+            <div class="flame"></div>
+            <div class="jet-wing"></div>
+            <div class="jet-tail"></div>
+            <div class="jet-body"></div>
+            <div class="jet-cockpit"></div>
+
         </div>
 
 
@@ -375,68 +521,145 @@ button:disabled{
             class="explosion"
             id="explosion"
         >
-            💥
+            <div class="fireball"></div>
+            <div class="smoke s1"></div>
+            <div class="smoke s2"></div>
+            <div class="smoke s3"></div>
         </div>
 
-    </div>
-
-
-    <div class="controls">
-
-        <div>
-
-            <input
-                id="bet"
-                type="number"
-                min="0.01"
-                step="0.01"
-                value="10"
-                placeholder="مقدار GRAM"
-            >
-
-            <button
-                class="start"
-                id="start"
-                style="width:100%;margin-top:10px;"
-            >
-                شروع دور
-            </button>
-
-        </div>
-
-
-        <div>
-
-            <button
-                class="cashout"
-                id="cashout"
-                disabled
-                style="width:100%;"
-            >
-                برداشت
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <div class="history">
-
-        <h3>
-            تاریخچه دورها
-        </h3>
 
         <div
-            class="items"
-            id="history"
-        ></div>
+            class="countdown"
+            id="countdown"
+        >
+
+            <div
+                class="countdown-number"
+                id="countdownNumber"
+            >
+                10
+            </div>
+
+            <div class="countdown-text">
+                دور بعدی شروع می‌شود
+            </div>
+
+        </div>
 
     </div>
 
 
-    <div class="notice">
-        این پروژه کاملاً آزمایشی است و GRAM موجود در آن هیچ ارزش واقعی ندارد.
+    <div class="players">
+
+        <div class="players-title">
+            بازیکنان این دور
+        </div>
+
+
+        <div class="player you">
+
+            <div class="name">
+                شما
+            </div>
+
+            <div class="bet">
+                10.00 GRAM
+            </div>
+
+            <div
+                class="result"
+                id="yourResult"
+            >
+                در انتظار...
+            </div>
+
+        </div>
+
+
+        <div class="player">
+
+            <div class="name">
+                Amir_X
+            </div>
+
+            <div class="bet">
+                7.50 GRAM
+            </div>
+
+            <div class="result">
+                در حال پرواز
+            </div>
+
+        </div>
+
+
+        <div class="player">
+
+            <div class="name">
+                Shadow77
+            </div>
+
+            <div class="bet">
+                21.00 GRAM
+            </div>
+
+            <div class="result">
+                در حال پرواز
+            </div>
+
+        </div>
+
+
+        <div class="player">
+
+            <div class="name">
+                DarkWolf
+            </div>
+
+            <div class="bet">
+                3.20 GRAM
+            </div>
+
+            <div class="result">
+                در حال پرواز
+            </div>
+
+        </div>
+
+
+        <div class="player">
+
+            <div class="name">
+                RezaPro
+            </div>
+
+            <div class="bet">
+                15.00 GRAM
+            </div>
+
+            <div class="result">
+                در حال پرواز
+            </div>
+
+        </div>
+
+
+        <div class="player">
+
+            <div class="name">
+                NightFox
+            </div>
+
+            <div class="bet">
+                42.00 GRAM
+            </div>
+
+            <div class="result">
+                در حال پرواز
+            </div>
+
+        </div>
+
     </div>
 
 </div>
@@ -444,26 +667,11 @@ button:disabled{
 
 <script>
 
-const balanceElement =
-    document.getElementById("balance");
-
-const betInput =
-    document.getElementById("bet");
-
-const startButton =
-    document.getElementById("start");
-
-const cashoutButton =
-    document.getElementById("cashout");
-
-const multiplierElement =
+const multiplierEl =
     document.getElementById("multiplier");
 
-const stateElement =
-    document.getElementById("state");
-
-const statusElement =
-    document.getElementById("status");
+const numberEl =
+    document.getElementById("multiplier");
 
 const plane =
     document.getElementById("plane");
@@ -471,326 +679,118 @@ const plane =
 const explosion =
     document.getElementById("explosion");
 
-const historyElement =
-    document.getElementById("history");
+const countdown =
+    document.getElementById("countdown");
+
+const countdownNumber =
+    document.getElementById("countdownNumber");
+
+const state =
+    document.getElementById("state");
+
+const status =
+    document.getElementById("status");
+
+const balanceEl =
+    document.getElementById("balance");
+
+const yourResult =
+    document.getElementById("yourResult");
 
 
 let balance =
-    parseFloat(
-        localStorage.getItem("gram_balance")
-    );
-
-if (isNaN(balance)) {
-
-    balance = 100;
-
-    localStorage.setItem(
-        "gram_balance",
-        balance
-    );
-}
+    Number(localStorage.getItem("demo_gram")) || 100;
 
 
 let running = false;
 
-let currentBet = 0;
-
-let multiplier = 1;
-
-let crashPoint = 0;
-
 let startTime = 0;
 
-let animationFrame = null;
+let crashPoint = 1;
+
+let frame = null;
 
 
-function updateBalance(){
+/*
+    توزیع Crash
 
-    balanceElement.textContent =
-        balance.toFixed(2);
+    40%  -> 1.00 تا 1.30
+    35%  -> 1.30 تا 2.50
+    9.5% -> 2.50 تا 5
+    10%  -> 5 تا 7
+    5%   -> بالاتر از 10
 
-}
+    در بخش بالای 10:
+    بخش بسیار کوچکی 100x+ خواهد بود.
+*/
 
-
-updateBalance();
-
-
-function generateCrash(){
+function randomCrash(){
 
     const r = Math.random();
 
-    if(r < .55)
-        return 1.10 + Math.random()*1.2;
 
-    if(r < .85)
-        return 2.3 + Math.random()*2.5;
+    if(r < 0.40){
 
-    if(r < .97)
-        return 4.8 + Math.random()*6;
+        return 1.00 +
+            Math.random() * .30;
 
-    return 10 + Math.random()*15;
-}
-
-
-function startGame(){
-
-    if(running)
-        return;
-
-
-    const amount =
-        parseFloat(betInput.value);
-
-
-    if(
-        isNaN(amount) ||
-        amount <= 0
-    ){
-
-        alert("مقدار GRAM را درست وارد کنید.");
-
-        return;
     }
 
 
-    if(amount > balance){
+    if(r < 0.75){
 
-        alert("موجودی GRAM کافی نیست.");
+        return 1.30 +
+            Math.random() * 1.20;
 
-        return;
     }
 
 
-    balance -= amount;
+    if(r < 0.845){
 
-    updateBalance();
+        return 2.50 +
+            Math.random() * 2.50;
 
-
-    currentBet = amount;
-
-    crashPoint = generateCrash();
-
-    multiplier = 1;
-
-    startTime = performance.now();
-
-    running = true;
-
-
-    explosion.classList.remove("show");
-
-    multiplierElement.classList.remove("crashed");
-
-    plane.style.left = "8%";
-
-    plane.style.bottom = "12%";
-
-
-    stateElement.textContent =
-        "در حال پرواز...";
-
-    statusElement.textContent =
-        "بازی در حال اجراست";
-
-
-    startButton.disabled = true;
-
-    cashoutButton.disabled = false;
-
-
-    animationFrame =
-        requestAnimationFrame(loop);
-
-}
-
-
-function loop(time){
-
-    if(!running)
-        return;
-
-
-    const elapsed =
-        (time - startTime) / 1000;
-
-
-    multiplier =
-        Math.exp(elapsed * .20);
-
-
-    multiplierElement.textContent =
-        multiplier.toFixed(2) + "x";
-
-
-    const progress =
-        Math.min(
-            multiplier /
-            Math.max(crashPoint,2),
-            1
-        );
-
-
-    plane.style.left =
-        (8 + progress * 78) + "%";
-
-
-    plane.style.bottom =
-        (12 + progress * 68) + "%";
-
-
-    if(multiplier >= crashPoint){
-
-        crash();
-
-        return;
     }
 
 
-    animationFrame =
-        requestAnimationFrame(loop);
+    if(r < 0.945){
 
-}
-
-
-function crash(){
-
-    running = false;
-
-    cancelAnimationFrame(animationFrame);
-
-    multiplier = crashPoint;
-
-
-    multiplierElement.textContent =
-        multiplier.toFixed(2) + "x";
-
-
-    multiplierElement.classList.add("crashed");
-
-
-    stateElement.textContent =
-        "💥 جنگنده منفجر شد";
-
-
-    statusElement.textContent =
-        "دور تمام شد";
-
-
-    cashoutButton.disabled = true;
-
-    startButton.disabled = false;
-
-
-    explosion.classList.remove("show");
-
-    void explosion.offsetWidth;
-
-    explosion.classList.add("show");
-
-
-    addHistory(
-        multiplier,
-        false
-    );
-
-
-    currentBet = 0;
-
-}
-
-
-function cashout(){
-
-    if(!running)
-        return;
-
-
-    const result =
-        currentBet * multiplier;
-
-
-    balance += result;
-
-    updateBalance();
-
-
-    stateElement.textContent =
-        "✓ برداشت موفق: " +
-        result.toFixed(2) +
-        " GRAM";
-
-
-    statusElement.textContent =
-        "برداشت انجام شد";
-
-
-    addHistory(
-        multiplier,
-        true
-    );
-
-
-    running = false;
-
-    cancelAnimationFrame(
-        animationFrame
-    );
-
-
-    cashoutButton.disabled = true;
-
-    startButton.disabled = false;
-
-    currentBet = 0;
-
-}
-
-
-function addHistory(value, won){
-
-    const item =
-        document.createElement("div");
-
-
-    item.className =
-        "item " +
-        (value >= 2 ? "high" : "low");
-
-
-    item.textContent =
-        (won ? "✓ " : "💥 ") +
-        value.toFixed(2) +
-        "x";
-
-
-    historyElement.prepend(item);
-
-
-    while(
-        historyElement.children.length > 12
-    ){
-
-        historyElement.removeChild(
-            historyElement.lastChild
-        );
+        return 5.00 +
+            Math.random() * 2.00;
 
     }
 
+
+    /*
+        بخش 5 درصدی بالاتر از 10
+    */
+
+    const high =
+        Math.random();
+
+
+    /*
+        0.5% کل دورها:
+        100x تا 200x
+    */
+
+    if(high < 0.10){
+
+        return 100 +
+            Math.random() * 100;
+
+    }
+
+
+    /*
+        بقیه:
+        10x تا 100x
+    */
+
+    return 10 +
+        Math.random() * 90;
 }
 
 
-startButton.addEventListener(
-    "click",
-    startGame
-);
-
-
-cashoutButton.addEventListener(
-    "click",
-    cashout
-);
-
-</script>
-
-</body>
-</html>
+function
+```
