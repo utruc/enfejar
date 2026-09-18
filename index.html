@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UTRUX — CRASH</title>
 
 <style>
@@ -12,609 +12,356 @@
     padding:0;
 }
 
-:root{
-    --blue:#1d9bea;
-    --blue2:#1267bb;
-    --bg:#02060d;
-    --panel:#071321;
-    --text:#fff;
-    --muted:#8190a0;
-}
-
 body{
-    font-family:Arial,Tahoma,sans-serif;
     background:
-        radial-gradient(
-            circle at 50% 10%,
-            #123052 0%,
-            #071524 38%,
-            #02060d 100%
-        );
+        radial-gradient(circle at 50% 30%, #132d5c 0%, #07152d 45%, #020817 100%);
     color:white;
+    font-family:Arial, sans-serif;
     min-height:100vh;
     overflow-x:hidden;
 }
 
-.app{
-    max-width:1080px;
-    margin:auto;
-    padding:12px;
-}
-
-/* HEADER */
-
 .header{
-    height:65px;
+    height:70px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    position:relative;
+    padding:0 22px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    background:rgba(2,8,23,.7);
+    backdrop-filter:blur(12px);
 }
 
 .logo{
-    font-size:26px;
-    font-weight:950;
-    letter-spacing:2px;
-    direction:ltr;
-}
-
-.mode{
-    position:absolute;
-    left:4px;
-    top:5px;
-
-    font-size:12px;
+    font-size:24px;
     font-weight:900;
     letter-spacing:2px;
-    direction:ltr;
-
-    padding:8px 12px;
-    border-radius:10px;
-
-    background:rgba(255,255,255,.06);
-    border:1px solid rgba(255,255,255,.09);
 }
 
 .balance{
     display:flex;
     align-items:center;
-    gap:8px;
-    direction:ltr;
-}
-
-.balance-number{
-    font-size:23px;
-    font-weight:950;
+    gap:7px;
+    font-size:18px;
+    font-weight:bold;
 }
 
 .coin{
-    width:32px;
-    height:32px;
+    width:25px;
+    height:25px;
 }
 
-.coin svg{
-    width:100%;
-    height:100%;
+.crash-title{
+    font-weight:900;
+    letter-spacing:2px;
+    color:#60a5fa;
 }
 
-/* GAME */
+.main{
+    max-width:1200px;
+    margin:auto;
+    padding:18px;
+}
 
 .game{
-    height:450px;
+    height:500px;
     position:relative;
     overflow:hidden;
-
-    border-radius:23px;
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(16,38,63,.78),
-            rgba(2,9,17,.97)
-        );
-
+    border-radius:20px;
     border:1px solid rgba(255,255,255,.08);
-
-    box-shadow:
-        0 25px 70px rgba(0,0,0,.4),
-        inset 0 0 100px rgba(0,0,0,.3);
+    background:
+        radial-gradient(circle at 50% 80%,rgba(37,99,235,.18),transparent 40%),
+        linear-gradient(180deg,#081a35,#020817);
 }
 
-.game::before{
-    content:"";
+.grid{
     position:absolute;
     inset:0;
-
+    opacity:.16;
     background-image:
-        linear-gradient(
-            rgba(255,255,255,.025) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(255,255,255,.025) 1px,
-            transparent 1px
-        );
-
-    background-size:45px 45px;
+        linear-gradient(rgba(255,255,255,.1) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.1) 1px,transparent 1px);
+    background-size:55px 55px;
+    transform:perspective(400px) rotateX(55deg) scale(1.5);
+    transform-origin:bottom;
 }
-
-/* ضریب مشترک وسط */
 
 .multiplier{
     position:absolute;
-    z-index:50;
-
     left:50%;
-    top:38%;
-
+    top:50%;
     transform:translate(-50%,-50%);
-
-    font-size:58px;
-    font-weight:950;
-
-    direction:ltr;
-
-    text-shadow:
-        0 5px 30px rgba(0,0,0,.8);
+    font-size:65px;
+    font-weight:900;
+    text-shadow:0 0 30px rgba(96,165,250,.35);
+    z-index:5;
 }
 
 .status{
     position:absolute;
-    z-index:50;
-
+    top:20px;
     left:50%;
-    top:52%;
-
     transform:translateX(-50%);
-
-    color:#95a5b6;
+    color:#94a3b8;
     font-size:14px;
+    z-index:6;
 }
-
-/* COUNTDOWN */
-
-.countdown{
-    position:absolute;
-    z-index:100;
-
-    left:50%;
-    top:50%;
-
-    transform:translate(-50%,-50%);
-
-    font-size:95px;
-    font-weight:950;
-
-    direction:ltr;
-
-    display:none;
-
-    text-shadow:
-        0 8px 35px rgba(0,0,0,.9);
-
-    animation:
-        countdownFade .9s ease;
-}
-
-.countdown.show{
-    display:block;
-}
-
-@keyframes countdownFade{
-    0%{
-        opacity:0;
-        transform:
-            translate(-50%,-50%)
-            scale(1.3);
-    }
-
-    25%{
-        opacity:1;
-        transform:
-            translate(-50%,-50%)
-            scale(1);
-    }
-
-    75%{
-        opacity:1;
-    }
-
-    100%{
-        opacity:0;
-        transform:
-            translate(-50%,-50%)
-            scale(.8);
-    }
-}
-
-/* JET */
 
 .jet{
     position:absolute;
-
-    width:128px;
-    height:72px;
-
-    left:20px;
-    bottom:18px;
-
-    z-index:20;
+    left:35px;
+    bottom:35px;
+    width:115px;
+    height:45px;
+    z-index:4;
+    transition:none;
 }
 
 .jet-body{
     position:absolute;
-
-    left:28px;
-    top:29px;
-
-    width:82px;
-    height:17px;
-
-    background:
-        linear-gradient(
-            180deg,
-            #e8eef3,
-            #8e9aa5 50%,
-            #4c5864
-        );
-
-    border-radius:65% 15% 15% 65%;
-
+    width:90px;
+    height:18px;
+    top:12px;
+    left:10px;
+    background:linear-gradient(90deg,#dbeafe,#64748b 55%,#e2e8f0);
+    border-radius:50% 15px 15px 50%;
     transform:skewX(-12deg);
 }
 
 .jet-nose{
     position:absolute;
-
-    right:4px;
-    top:29px;
-
-    width:35px;
-    height:17px;
-
-    background:
-        linear-gradient(
-            180deg,
-            #e9eef2,
-            #75828d
-        );
-
-    clip-path:
-        polygon(
-            0 0,
-            100% 50%,
-            0 100%
-        );
+    right:2px;
+    top:12px;
+    width:30px;
+    height:18px;
+    background:#e2e8f0;
+    clip-path:polygon(0 0,100% 50%,0 100%);
 }
 
-.jet-wing-top{
+.jet-wing{
     position:absolute;
-
-    left:41px;
-    top:14px;
-
-    width:70px;
-    height:32px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #9ba8b3,
-            #4d5965
-        );
-
-    clip-path:
-        polygon(
-            0 100%,
-            100% 0,
-            62% 100%
-        );
-}
-
-.jet-wing-bottom{
-    position:absolute;
-
-    left:39px;
-    top:39px;
-
-    width:66px;
-    height:28px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #66737f,
-            #3b4651
-        );
-
-    clip-path:
-        polygon(
-            0 0,
-            100% 100%,
-            58% 100%
-        );
+    left:35px;
+    top:3px;
+    width:48px;
+    height:20px;
+    background:#64748b;
+    clip-path:polygon(0 0,100% 50%,0 100%);
 }
 
 .jet-tail{
     position:absolute;
-
-    left:27px;
-    top:12px;
-
+    left:8px;
+    top:2px;
     width:25px;
-    height:38px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #7c8994,
-            #414c57
-        );
-
-    clip-path:
-        polygon(
-            0 100%,
-            50% 0,
-            100% 100%
-        );
-}
-
-.jet-window{
-    position:absolute;
-
-    left:68px;
-    top:30px;
-
-    width:22px;
-    height:8px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #091b2d,
-            #245d82
-        );
-
-    border-radius:70%;
+    height:30px;
+    background:#475569;
+    clip-path:polygon(100% 0,100% 100%,0 65%);
 }
 
 .flame{
     position:absolute;
-
-    left:3px;
-    top:33px;
-
-    width:34px;
+    left:0;
+    top:15px;
+    width:25px;
     height:13px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #ffbd00,
-            #ff5a00,
-            transparent
-        );
-
-    clip-path:
-        polygon(
-            0 50%,
-            100% 0,
-            72% 50%,
-            100% 100%
-        );
-
-    animation:flame .08s infinite alternate;
+    background:linear-gradient(90deg,#f97316,#facc15,transparent);
+    clip-path:polygon(100% 50%,0 0,20% 50%,0 100%);
+    filter:blur(1px);
 }
-
-@keyframes flame{
-    from{
-        transform:scaleX(.72);
-    }
-
-    to{
-        transform:scaleX(1.18);
-    }
-}
-
-/* EXPLOSION */
 
 .explosion{
     position:absolute;
-
-    width:140px;
-    height:140px;
-
-    display:none;
-
-    z-index:60;
-
-    transform:translate(-50%,-50%);
-}
-
-.explosion.show{
-    display:block;
-    animation:explode .8s forwards;
-}
-
-.explosion::before{
-    content:"";
-
-    position:absolute;
-    inset:15px;
-
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%) scale(0);
+    width:180px;
+    height:180px;
     border-radius:50%;
-
     background:
-        radial-gradient(
-            circle,
-            #fff 0 7%,
-            #fff000 8% 22%,
-            #ff8200 23% 47%,
-            #f32d00 48% 65%,
-            transparent 66%
-        );
+        radial-gradient(circle,#fff 0 8%,#facc15 10% 25%,#f97316 35%,#ef4444 50%,transparent 70%);
+    opacity:0;
+    z-index:20;
 }
 
-.explosion::after{
-    content:"";
-
-    position:absolute;
-    inset:-35px;
-
-    border-radius:50%;
-
-    background:
-        radial-gradient(
-            circle,
-            transparent 28%,
-            rgba(255,120,0,.5) 29%,
-            transparent 55%
-        );
+.explosion.active{
+    animation:boom .8s ease-out forwards;
 }
 
-@keyframes explode{
+@keyframes boom{
     0%{
+        transform:translate(-50%,-50%) scale(.2);
         opacity:1;
-        transform:
-            translate(-50%,-50%)
-            scale(.2);
     }
-
-    45%{
-        opacity:1;
-        transform:
-            translate(-50%,-50%)
-            scale(1.1);
+    70%{
+        transform:translate(-50%,-50%) scale(1.5);
+        opacity:.9;
     }
-
     100%{
+        transform:translate(-50%,-50%) scale(2);
         opacity:0;
-        transform:
-            translate(-50%,-50%)
-            scale(1.55);
     }
 }
 
-/* CONTROLS */
+.countdown{
+    position:absolute;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,0,0,.3);
+    backdrop-filter:blur(3px);
+    z-index:30;
+}
+
+.countdown-number{
+    font-size:150px;
+    font-weight:900;
+    text-shadow:0 0 50px rgba(96,165,250,.7);
+    animation:countPop .8s ease;
+}
+
+@keyframes countPop{
+    from{
+        transform:scale(1.5);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+/* BET PANEL */
 
 .controls{
-    margin-top:12px;
-    padding:13px;
-
-    border-radius:18px;
-
-    background:rgba(255,255,255,.045);
-
-    border:1px solid rgba(255,255,255,.07);
-}
-
-.control-row{
+    margin-top:15px;
     display:flex;
-    gap:9px;
+    justify-content:center;
 }
 
-.amount-box{
-    flex:1;
-}
-
-.amount-box input{
-    width:100%;
-    height:49px;
-
-    border:1px solid rgba(255,255,255,.1);
-    border-radius:13px;
-
-    background:#081321;
-
-    color:white;
-
-    outline:none;
-
-    padding:0 14px;
-
-    font-size:17px;
-
-    direction:ltr;
-}
-
-.join{
-    height:49px;
-
+.betting-btn,
+.start-btn,
+.withdraw-btn{
     border:0;
-    border-radius:13px;
-
-    padding:0 23px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #168bd9,
-            #175fb7
-        );
-
-    color:white;
-
+    border-radius:12px;
     font-weight:900;
-
+    letter-spacing:1px;
     cursor:pointer;
+    transition:.2s;
 }
 
-.join:disabled{
-    opacity:.45;
-    cursor:not-allowed;
+.betting-btn{
+    min-width:230px;
+    padding:16px 35px;
+    background:#2563eb;
+    color:white;
+    font-size:17px;
 }
 
-.info{
+.betting-btn:hover{
+    background:#3b82f6;
+    transform:translateY(-2px);
+}
+
+.bet-panel{
+    display:none;
+    width:100%;
+    max-width:500px;
+    margin:auto;
+    padding:18px;
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(15,23,42,.9);
+    border-radius:18px;
+    box-shadow:0 15px 50px rgba(0,0,0,.35);
+}
+
+.bet-panel.active{
+    display:block;
+}
+
+.bet-title{
+    text-align:center;
+    font-weight:900;
+    margin-bottom:13px;
+    letter-spacing:1px;
+}
+
+.bet-row{
     display:flex;
-    justify-content:space-between;
+    gap:10px;
+}
 
+.amount-input{
+    flex:1;
+    min-width:0;
+    padding:15px;
+    border-radius:11px;
+    border:1px solid #334155;
+    background:#020817;
+    color:white;
+    outline:none;
+    font-size:17px;
+    font-weight:bold;
+}
+
+.amount-input:focus{
+    border-color:#3b82f6;
+}
+
+.start-btn{
+    padding:0 25px;
+    background:#22c55e;
+    color:#04120a;
+}
+
+.start-btn:hover{
+    background:#4ade80;
+}
+
+.withdraw-btn{
+    padding:0 25px;
+    background:#f59e0b;
+    color:#211000;
+}
+
+.withdraw-btn:hover{
+    background:#fbbf24;
+}
+
+.bet-message{
+    min-height:22px;
+    text-align:center;
     margin-top:10px;
-
-    color:#8393a5;
-
-    font-size:12px;
+    color:#94a3b8;
+    font-size:13px;
 }
-
-.your-entry{
-    color:#4fc5ff;
-}
-
-/* PLAYERS */
 
 .players{
-    margin-top:12px;
-
+    margin-top:15px;
     border-radius:18px;
-
     overflow:hidden;
-
-    background:rgba(255,255,255,.035);
-
-    border:1px solid rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(2,8,23,.7);
 }
 
-.players-head{
-    padding:14px;
-    font-weight:900;
+.players-header,
+.player{
+    display:grid;
+    grid-template-columns:1fr 110px 110px;
+    align-items:center;
+    gap:10px;
+    padding:13px 16px;
+}
 
-    border-bottom:
-        1px solid
-        rgba(255,255,255,.07);
+.players-header{
+    color:#64748b;
+    font-size:12px;
+    text-transform:uppercase;
+    border-bottom:1px solid rgba(255,255,255,.07);
 }
 
 .player{
-    height:55px;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:0 14px;
-
-    border-bottom:
-        1px solid
-        rgba(255,255,255,.045);
+    border-bottom:1px solid rgba(255,255,255,.05);
 }
 
 .player:last-child{
@@ -622,83 +369,64 @@ body{
 }
 
 .player-name{
-    display:flex;
-    align-items:center;
-    gap:9px;
+    font-weight:bold;
 }
 
-.avatar{
-    width:32px;
-    height:32px;
-
-    border-radius:50%;
-
-    background:
-        linear-gradient(
-            135deg,
-            #263f5c,
-            #101b29
-        );
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:11px;
-    font-weight:900;
+.player-amount{
+    text-align:right;
+    color:#cbd5e1;
 }
 
-.me .avatar{
-    background:
-        linear-gradient(
-            135deg,
-            #168bd8,
-            #194d98
-        );
+.player-value{
+    text-align:right;
+    color:#60a5fa;
+    font-weight:bold;
 }
 
-.amount{
-    direction:ltr;
-
-    display:flex;
-    align-items:center;
-
-    gap:6px;
-
-    font-weight:850;
+.user-row{
+    background:rgba(37,99,235,.09);
 }
-
-.mini-coin{
-    width:20px;
-    height:20px;
-}
-
-/* MOBILE */
 
 @media(max-width:600px){
 
-    .app{
-        padding:9px;
+    .header{
+        padding:0 12px;
+    }
+
+    .logo{
+        font-size:20px;
+    }
+
+    .crash-title{
+        font-size:13px;
     }
 
     .game{
-        height:390px;
+        height:420px;
     }
 
     .multiplier{
-        font-size:45px;
+        font-size:50px;
     }
 
-    .countdown{
-        font-size:78px;
+    .countdown-number{
+        font-size:110px;
     }
 
-    .control-row{
+    .players-header,
+    .player{
+        grid-template-columns:1fr 85px 90px;
+        padding:12px 10px;
+        font-size:12px;
+    }
+
+    .bet-row{
         flex-direction:column;
     }
 
-    .join{
-        width:100%;
+    .start-btn,
+    .withdraw-btn{
+        height:48px;
     }
 }
 </style>
@@ -706,1187 +434,836 @@ body{
 
 <body>
 
-<div class="app">
-
 <header class="header">
 
-    <div class="logo">
-        UTRUX
-    </div>
+    <div class="logo">UTRUX</div>
 
     <div class="balance">
+        <span id="balance">100.00</span>
 
-        <span
-            class="balance-number"
-            id="balance"
-        >100</span>
-
-        <div class="coin">
-
-            <svg
-                viewBox="0 0 100 100"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-
-                <defs>
-
-                    <linearGradient
-                        id="coinGradient"
-                        x1="0"
-                        y1="0"
-                        x2="1"
-                        y2="1"
-                    >
-                        <stop
-                            offset="0"
-                            stop-color="#82eaff"
-                        />
-
-                        <stop
-                            offset=".5"
-                            stop-color="#20ace8"
-                        />
-
-                        <stop
-                            offset="1"
-                            stop-color="#086db5"
-                        />
-                    </linearGradient>
-
-                </defs>
-
-                <circle
-                    cx="50"
-                    cy="50"
-                    r="47"
-                    fill="#064c80"
-                />
-
-                <circle
-                    cx="50"
-                    cy="47"
-                    r="42"
-                    fill="url(#coinGradient)"
-                />
-
-                <circle
-                    cx="50"
-                    cy="47"
-                    r="35"
-                    fill="none"
-                    stroke="#c5f5ff"
-                    stroke-opacity=".35"
-                    stroke-width="2"
-                />
-
-                <path
-                    d="M31 29H69L61 44L50 67L39 44Z"
-                    fill="none"
-                    stroke="white"
-                    stroke-width="5"
-                    stroke-linejoin="round"
-                />
-
-                <path
-                    d="M31 29L50 67L69 29"
-                    fill="none"
-                    stroke="white"
-                    stroke-width="4"
-                />
-
-            </svg>
-
-        </div>
-
+        <svg class="coin" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="47" fill="#1689e8"/>
+            <circle cx="50" cy="50" r="38" fill="#0b6fc2"/>
+            <path
+                d="M35 25h30v8H56v35h-9V33H35z
+                   M30 45h40v8H30z"
+                fill="white"/>
+        </svg>
     </div>
 
-    <div class="mode">
-        CRASH
-    </div>
+    <div class="crash-title">CRASH</div>
 
 </header>
 
 
-<main
-    class="game"
-    id="game"
->
+<main class="main">
 
-    <!-- ضریب مشترک -->
-    <div
-        class="multiplier"
-        id="multiplier"
-    >
-        1.00x
-    </div>
+    <section class="game">
 
-    <div
-        class="status"
-        id="status"
-    >
-        در انتظار شروع...
-    </div>
+        <div class="grid"></div>
 
-    <!-- شمارنده -->
-    <div
-        class="countdown"
-        id="countdown"
-    >
-        10
-    </div>
+        <div class="status" id="status">
+            WAITING
+        </div>
 
-    <!-- جنگنده -->
-    <div
-        class="jet"
-        id="jet"
-    >
+        <div class="multiplier" id="multiplier">
+            1.00x
+        </div>
 
-        <div class="flame"></div>
-        <div class="jet-tail"></div>
-        <div class="jet-wing-top"></div>
-        <div class="jet-wing-bottom"></div>
-        <div class="jet-body"></div>
-        <div class="jet-nose"></div>
-        <div class="jet-window"></div>
+        <div class="jet" id="jet">
 
-    </div>
+            <div class="flame"></div>
+            <div class="jet-body"></div>
+            <div class="jet-nose"></div>
+            <div class="jet-wing"></div>
+            <div class="jet-tail"></div>
 
-    <div
-        class="explosion"
-        id="explosion"
-    ></div>
+        </div>
+
+        <div class="explosion" id="explosion"></div>
+
+        <div class="countdown" id="countdown">
+            <div class="countdown-number" id="countdownNumber">
+                10
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- BETTING -->
+
+    <section class="controls">
+
+        <button
+            class="betting-btn"
+            id="bettingBtn">
+            BETTING
+        </button>
+
+        <div
+            class="bet-panel"
+            id="betPanel">
+
+            <div class="bet-title">
+                ENTER AMOUNT
+            </div>
+
+            <div class="bet-row">
+
+                <input
+                    id="amountInput"
+                    class="amount-input"
+                    type="number"
+                    min="0.1"
+                    step="0.1"
+                    placeholder="Amount TON">
+
+                <button
+                    id="startBtn"
+                    class="start-btn">
+                    START
+                </button>
+
+            </div>
+
+            <div
+                class="bet-message"
+                id="betMessage">
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PLAYERS -->
+
+    <section class="players">
+
+        <div class="players-header">
+            <div>PLAYER</div>
+            <div style="text-align:right">BET</div>
+            <div style="text-align:right">VALUE</div>
+        </div>
+
+        <div id="playersList"></div>
+
+    </section>
 
 </main>
 
 
-<section class="controls">
-
-    <div class="control-row">
-
-        <div class="amount-box">
-
-            <input
-                id="amount"
-                type="number"
-                min="0.1"
-                step="0.1"
-                value="10"
-                placeholder="TON"
-            >
-
-        </div>
-
-        <button
-            class="join"
-            id="join"
-        >
-            ورود به دور
-        </button>
-
-    </div>
-
-    <div class="info">
-
-        <span id="roundInfo">
-            دور بعدی به‌زودی
-        </span>
-
-        <span
-            class="your-entry"
-            id="entryText"
-        >
-            بدون ورود
-        </span>
-
-    </div>
-
-</section>
-
-
-<section class="players">
-
-    <div class="players-head">
-        بازیکنان
-    </div>
-
-    <div id="playersList"></div>
-
-</section>
-
-</div>
-
-
 <script>
 
-/* ELEMENTS */
+const balanceEl = document.getElementById("balance");
+const bettingBtn = document.getElementById("bettingBtn");
+const betPanel = document.getElementById("betPanel");
+const amountInput = document.getElementById("amountInput");
+const startBtn = document.getElementById("startBtn");
+const betMessage = document.getElementById("betMessage");
 
-const balanceEl =
-    document.getElementById("balance");
+const multiplierEl = document.getElementById("multiplier");
+const statusEl = document.getElementById("status");
+const jet = document.getElementById("jet");
 
-const amountEl =
-    document.getElementById("amount");
+const explosion = document.getElementById("explosion");
 
-const joinBtn =
-    document.getElementById("join");
+const countdown = document.getElementById("countdown");
+const countdownNumber = document.getElementById("countdownNumber");
 
-const multiplierEl =
-    document.getElementById("multiplier");
-
-const statusEl =
-    document.getElementById("status");
-
-const jetEl =
-    document.getElementById("jet");
-
-const explosionEl =
-    document.getElementById("explosion");
-
-const countdownEl =
-    document.getElementById("countdown");
-
-const playersList =
-    document.getElementById("playersList");
-
-const entryText =
-    document.getElementById("entryText");
-
-const roundInfo =
-    document.getElementById("roundInfo");
+const playersList = document.getElementById("playersList");
 
 
-/* BALANCE */
+/* =========================
+   BALANCE
+========================= */
 
-let balance =
-    Number(
-        localStorage.getItem("utruxBalance")
-    );
+let balance = parseFloat(
+    localStorage.getItem("utruxBalance")
+);
 
-/*
-   اگر اولین بار باشد،
-   100 TON رایگان.
-*/
-
-if(
-    !Number.isFinite(balance)
-){
-
+if(!Number.isFinite(balance)){
     balance = 100;
+}
 
+function saveBalance(){
     localStorage.setItem(
         "utruxBalance",
-        "100"
+        balance.toFixed(2)
     );
 }
 
-let joinedAmount = 0;
+function updateBalance(){
+    balanceEl.textContent = balance.toFixed(2);
+    saveBalance();
+}
 
-let running = false;
+updateBalance();
+
+
+/* =========================
+   GAME STATE
+========================= */
+
+let phase = "waiting";
 
 let multiplier = 1;
 
-let crashPoint = 1.2;
+let crashPoint = 0;
 
-let animationFrame = null;
+let roundTimer = null;
 
-let currentPlayers = [];
+let countdownTimer = null;
 
+let joinedAmount = 0;
 
-/* SAVE */
+let hasBet = false;
 
-function saveBalance(){
-
-    localStorage.setItem(
-        "utruxBalance",
-        String(balance)
-    );
-
-    balanceEl.textContent =
-        balance
-        .toFixed(1)
-        .replace(".0","");
-}
+let players = [];
 
 
-/* RANDOM NAMES */
+/* =========================
+   FAKE NAMES
+========================= */
 
 const names = [
-
+    "Alex",
     "Shadow",
-    "DarkX",
-    "Ali",
-    "Armin",
-    "Nima",
-    "Ghost",
-    "Wolf",
-    "Dragon",
-    "Hunter",
-    "Phoenix",
-    "Neo",
-    "Titan",
-    "Viper",
+    "CryptoX",
+    "Nexus",
+    "Arman",
     "Storm",
-    "Rex",
-    "Night",
+    "Hunter",
     "Zero",
-    "Cyber",
-    "Max",
-    "Legend",
+    "Phoenix",
+    "Dark",
     "Nova",
+    "Titan",
+    "Ghost",
+    "Max",
+    "Viper",
+    "Wolf",
+    "King",
     "Blaze",
-    "Alpha",
-    "Omega",
-    "Sina",
-    "Amir",
-    "Reza",
-    "Sam",
-    "UTRUX",
-    "Master"
+    "Neo",
+    "Lucky"
 ];
 
 
-/* SHUFFLE */
-
-function shuffle(array){
-
-    return [...array].sort(
-        () => Math.random() - .5
-    );
-
-}
-
-
-/*
-   مقدار بازیکن فیک
-
-   0.1 - 1  => 80%
-   1 - 10   => 13%
-   10 - 100  => 5%
-   100 - 1000 => 2%
-*/
+/* =========================
+   FAKE AMOUNT
+========================= */
 
 function fakeAmount(){
 
-    const r =
-        Math.random();
+    const r = Math.random();
 
-    if(r < .80){
+    if(r < 0.80){
 
-        return (
-            .1 +
-            Math.random() * .9
-        );
+        return 0.1 + Math.random() * 0.9;
 
     }
 
-    if(r < .93){
+    if(r < 0.93){
 
-        return (
-            1 +
-            Math.random() * 9
-        );
+        return 1 + Math.random() * 9;
 
     }
 
-    if(r < .98){
+    if(r < 0.98){
 
-        return (
-            10 +
-            Math.random() * 90
-        );
+        return 10 + Math.random() * 90;
 
     }
 
-    return (
-        100 +
-        Math.random() * 900
-    );
+    return 100 + Math.random() * 900;
 }
 
 
-/* CREATE PLAYERS */
+/* =========================
+   CRASH POINT
+========================= */
+
+function generateCrashPoint(){
+
+    const r = Math.random();
+
+    if(r < 0.40){
+
+        return 1 + Math.random() * 0.30;
+
+    }
+
+    if(r < 0.75){
+
+        return 1.30 + Math.random() * 1.20;
+
+    }
+
+    if(r < 0.845){
+
+        return 2.50 + Math.random() * 2.50;
+
+    }
+
+    if(r < 0.945){
+
+        return 5 + Math.random() * 2;
+
+    }
+
+    if(r < 0.95){
+
+        return 100 + Math.random() * 100;
+
+    }
+
+    return 7 + Math.random() * 18;
+}
+
+
+/* =========================
+   CREATE PLAYERS
+========================= */
 
 function createPlayers(){
 
-    const selected =
-        shuffle(names).slice(0,7);
+    players = [];
 
-    currentPlayers =
-        selected.map(name => ({
+    const shuffled = [...names]
+        .sort(() => Math.random() - 0.5);
 
-            name:name,
+    for(let i = 0; i < 7; i++){
 
-            base:fakeAmount()
+        players.push({
+            name: shuffled[i],
+            amount: fakeAmount()
+        });
 
-        }));
+    }
 
+    renderPlayers();
 }
 
 
-/* RENDER PLAYERS */
+/* =========================
+   RENDER PLAYERS
+========================= */
 
 function renderPlayers(){
 
     let html = "";
 
-    /*
-       USER
-    */
+    if(hasBet){
 
-    html += `
-
-    <div class="player me">
-
-        <div class="player-name">
-
-            <div class="avatar">
-                U
-            </div>
-
-            <span>
-                شما
-            </span>
-
-        </div>
-
-        <div
-            class="amount"
-            id="myAmount"
-        >
-
-            ${
-                joinedAmount > 0
-                ? joinedAmount.toFixed(2)
-                : "—"
-            }
-
-            <svg
-                class="mini-coin"
-                viewBox="0 0 100 100"
-            >
-
-                <circle
-                    cx="50"
-                    cy="50"
-                    r="44"
-                    fill="#20aee8"
-                />
-
-                <path
-                    d="M31 29H69L61 44L50 67L39 44Z"
-                    fill="none"
-                    stroke="white"
-                    stroke-width="6"
-                />
-
-            </svg>
-
-        </div>
-
-    </div>
-
-    `;
-
-
-    /*
-       FAKE PLAYERS
-    */
-
-    currentPlayers.forEach(
-        (player,index) => {
-
-            html += `
-
-            <div class="player">
+        html += `
+            <div class="player user-row">
 
                 <div class="player-name">
+                    YOU
+                </div>
 
-                    <div class="avatar">
-                        ${player.name
-                            .charAt(0)
-                            .toUpperCase()}
-                    </div>
-
-                    <span>
-                        ${player.name}
-                    </span>
-
+                <div class="player-amount">
+                    ${joinedAmount.toFixed(2)} TON
                 </div>
 
                 <div
-                    class="amount"
-                    id="fakeAmount${index}"
-                >
-
-                    ${player.base.toFixed(2)}
-
-                    <svg
-                        class="mini-coin"
-                        viewBox="0 0 100 100"
-                    >
-
-                        <circle
-                            cx="50"
-                            cy="50"
-                            r="44"
-                            fill="#20aee8"
-                        />
-
-                        <path
-                            d="M31 29H69L61 44L50 67L39 44Z"
-                            fill="none"
-                            stroke="white"
-                            stroke-width="6"
-                        />
-
-                    </svg>
-
+                    class="player-value"
+                    id="userValue">
+                    ${joinedAmount.toFixed(2)} TON
                 </div>
 
             </div>
+        `;
 
-            `;
+    }
 
-        }
-    );
+    players.forEach(player => {
 
+        html += `
+            <div class="player">
 
-    playersList.innerHTML =
-        html;
+                <div class="player-name">
+                    ${player.name}
+                </div>
 
+                <div class="player-amount">
+                    ${player.amount.toFixed(2)} TON
+                </div>
+
+                <div
+                    class="player-value"
+                    data-base="${player.amount}">
+                    ${player.amount.toFixed(2)} TON
+                </div>
+
+            </div>
+        `;
+
+    });
+
+    playersList.innerHTML = html;
 }
 
 
-/*
-   مقدارهای بازیکنان
-   همراه ضریب بالا می‌روند.
-*/
+/* =========================
+   UPDATE VALUES
+========================= */
 
-function updateFakePlayers(){
+function updatePlayerValues(){
 
-    currentPlayers.forEach(
-        (player,index) => {
+    document
+        .querySelectorAll("[data-base]")
+        .forEach(el => {
 
-            const value =
-                player.base *
-                multiplier;
+            const base =
+                parseFloat(el.dataset.base);
 
-            const element =
-                document.getElementById(
-                    "fakeAmount" + index
-                );
+            el.textContent =
+                (base * multiplier).toFixed(2) + " TON";
 
-            if(element){
+        });
 
-                const coin =
-                    element.querySelector(
-                        ".mini-coin"
-                    );
 
-                element.textContent =
-                    value.toFixed(2);
+    const userValue =
+        document.getElementById("userValue");
 
-                if(coin){
-                    element.appendChild(coin);
-                }
+    if(userValue && hasBet){
 
-            }
+        userValue.textContent =
+            (joinedAmount * multiplier).toFixed(2)
+            + " TON";
 
-        }
-    );
+    }
+}
+
+
+/* =========================
+   BETTING BUTTON
+========================= */
+
+bettingBtn.addEventListener("click", () => {
+
+    if(hasBet){
+
+        betMessage.textContent =
+            "You already joined this round.";
+
+        return;
+
+    }
+
+    betPanel.classList.toggle("active");
+
+    if(betPanel.classList.contains("active")){
+
+        amountInput.focus();
+
+    }
+
+});
+
+
+/* =========================
+   START / WITHDRAW
+========================= */
+
+startBtn.addEventListener("click", () => {
+
+    /* WITHDRAW */
+
+    if(hasBet){
+
+        withdraw();
+
+        return;
+
+    }
+
+
+    /* START */
+
+    if(phase !== "waiting"){
+
+        betMessage.textContent =
+            "Wait for the next round.";
+
+        return;
+
+    }
+
+    const amount =
+        parseFloat(amountInput.value);
+
+
+    if(!Number.isFinite(amount) || amount <= 0){
+
+        betMessage.textContent =
+            "Enter a valid amount.";
+
+        return;
+
+    }
+
+
+    if(amount > balance){
+
+        betMessage.textContent =
+            "Not enough TON.";
+
+        return;
+
+    }
+
+
+    /* DEDUCT */
+
+    balance -= amount;
+
+    joinedAmount = amount;
+
+    hasBet = true;
+
+    updateBalance();
+
+
+    /* CHANGE START TO WITHDRAW */
+
+    startBtn.textContent = "WITHDRAW";
+
+    startBtn.classList.remove("start-btn");
+
+    startBtn.classList.add("withdraw-btn");
+
+    amountInput.disabled = true;
+
+    betMessage.textContent =
+        "Bet accepted.";
+
+    renderPlayers();
+
+});
+
+
+/* =========================
+   WITHDRAW
+========================= */
+
+function withdraw(){
+
+    if(!hasBet){
+
+        return;
+
+    }
 
 
     /*
-       مقدار شما هم با همان ضریب
-       فقط به‌صورت نمایشی نمایش داده می‌شود.
+       Demo only:
+       The current displayed value is returned
+       to the virtual balance.
     */
 
-    if(joinedAmount > 0){
-
-        const myAmount =
-            document.getElementById(
-                "myAmount"
-            );
-
-        if(myAmount){
-
-            const coin =
-                myAmount.querySelector(
-                    ".mini-coin"
-                );
-
-            myAmount.textContent =
-                (
-                    joinedAmount *
-                    multiplier
-                ).toFixed(2);
-
-            if(coin){
-                myAmount.appendChild(coin);
-            }
-
-        }
-
-    }
-
-}
+    const value =
+        joinedAmount * multiplier;
 
 
-/* CRASH POINT */
+    balance += value;
 
-function generateCrash(){
+    joinedAmount = 0;
 
-    const r =
-        Math.random();
+    hasBet = false;
 
-    if(r < .40){
 
-        return (
-            1 +
-            Math.random() * .30
-        );
+    updateBalance();
 
-    }
 
-    if(r < .75){
+    amountInput.disabled = false;
 
-        return (
-            1.3 +
-            Math.random() * 1.2
-        );
+    amountInput.value = "";
 
-    }
+    startBtn.textContent = "START";
 
-    if(r < .845){
+    startBtn.classList.remove("withdraw-btn");
 
-        return (
-            2.5 +
-            Math.random() * 2.5
-        );
+    startBtn.classList.add("start-btn");
 
-    }
+    betMessage.textContent =
+        "Withdraw completed.";
 
-    if(r < .945){
 
-        return (
-            5 +
-            Math.random() * 2
-        );
-
-    }
-
-    if(Math.random() < .091){
-
-        return (
-            100 +
-            Math.random() * 100
-        );
-
-    }
-
-    return (
-        7 +
-        Math.random() * 18
-    );
+    renderPlayers();
 
 }
 
 
-/* JOIN */
+/* =========================
+   RESET BET FOR NEW ROUND
+========================= */
 
-joinBtn.addEventListener(
-    "click",
-    () => {
-
-        /*
-           اگر دور در حال اجراست،
-           ورود برای دور بعد ثبت می‌شود.
-        */
-
-        if(running){
-
-            alert(
-                "این دور شروع شده؛ برای دور بعد وارد شوید."
-            );
-
-            return;
-        }
-
-
-        const amount =
-            Number(
-                amountEl.value
-            );
-
-
-        if(
-            !Number.isFinite(amount) ||
-            amount <= 0
-        ){
-
-            alert(
-                "مقدار TON را درست وارد کن."
-            );
-
-            return;
-        }
-
-
-        /*
-           موجودی کافی نیست
-        */
-
-        if(amount > balance){
-
-            alert(
-                "TON کافی نداری؛ مقدار کمتری وارد کن و دور بعد دوباره امتحان کن."
-            );
-
-            return;
-        }
-
-
-        /*
-           اگر قبلاً مقداری ثبت شده بود،
-           اول برگردان.
-        */
-
-        if(joinedAmount > 0){
-
-            balance +=
-                joinedAmount;
-
-        }
-
-
-        balance -= amount;
-
-        joinedAmount =
-            amount;
-
-
-        saveBalance();
-
-
-        entryText.textContent =
-            `ورود: ${amount} TON`;
-
-
-        renderPlayers();
-
-    }
-);
-
-
-/* RESET */
-
-function resetEntry(){
+function resetBet(){
 
     /*
-       در این نسخه بعد از پایان دور،
-       مقدار ورود دوباره به موجودی برمی‌گردد
-       چون سیستم پرداخت/برداشت واقعی نیست.
+       If player did not withdraw before crash,
+       the original amount is returned.
+       No real-money payout exists.
     */
 
-    if(joinedAmount > 0){
+    if(hasBet){
 
-        balance +=
-            joinedAmount;
-
-        joinedAmount = 0;
-
-        saveBalance();
+        balance += joinedAmount;
 
     }
 
+    joinedAmount = 0;
 
-    entryText.textContent =
-        "بدون ورود";
+    hasBet = false;
+
+    amountInput.disabled = false;
+
+    amountInput.value = "";
+
+    startBtn.textContent = "START";
+
+    startBtn.classList.remove("withdraw-btn");
+
+    startBtn.classList.add("start-btn");
+
+    updateBalance();
+
+    renderPlayers();
 
 }
 
 
-/* MOVE JET */
+/* =========================
+   JET POSITION
+========================= */
 
-function animateJet(){
+function resetJet(){
 
-    const game =
-        document.getElementById("game");
+    jet.style.left = "35px";
+    jet.style.bottom = "35px";
 
-    const width =
-        game.clientWidth;
+}
 
-    const height =
-        game.clientHeight;
 
-    const maxX =
-        width - 150;
-
-    const maxY =
-        height - 125;
-
+function updateJet(){
 
     const progress =
         Math.min(
             1,
-            Math.max(
-                0,
-                (multiplier - 1) /
-                Math.max(
-                    .5,
-                    crashPoint - 1
-                )
-            )
+            (multiplier - 1) /
+            Math.max(1, crashPoint - 1)
         );
 
-
     const x =
-        20 +
-        progress * maxX;
+        35 + progress * 700;
 
     const y =
-        height -
-        60 -
-        progress * maxY;
+        35 + progress * 300;
 
+    jet.style.left = x + "px";
 
-    jetEl.style.left =
-        x + "px";
-
-    jetEl.style.bottom =
-        (
-            height -
-            y -
-            50
-        ) + "px";
+    jet.style.bottom = y + "px";
 
 }
 
 
-/* START ROUND */
+/* =========================
+   START ROUND
+========================= */
 
 function startRound(){
 
-    running = true;
+    clearInterval(roundTimer);
+
+    phase = "waiting";
 
     multiplier = 1;
 
-    crashPoint =
-        generateCrash();
+    crashPoint = generateCrashPoint();
 
+    resetJet();
+
+    multiplierEl.textContent =
+        "1.00x";
+
+    statusEl.textContent =
+        "BETTING OPEN";
 
     createPlayers();
 
-    renderPlayers();
 
+    /*
+       5 seconds for betting.
+    */
 
-    explosionEl.classList.remove(
-        "show"
-    );
+    let wait = 5;
 
-    countdownEl.classList.remove(
-        "show"
-    );
+    bettingBtn.disabled = false;
 
+    betMessage.textContent =
+        "Betting is open.";
 
-    jetEl.style.display =
-        "block";
+    const waitTimer =
+        setInterval(() => {
 
-    jetEl.style.left =
-        "20px";
+            wait--;
 
-    jetEl.style.bottom =
-        "18px";
+            if(wait <= 0){
 
+                clearInterval(waitTimer);
 
-    statusEl.textContent =
-        "در حال پرواز...";
+                beginFlight();
 
-    roundInfo.textContent =
-        "دور در حال اجرا";
+            }
 
-
-    joinBtn.disabled =
-        true;
-
-
-    const start =
-        performance.now();
-
-
-    function frame(now){
-
-        if(!running){
-            return;
-        }
-
-
-        const elapsed =
-            (now - start) / 1000;
-
-
-        multiplier =
-            Math.pow(
-                1.115,
-                elapsed
-            );
-
-
-        multiplier =
-            Math.max(
-                1,
-                multiplier
-            );
-
-
-        /*
-           همین یک ضریب
-           وسط صفحه برای همه
-        */
-
-        multiplierEl.textContent =
-            multiplier.toFixed(2) +
-            "x";
-
-
-        animateJet();
-
-        updateFakePlayers();
-
-
-        if(
-            multiplier >=
-            crashPoint
-        ){
-
-            crash();
-
-            return;
-
-        }
-
-
-        animationFrame =
-            requestAnimationFrame(
-                frame
-            );
-
-    }
-
-
-    animationFrame =
-        requestAnimationFrame(
-            frame
-        );
+        },1000);
 
 }
 
 
-/* CRASH */
+/* =========================
+   FLIGHT
+========================= */
+
+function beginFlight(){
+
+    phase = "running";
+
+    statusEl.textContent =
+        "FLYING";
+
+    bettingBtn.disabled = true;
+
+    betPanel.classList.remove("active");
+
+    let speed = 0.012;
+
+    roundTimer = setInterval(() => {
+
+        multiplier += speed;
+
+        speed += 0.00025;
+
+        multiplierEl.textContent =
+            multiplier.toFixed(2) + "x";
+
+        updatePlayerValues();
+
+        updateJet();
+
+
+        if(multiplier >= crashPoint){
+
+            crash();
+
+        }
+
+    },50);
+
+}
+
+
+/* =========================
+   CRASH
+========================= */
 
 function crash(){
 
-    running = false;
+    clearInterval(roundTimer);
 
-
-    if(animationFrame){
-
-        cancelAnimationFrame(
-            animationFrame
-        );
-
-    }
-
-
-    multiplierEl.textContent =
-        crashPoint.toFixed(2) +
-        "x";
-
+    phase = "crashed";
 
     statusEl.textContent =
         "CRASH";
 
+    explosion.classList.remove("active");
 
-    const rect =
-        jetEl.getBoundingClientRect();
+    void explosion.offsetWidth;
 
-    const gameRect =
-        document
-        .getElementById("game")
-        .getBoundingClientRect();
+    explosion.classList.add("active");
 
 
-    explosionEl.style.left =
-        (
-            rect.left -
-            gameRect.left +
-            rect.width / 2
-        ) + "px";
+    setTimeout(() => {
 
+        startCountdown();
 
-    explosionEl.style.top =
-        (
-            rect.top -
-            gameRect.top +
-            rect.height / 2
-        ) + "px";
-
-
-    explosionEl.classList.remove(
-        "show"
-    );
-
-
-    void explosionEl.offsetWidth;
-
-
-    explosionEl.classList.add(
-        "show"
-    );
-
-
-    jetEl.style.display =
-        "none";
-
-
-    joinBtn.disabled =
-        true;
-
-
-    /*
-       شمارنده 10 تا 1
-    */
-
-    setTimeout(
-        () => {
-
-            startCountdown();
-
-        },
-        900
-    );
+    },800);
 
 }
 
 
-/* COUNTDOWN */
+/* =========================
+   COUNTDOWN 10 → 1
+========================= */
 
 function startCountdown(){
 
+    countdown.style.display =
+        "flex";
+
     let number = 10;
 
-
-    countdownEl.textContent =
+    countdownNumber.textContent =
         number;
 
 
-    countdownEl.classList.add(
-        "show"
-    );
+    countdownTimer =
+        setInterval(() => {
 
+            number--;
 
-    const timer =
-        setInterval(
-            () => {
+            if(number >= 1){
 
-                number--;
+                countdownNumber.textContent =
+                    number;
 
+                countdownNumber.style.animation =
+                    "none";
 
-                if(number <= 0){
+                void countdownNumber.offsetWidth;
 
-                    clearInterval(timer);
+                countdownNumber.style.animation =
+                    "countPop .8s ease";
 
+            }
+            else{
 
-                    countdownEl.classList.remove(
-                        "show"
-                    );
+                clearInterval(countdownTimer);
 
-
-                    resetEntry();
-
-
-                    multiplierEl.textContent =
-                        "1.00x";
-
-
-                    statusEl.textContent =
-                        "در انتظار شروع...";
-
-
-                    roundInfo.textContent =
-                        "دور جدید شروع شد";
-
-
-                    joinBtn.disabled =
-                        false;
-
-
-                    /*
-                       دور جدید
-                    */
-
-                    setTimeout(
-                        () => {
-
-                            startRound();
-
-                        },
-                        250
-                    );
-
-
-                    return;
-                }
-
-
-                countdownEl.classList.remove(
-                    "show"
-                );
+                countdown.style.display =
+                    "none";
 
 
                 /*
-                   اجازه می‌دهیم انیمیشن
-                   دوباره اجرا شود.
+                   Return old bet if it wasn't withdrawn.
                 */
 
-                void countdownEl.offsetWidth;
+                resetBet();
 
+                /*
+                   New round
+                */
 
-                countdownEl.textContent =
-                    number;
+                startRound();
 
+            }
 
-                countdownEl.classList.add(
-                    "show"
-                );
-
-            },
-            1000
-        );
+        },1000);
 
 }
 
 
-/* INIT */
-
-saveBalance();
-
-createPlayers();
+/* =========================
+   INITIAL
+========================= */
 
 renderPlayers();
 
-
-/*
-   شروع خودکار
-*/
-
-setTimeout(
-    () => {
-
-        startRound();
-
-    },
-    1200
-);
+startRound();
 
 </script>
 
