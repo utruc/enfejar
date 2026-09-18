@@ -12,25 +12,41 @@
     padding:0;
 }
 
+:root{
+    --bg:#030811;
+    --panel:#071321;
+    --panel2:#0a1929;
+    --blue:#1c9bea;
+    --blue2:#1471c8;
+    --text:#ffffff;
+    --muted:#8292a5;
+}
+
 body{
     font-family:Arial,Tahoma,sans-serif;
     background:
-        radial-gradient(circle at 50% 20%,#142b52 0%,#071426 42%,#02060d 100%);
-    color:#fff;
+        radial-gradient(
+            circle at 50% 10%,
+            #123052 0%,
+            #071524 38%,
+            #02060c 100%
+        );
+    color:var(--text);
     min-height:100vh;
     overflow-x:hidden;
 }
 
 .app{
     width:100%;
-    max-width:1050px;
+    max-width:1080px;
     margin:auto;
-    padding:14px;
+    padding:12px;
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
+
 .header{
-    height:64px;
+    height:65px;
     display:flex;
     align-items:center;
     justify-content:space-between;
@@ -38,255 +54,486 @@ body{
 }
 
 .logo{
-    font-size:25px;
-    font-weight:900;
+    font-size:26px;
+    font-weight:950;
     letter-spacing:2px;
+    direction:ltr;
 }
 
 .mode{
+    position:absolute;
+    left:18px;
+    top:18px;
+
     direction:ltr;
     font-size:13px;
     font-weight:900;
     letter-spacing:2px;
-    background:rgba(255,255,255,.07);
-    border:1px solid rgba(255,255,255,.1);
+
+    background:rgba(255,255,255,.065);
+    border:1px solid rgba(255,255,255,.09);
+
     padding:9px 14px;
-    border-radius:12px;
+    border-radius:11px;
 }
 
-/* BALANCE */
+/* ================= COIN ================= */
+
 .balance{
     display:flex;
     align-items:center;
-    gap:9px;
+    gap:8px;
     direction:ltr;
 }
 
 .balance-number{
     font-size:23px;
-    font-weight:900;
+    font-weight:950;
+    line-height:1;
 }
 
 .coin{
-    width:31px;
-    height:31px;
-    border-radius:50%;
-    background:linear-gradient(145deg,#48d7ff,#1684db);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:13px;
-    font-weight:900;
-    box-shadow:0 0 18px rgba(40,180,255,.35);
+    width:32px;
+    height:32px;
+    flex:none;
+
+    filter:
+        drop-shadow(0 0 8px rgba(33,190,255,.28));
 }
 
-/* GAME */
+.coin svg{
+    width:100%;
+    height:100%;
+    display:block;
+}
+
+/* ================= GAME ================= */
+
 .game{
     position:relative;
     height:450px;
     overflow:hidden;
-    border-radius:22px;
+
+    border-radius:23px;
+
     background:
         linear-gradient(
-            to bottom,
-            rgba(20,43,72,.72),
-            rgba(3,10,19,.95)
+            180deg,
+            rgba(16,38,63,.78),
+            rgba(2,9,17,.97)
         );
+
     border:1px solid rgba(255,255,255,.08);
+
     box-shadow:
-        0 20px 70px rgba(0,0,0,.35),
-        inset 0 0 80px rgba(0,0,0,.35);
+        0 25px 70px rgba(0,0,0,.4),
+        inset 0 0 100px rgba(0,0,0,.3);
 }
 
-/* GRID */
 .game::before{
     content:"";
     position:absolute;
     inset:0;
+
     background-image:
-        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+        linear-gradient(
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        );
+
     background-size:45px 45px;
+
     pointer-events:none;
 }
 
-/* MULTIPLIER */
+.game::after{
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    height:150px;
+
+    background:
+        linear-gradient(
+            transparent,
+            rgba(0,0,0,.35)
+        );
+
+    pointer-events:none;
+}
+
+/* ================= MULTIPLIER ================= */
+
 .multiplier{
     position:absolute;
-    top:25px;
+    z-index:30;
+
+    top:24px;
     left:50%;
+
     transform:translateX(-50%);
-    font-size:54px;
-    font-weight:900;
+
+    font-size:55px;
+    font-weight:950;
+
     direction:ltr;
-    z-index:10;
-    text-shadow:0 5px 25px rgba(0,0,0,.6);
+
+    text-shadow:
+        0 5px 25px rgba(0,0,0,.7);
 }
 
 .status{
     position:absolute;
+    z-index:30;
+
     top:91px;
     left:50%;
+
     transform:translateX(-50%);
-    color:#9eacbb;
+
+    color:#9aaaba;
+
     font-size:14px;
-    z-index:10;
 }
 
-/* JET */
+/* ================= JET ================= */
+
+/*
+   جنگنده کاملاً خیالی و مخصوص بازی
+*/
+
 .jet{
     position:absolute;
-    width:105px;
-    height:44px;
-    left:18px;
-    bottom:25px;
-    z-index:5;
+
+    width:128px;
+    height:72px;
+
+    left:20px;
+    bottom:18px;
+
+    z-index:15;
+
     transform-origin:center;
     transition:none;
 }
 
 .jet-body{
     position:absolute;
-    width:75px;
+
+    left:28px;
+    top:29px;
+
+    width:82px;
     height:17px;
-    background:linear-gradient(180deg,#dfe7ed,#667482);
-    border-radius:70% 15% 15% 70%;
-    left:15px;
-    top:14px;
-    transform:skewX(-10deg);
+
+    background:
+        linear-gradient(
+            180deg,
+            #e8eef3 0%,
+            #9ba8b3 45%,
+            #4f5c68 100%
+        );
+
+    border-radius:
+        65% 15% 15% 65%;
+
+    transform:skewX(-12deg);
+
+    box-shadow:
+        inset 0 2px 3px rgba(255,255,255,.5),
+        0 5px 8px rgba(0,0,0,.4);
 }
 
 .jet-nose{
     position:absolute;
-    right:0;
+
+    right:4px;
+    top:29px;
+
+    width:35px;
+    height:17px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #e9eef2,
+            #75828d
+        );
+
+    clip-path:
+        polygon(
+            0 0,
+            100% 50%,
+            0 100%
+        );
+}
+
+.jet-wing-top{
+    position:absolute;
+
+    left:41px;
     top:14px;
-    width:28px;
-    height:17px;
-    background:#dce4ea;
-    clip-path:polygon(0 0,100% 50%,0 100%);
+
+    width:70px;
+    height:32px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #9ba8b3,
+            #4d5965
+        );
+
+    clip-path:
+        polygon(
+            0 100%,
+            100% 0,
+            62% 100%
+        );
 }
 
-.jet-wing{
+.jet-wing-bottom{
     position:absolute;
-    width:54px;
-    height:18px;
-    background:#758493;
-    left:29px;
-    top:4px;
-    clip-path:polygon(0 100%,100% 0,65% 100%);
-}
 
-.jet-wing2{
-    position:absolute;
-    width:48px;
-    height:17px;
-    background:#536170;
-    left:27px;
-    bottom:2px;
-    clip-path:polygon(0 0,100% 100%,55% 100%);
+    left:39px;
+    top:39px;
+
+    width:66px;
+    height:28px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #66737f,
+            #3b4651
+        );
+
+    clip-path:
+        polygon(
+            0 0,
+            100% 100%,
+            58% 100%
+        );
 }
 
 .jet-tail{
     position:absolute;
-    width:19px;
-    height:27px;
-    background:#687684;
-    left:19px;
-    top:3px;
-    clip-path:polygon(0 100%,55% 0,100% 100%);
+
+    left:27px;
+    top:12px;
+
+    width:25px;
+    height:38px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7c8994,
+            #414c57
+        );
+
+    clip-path:
+        polygon(
+            0 100%,
+            50% 0,
+            100% 100%
+        );
+}
+
+.jet-tail2{
+    position:absolute;
+
+    left:20px;
+    top:31px;
+
+    width:25px;
+    height:13px;
+
+    background:#424e59;
+
+    clip-path:
+        polygon(
+            0 50%,
+            100% 0,
+            100% 100%
+        );
 }
 
 .jet-window{
     position:absolute;
-    width:18px;
+
+    left:68px;
+    top:30px;
+
+    width:22px;
     height:8px;
-    background:#132b42;
-    border-radius:50%;
-    left:47px;
-    top:15px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #091b2d,
+            #245d82
+        );
+
+    border-radius:70%;
+
     transform:skewX(-15deg);
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.35);
+}
+
+.jet-detail{
+    position:absolute;
+
+    left:53px;
+    top:40px;
+
+    width:25px;
+    height:3px;
+
+    background:#26333f;
+
+    border-radius:10px;
 }
 
 .flame{
     position:absolute;
-    left:0;
-    top:18px;
-    width:24px;
-    height:11px;
-    background:linear-gradient(90deg,#ffb300,#ff5b00,transparent);
-    clip-path:polygon(0 50%,100% 0,75% 50%,100% 100%);
+
+    left:3px;
+    top:33px;
+
+    width:34px;
+    height:13px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffbd00,
+            #ff5a00,
+            transparent
+        );
+
+    clip-path:
+        polygon(
+            0 50%,
+            100% 0,
+            72% 50%,
+            100% 100%
+        );
+
     animation:flame .08s infinite alternate;
 }
 
 @keyframes flame{
-    from{transform:scaleX(.7)}
-    to{transform:scaleX(1.15)}
+    from{
+        transform:scaleX(.72);
+    }
+    to{
+        transform:scaleX(1.18);
+    }
 }
 
-/* EXPLOSION */
+/* ================= EXPLOSION ================= */
+
 .explosion{
     position:absolute;
+
+    width:135px;
+    height:135px;
+
     display:none;
-    width:130px;
-    height:130px;
-    z-index:20;
+
+    z-index:40;
+
     transform:translate(-50%,-50%);
 }
 
 .explosion.show{
     display:block;
-    animation:explode .8s forwards;
+    animation:explode .85s forwards;
 }
 
 .explosion::before{
     content:"";
+
     position:absolute;
     inset:15px;
+
     border-radius:50%;
+
     background:
-        radial-gradient(circle,
-        #fff 0 7%,
-        #ffe600 8% 23%,
-        #ff7b00 24% 48%,
-        #ef2700 49% 66%,
-        transparent 67%);
-    filter:blur(1px);
+        radial-gradient(
+            circle,
+            #ffffff 0 7%,
+            #fff000 8% 22%,
+            #ff8200 23% 47%,
+            #f32d00 48% 65%,
+            transparent 66%
+        );
 }
 
 .explosion::after{
     content:"";
+
     position:absolute;
-    inset:-30px;
+
+    inset:-35px;
+
     border-radius:50%;
+
     background:
-        radial-gradient(circle,
-        transparent 30%,
-        rgba(255,120,0,.45) 31%,
-        transparent 55%);
+        radial-gradient(
+            circle,
+            transparent 28%,
+            rgba(255,120,0,.5) 29%,
+            transparent 55%
+        );
 }
 
 @keyframes explode{
     0%{
         opacity:1;
-        transform:translate(-50%,-50%) scale(.3);
+        transform:
+            translate(-50%,-50%)
+            scale(.25);
     }
+
     45%{
         opacity:1;
-        transform:translate(-50%,-50%) scale(1.1);
+        transform:
+            translate(-50%,-50%)
+            scale(1.1);
     }
+
     100%{
         opacity:0;
-        transform:translate(-50%,-50%) scale(1.5);
+        transform:
+            translate(-50%,-50%)
+            scale(1.55);
     }
 }
 
-/* CONTROLS */
+/* ================= CONTROLS ================= */
+
 .controls{
     margin-top:12px;
+
     padding:13px;
+
     border-radius:18px;
+
     background:rgba(255,255,255,.045);
-    border:1px solid rgba(255,255,255,.07);
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
 }
 
 .control-row{
@@ -296,19 +543,28 @@ body{
 
 .amount-box{
     flex:1;
-    min-width:0;
 }
 
 .amount-box input{
     width:100%;
-    height:48px;
-    border:1px solid rgba(255,255,255,.1);
+    height:49px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
     border-radius:13px;
+
     background:#081321;
-    color:#fff;
+
+    color:white;
+
     outline:none;
+
     padding:0 14px;
+
     font-size:17px;
+
     direction:ltr;
 }
 
@@ -317,14 +573,27 @@ body{
 }
 
 .join{
-    height:48px;
+    height:49px;
+
     border:0;
+
     border-radius:13px;
-    padding:0 22px;
-    background:linear-gradient(135deg,#1689d8,#1764c0);
+
+    padding:0 23px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #168bd9,
+            #175fb7
+        );
+
     color:white;
+
     font-weight:900;
+
     cursor:pointer;
+
     white-space:nowrap;
 }
 
@@ -340,38 +609,60 @@ body{
 .info{
     display:flex;
     justify-content:space-between;
+
     align-items:center;
+
     margin-top:10px;
-    color:#8999aa;
+
+    color:#8393a5;
+
     font-size:12px;
 }
 
 .your-entry{
-    color:#55c9ff;
+    color:#4fc5ff;
 }
 
-/* PLAYERS */
+/* ================= PLAYERS ================= */
+
 .players{
     margin-top:12px;
+
     border-radius:18px;
+
     overflow:hidden;
+
     background:rgba(255,255,255,.035);
-    border:1px solid rgba(255,255,255,.07);
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
 }
 
 .players-head{
     padding:14px;
+
     font-weight:900;
-    border-bottom:1px solid rgba(255,255,255,.07);
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.07);
 }
 
 .player{
-    height:52px;
+    height:55px;
+
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
+
     padding:0 14px;
-    border-bottom:1px solid rgba(255,255,255,.045);
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.045);
 }
 
 .player:last-child{
@@ -385,57 +676,64 @@ body{
 }
 
 .avatar{
-    width:31px;
-    height:31px;
+    width:32px;
+    height:32px;
+
     border-radius:50%;
-    background:linear-gradient(135deg,#263e5b,#101b29);
+
+    background:
+        linear-gradient(
+            135deg,
+            #263f5c,
+            #101b29
+        );
+
     display:flex;
+
     align-items:center;
     justify-content:center;
-    font-size:12px;
+
+    font-size:11px;
+
     font-weight:900;
 }
 
 .me .avatar{
-    background:linear-gradient(135deg,#168bd8,#1b4d9a);
+    background:
+        linear-gradient(
+            135deg,
+            #168bd8,
+            #194d98
+        );
 }
 
 .amount{
     direction:ltr;
+
     display:flex;
+
     align-items:center;
+
     gap:6px;
-    font-weight:800;
+
+    font-weight:850;
 }
 
 .mini-coin{
-    width:19px;
-    height:19px;
-    border-radius:50%;
-    background:#25aee7;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:8px;
+    width:20px;
+    height:20px;
 }
 
-/* MOBILE */
+/* ================= MOBILE ================= */
+
 @media(max-width:600px){
 
     .app{
         padding:9px;
     }
 
-    .game{
-        height:390px;
-    }
-
-    .multiplier{
-        font-size:43px;
-    }
-
     .header{
-        height:55px;
+        height:58px;
     }
 
     .logo{
@@ -443,12 +741,27 @@ body{
     }
 
     .balance-number{
-        font-size:19px;
+        font-size:20px;
     }
 
     .coin{
-        width:27px;
-        height:27px;
+        width:28px;
+        height:28px;
+    }
+
+    .mode{
+        left:12px;
+        top:12px;
+        font-size:11px;
+        padding:8px 11px;
+    }
+
+    .game{
+        height:390px;
+    }
+
+    .multiplier{
+        font-size:44px;
     }
 
     .control-row{
@@ -466,48 +779,211 @@ body{
 
 <div class="app">
 
+    <!-- HEADER -->
     <header class="header">
 
-        <div class="logo">UTRUX</div>
-
-        <div class="balance">
-            <span class="balance-number" id="balance">100</span>
-            <div class="coin">G</div>
+        <div class="logo">
+            UTRUX
         </div>
 
-        <div class="mode">CRASH</div>
+        <div class="balance">
+
+            <span
+                class="balance-number"
+                id="balance"
+            >
+                100
+            </span>
+
+            <!-- TON / GRAM COIN ICON -->
+            <div class="coin">
+
+                <svg
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+
+                    <defs>
+
+                        <linearGradient
+                            id="coinGradient"
+                            x1="0"
+                            y1="0"
+                            x2="1"
+                            y2="1"
+                        >
+                            <stop
+                                offset="0"
+                                stop-color="#78e7ff"
+                            />
+
+                            <stop
+                                offset=".45"
+                                stop-color="#24aee8"
+                            />
+
+                            <stop
+                                offset="1"
+                                stop-color="#0870b9"
+                            />
+                        </linearGradient>
+
+                        <linearGradient
+                            id="shine"
+                            x1="0"
+                            y1="0"
+                            x2="1"
+                            y2="1"
+                        >
+                            <stop
+                                offset="0"
+                                stop-color="#ffffff"
+                                stop-opacity=".7"
+                            />
+
+                            <stop
+                                offset=".5"
+                                stop-color="#ffffff"
+                                stop-opacity="0"
+                            />
+                        </linearGradient>
+
+                    </defs>
+
+                    <circle
+                        cx="50"
+                        cy="50"
+                        r="46"
+                        fill="#064c80"
+                    />
+
+                    <circle
+                        cx="50"
+                        cy="47"
+                        r="42"
+                        fill="url(#coinGradient)"
+                    />
+
+                    <circle
+                        cx="50"
+                        cy="47"
+                        r="35"
+                        fill="none"
+                        stroke="#b8f3ff"
+                        stroke-opacity=".35"
+                        stroke-width="2"
+                    />
+
+                    <!-- stylized TON symbol -->
+                    <path
+                        d="
+                        M31 29
+                        H69
+                        L61 44
+                        L50 67
+                        L39 44
+                        Z
+                        "
+                        fill="none"
+                        stroke="white"
+                        stroke-width="5"
+                        stroke-linejoin="round"
+                    />
+
+                    <path
+                        d="M31 29 L50 67 L69 29"
+                        fill="none"
+                        stroke="white"
+                        stroke-width="4"
+                        stroke-linejoin="round"
+                    />
+
+                    <ellipse
+                        cx="34"
+                        cy="24"
+                        rx="20"
+                        ry="9"
+                        fill="url(#shine)"
+                        opacity=".45"
+                        transform="rotate(-25 34 24)"
+                    />
+
+                </svg>
+
+            </div>
+
+        </div>
+
+        <div class="mode">
+            CRASH
+        </div>
 
     </header>
 
 
-    <main class="game" id="game">
+    <!-- GAME -->
+    <main
+        class="game"
+        id="game"
+    >
 
-        <div class="multiplier" id="multiplier">1.00x</div>
+        <div
+            class="multiplier"
+            id="multiplier"
+        >
+            1.00x
+        </div>
 
-        <div class="status" id="status">در انتظار شروع...</div>
+        <div
+            class="status"
+            id="status"
+        >
+            در انتظار شروع...
+        </div>
 
-        <div class="jet" id="jet">
+
+        <!-- FICTIONAL REALISTIC-STYLE FIGHTER -->
+        <div
+            class="jet"
+            id="jet"
+        >
 
             <div class="flame"></div>
-            <div class="jet-body"></div>
-            <div class="jet-nose"></div>
-            <div class="jet-wing"></div>
-            <div class="jet-wing2"></div>
+
             <div class="jet-tail"></div>
+
+            <div class="jet-tail2"></div>
+
+            <div class="jet-wing-top"></div>
+
+            <div class="jet-wing-bottom"></div>
+
+            <div class="jet-body"></div>
+
+            <div class="jet-nose"></div>
+
             <div class="jet-window"></div>
+
+            <div class="jet-detail"></div>
 
         </div>
 
-        <div class="explosion" id="explosion"></div>
+
+        <div
+            class="explosion"
+            id="explosion"
+        ></div>
 
     </main>
 
 
+    <!-- ENTRY -->
     <section class="controls">
 
         <div class="control-row">
 
             <div class="amount-box">
+
                 <input
                     id="amount"
                     type="number"
@@ -516,22 +992,37 @@ body{
                     value="10"
                     placeholder="مقدار"
                 >
+
             </div>
 
-            <button class="join" id="join">
+            <button
+                class="join"
+                id="join"
+            >
                 ورود به دور
             </button>
 
         </div>
 
         <div class="info">
-            <span id="roundInfo">دور بعدی به‌زودی</span>
-            <span class="your-entry" id="entryText">بدون ورود</span>
+
+            <span id="roundInfo">
+                دور بعدی به‌زودی
+            </span>
+
+            <span
+                class="your-entry"
+                id="entryText"
+            >
+                بدون ورود
+            </span>
+
         </div>
 
     </section>
 
 
+    <!-- PLAYERS -->
     <section class="players">
 
         <div class="players-head">
@@ -547,400 +1038,910 @@ body{
 
 <script>
 
-const balanceEl = document.getElementById("balance");
-const amountEl = document.getElementById("amount");
-const joinBtn = document.getElementById("join");
-const multiplierEl = document.getElementById("multiplier");
-const statusEl = document.getElementById("status");
-const jetEl = document.getElementById("jet");
-const explosionEl = document.getElementById("explosion");
-const playersList = document.getElementById("playersList");
-const entryText = document.getElementById("entryText");
-const roundInfo = document.getElementById("roundInfo");
+/* ================= ELEMENTS ================= */
 
-let balance = Number(localStorage.getItem("utruxBalance"));
+const balanceEl =
+    document.getElementById("balance");
 
-if(!Number.isFinite(balance)){
+const amountEl =
+    document.getElementById("amount");
+
+const joinBtn =
+    document.getElementById("join");
+
+const multiplierEl =
+    document.getElementById("multiplier");
+
+const statusEl =
+    document.getElementById("status");
+
+const jetEl =
+    document.getElementById("jet");
+
+const explosionEl =
+    document.getElementById("explosion");
+
+const playersList =
+    document.getElementById("playersList");
+
+const entryText =
+    document.getElementById("entryText");
+
+const roundInfo =
+    document.getElementById("roundInfo");
+
+
+/* ================= BALANCE ================= */
+
+/*
+   اگر کاربر اولین بار وارد شود:
+   100 TON دریافت می‌کند.
+*/
+
+let balance =
+    Number(
+        localStorage.getItem(
+            "utruxBalance"
+        )
+    );
+
+if(
+    !Number.isFinite(balance) ||
+    localStorage.getItem("utruxStarted") !== "yes"
+){
+
     balance = 100;
+
+    localStorage.setItem(
+        "utruxStarted",
+        "yes"
+    );
+
+    localStorage.setItem(
+        "utruxBalance",
+        "100"
+    );
 }
 
+
 let joinedAmount = 0;
+
 let running = false;
+
 let multiplier = 1;
+
 let crashPoint = 1.2;
+
 let animationFrame = null;
 
-const fakePlayers = [
-    ["ShadowX", 7],
-    ["Ali_Pro", 15],
-    ["DarkWolf", 4],
-    ["Nima", 22],
-    ["UTRUX_777", 9],
-    ["Armin", 31],
-    ["Ghost", 6]
+
+/* ================= RANDOM NAMES ================= */
+
+const namePool = [
+
+    "Shadow",
+    "DarkX",
+    "Ali",
+    "Armin",
+    "Nima",
+    "Ghost",
+    "Wolf",
+    "Dragon",
+    "Hunter",
+    "Phoenix",
+    "Neo",
+    "Titan",
+    "Viper",
+    "Storm",
+    "Rex",
+    "Night",
+    "Zero",
+    "Cyber",
+    "Max",
+    "Legend",
+    "Nova",
+    "Blaze",
+    "Alpha",
+    "Omega",
+    "Killer",
+    "Master",
+    "Sina",
+    "Amir",
+    "Reza",
+    "Sam"
+
 ];
 
 
-/* BALANCE */
+/* ================= SAVE ================= */
 
 function saveBalance(){
-    localStorage.setItem("utruxBalance", String(balance));
-    balanceEl.textContent = Math.floor(balance);
+
+    localStorage.setItem(
+        "utruxBalance",
+        String(balance)
+    );
+
+    balanceEl.textContent =
+        Math.floor(balance);
 }
 
 
-/* CRASH DISTRIBUTION */
+/* ================= RANDOM ================= */
+
+function randomNumber(min,max){
+
+    return Math.floor(
+        Math.random() *
+        (max - min + 1)
+    ) + min;
+}
+
+
+/* ================= NEW PLAYERS ================= */
+
+let currentPlayers = [];
+
+
+function createPlayers(){
+
+    const shuffled =
+        [...namePool]
+        .sort(
+            () => Math.random() - .5
+        );
+
+    currentPlayers = [];
+
+    for(let i=0;i<7;i++){
+
+        currentPlayers.push({
+
+            name:shuffled[i],
+
+            base:randomNumber(3,35),
+
+            current:0
+
+        });
+
+    }
+
+}
+
+
+/* ================= CRASH POINT ================= */
 
 function generateCrash(){
 
-    const r = Math.random();
+    const r =
+        Math.random();
 
-    if(r < 0.40){
-        return 1.00 + Math.random() * 0.30;
+    /*
+       40% → 1.00 - 1.30
+    */
+
+    if(r < .40){
+
+        return (
+            1.00 +
+            Math.random() * .30
+        );
+
     }
 
-    if(r < 0.75){
-        return 1.30 + Math.random() * 1.20;
+
+    /*
+       35% → 1.30 - 2.50
+    */
+
+    if(r < .75){
+
+        return (
+            1.30 +
+            Math.random() * 1.20
+        );
+
     }
 
-    if(r < 0.845){
-        return 2.50 + Math.random() * 2.50;
+
+    /*
+       9.5% → 2.50 - 5
+    */
+
+    if(r < .845){
+
+        return (
+            2.50 +
+            Math.random() * 2.50
+        );
+
     }
 
-    if(r < 0.945){
-        return 5.00 + Math.random() * 2.00;
+
+    /*
+       10% → 5 - 7
+    */
+
+    if(r < .945){
+
+        return (
+            5 +
+            Math.random() * 2
+        );
+
     }
 
-    /* حدود 0.5٪ برای 100x+ */
-    if(Math.random() < 0.091){
-        return 100 + Math.random() * 100;
+
+    /*
+       مقادیر بالاتر
+    */
+
+    if(
+        Math.random() < .091
+    ){
+
+        return (
+            100 +
+            Math.random() * 100
+        );
+
     }
 
-    return 7 + Math.random() * 18;
+    return (
+        7 +
+        Math.random() * 18
+    );
 }
 
 
-/* PLAYERS */
+/* ================= PLAYER LIST ================= */
 
 function renderPlayers(){
 
     let html = "";
 
-    if(joinedAmount > 0){
 
-        html += `
+    /*
+       USER
+    */
+
+    html += `
+
         <div class="player me">
 
             <div class="player-name">
-                <div class="avatar">U</div>
-                <span>شما</span>
-            </div>
 
-            <div class="amount">
-                ${joinedAmount}
-                <span class="mini-coin">G</span>
-            </div>
-
-        </div>
-        `;
-
-    }else{
-
-        html += `
-        <div class="player me">
-
-            <div class="player-name">
-                <div class="avatar">U</div>
-                <span>شما</span>
-            </div>
-
-            <div class="amount">
-                —
-            </div>
-
-        </div>
-        `;
-
-    }
-
-
-    fakePlayers.forEach(player => {
-
-        html += `
-        <div class="player">
-
-            <div class="player-name">
                 <div class="avatar">
-                    ${player[0].charAt(0).toUpperCase()}
+                    U
                 </div>
 
-                <span>${player[0]}</span>
+                <span>
+                    شما
+                </span>
+
             </div>
 
-            <div class="amount">
-                ${player[1]}
-                <span class="mini-coin">G</span>
+            <div
+                class="amount"
+                id="myAmount"
+            >
+
+                ${joinedAmount > 0
+                    ? joinedAmount.toFixed(2)
+                    : "—"
+                }
+
+                <svg
+                    class="mini-coin"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+
+                    <circle
+                        cx="50"
+                        cy="50"
+                        r="44"
+                        fill="#20aee8"
+                    />
+
+                    <path
+                        d="M31 29H69L61 44L50 67L39 44Z"
+                        fill="none"
+                        stroke="white"
+                        stroke-width="6"
+                    />
+
+                </svg>
+
             </div>
 
         </div>
-        `;
 
-    });
+    `;
 
-    playersList.innerHTML = html;
+
+    /*
+       FAKE PLAYERS
+    */
+
+    currentPlayers.forEach(
+        (player,index) => {
+
+            html += `
+
+            <div
+                class="player"
+                data-player="${index}"
+            >
+
+                <div class="player-name">
+
+                    <div class="avatar">
+
+                        ${player.name
+                            .charAt(0)
+                            .toUpperCase()
+                        }
+
+                    </div>
+
+                    <span>
+                        ${player.name}
+                    </span>
+
+                </div>
+
+                <div
+                    class="amount player-amount"
+                    id="playerAmount${index}"
+                >
+
+                    ${player.base.toFixed(2)}
+
+                    <svg
+                        class="mini-coin"
+                        viewBox="0 0 100 100"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+
+                        <circle
+                            cx="50"
+                            cy="50"
+                            r="44"
+                            fill="#20aee8"
+                        />
+
+                        <path
+                            d="M31 29H69L61 44L50 67L39 44Z"
+                            fill="none"
+                            stroke="white"
+                            stroke-width="6"
+                        />
+
+                    </svg>
+
+                </div>
+
+            </div>
+
+            `;
+
+        }
+    );
+
+
+    playersList.innerHTML =
+        html;
+
 }
 
 
-/* JOIN */
+/* ================= UPDATE PLAYERS ================= */
 
-joinBtn.addEventListener("click", () => {
+function updatePlayerValues(){
 
-    if(running){
+    currentPlayers.forEach(
+        (player,index) => {
 
-        alert("این دور شروع شده؛ برای دور بعد وارد شوید.");
-        return;
+            /*
+              رشد نمایشی همراه ضریب
+            */
 
-    }
+            const value =
+                player.base *
+                multiplier;
 
-    const amount = Number(amountEl.value);
+            player.current =
+                value;
 
-    if(!Number.isFinite(amount) || amount <= 0){
+            const element =
+                document.getElementById(
+                    "playerAmount" + index
+                );
 
-        alert("یک مقدار معتبر وارد کن.");
-        return;
+            if(element){
 
-    }
+                const coin =
+                    element.querySelector(
+                        ".mini-coin"
+                    );
 
-    if(amount > balance){
+                element.textContent =
+                    value.toFixed(2);
 
-        alert("موجودی کافی نیست.");
-        return;
+                if(coin){
 
-    }
+                    element.appendChild(
+                        coin
+                    );
+
+                }
+
+            }
+
+        }
+    );
+
 
     /*
-      فقط مقدار نمایشی/امتیازی دور را ثبت می‌کنیم.
-      هیچ پرداخت یا برداشت واقعی وجود ندارد.
+       مقدار بازیکن خودمان
+       فقط مقدار نمایش داده‌شده
     */
 
-    if(joinedAmount > 0){
+    const myAmount =
+        document.getElementById(
+            "myAmount"
+        );
 
-        balance += joinedAmount;
+    if(
+        myAmount &&
+        joinedAmount > 0
+    ){
+
+        const coin =
+            myAmount.querySelector(
+                ".mini-coin"
+            );
+
+        myAmount.textContent =
+            (
+                joinedAmount *
+                multiplier
+            ).toFixed(2);
+
+        if(coin){
+
+            myAmount.appendChild(
+                coin
+            );
+
+        }
 
     }
 
-    balance -= amount;
-    joinedAmount = amount;
-
-    saveBalance();
-
-    entryText.textContent = `ورود: ${amount} G`;
-
-    renderPlayers();
-
-});
+}
 
 
-/* RESET ENTRY AFTER ROUND */
+/* ================= JOIN ================= */
+
+joinBtn.addEventListener(
+    "click",
+    () => {
+
+        if(running){
+
+            alert(
+                "این دور شروع شده؛ برای دور بعد وارد شوید."
+            );
+
+            return;
+        }
+
+
+        const amount =
+            Number(
+                amountEl.value
+            );
+
+
+        if(
+            !Number.isFinite(amount) ||
+            amount <= 0
+        ){
+
+            alert(
+                "یک مقدار معتبر وارد کن."
+            );
+
+            return;
+        }
+
+
+        if(amount > balance){
+
+            alert(
+                "موجودی کافی نیست."
+            );
+
+            return;
+        }
+
+
+        /*
+           فقط ثبت مقدار نمایشی دور
+        */
+
+        if(joinedAmount > 0){
+
+            balance +=
+                joinedAmount;
+
+        }
+
+
+        balance -= amount;
+
+        joinedAmount =
+            amount;
+
+        saveBalance();
+
+
+        entryText.textContent =
+            `ورود: ${amount} TON`;
+
+
+        renderPlayers();
+
+    }
+);
+
+
+/* ================= RESET ================= */
 
 function resetEntry(){
 
     if(joinedAmount > 0){
 
-        balance += joinedAmount;
+        balance +=
+            joinedAmount;
+
         joinedAmount = 0;
 
         saveBalance();
 
     }
 
-    entryText.textContent = "بدون ورود";
-    renderPlayers();
+
+    entryText.textContent =
+        "بدون ورود";
 
 }
 
 
-/* MOVE JET */
+/* ================= JET ================= */
 
 function animateJet(){
 
-    const gameWidth = document.getElementById("game").clientWidth;
-    const gameHeight = document.getElementById("game").clientHeight;
+    const game =
+        document.getElementById(
+            "game"
+        );
 
-    const maxX = gameWidth - 120;
-    const maxY = gameHeight - 110;
+    const gameWidth =
+        game.clientWidth;
 
-    const progress = Math.min(
-        1,
-        Math.max(
-            0,
-            (multiplier - 1) / Math.max(.5, crashPoint - 1)
-        )
-    );
+    const gameHeight =
+        game.clientHeight;
 
-    const x = 18 + progress * maxX;
-    const y = gameHeight - 55 - progress * maxY;
 
-    jetEl.style.left = x + "px";
-    jetEl.style.bottom = (gameHeight - y - 45) + "px";
+    const maxX =
+        gameWidth - 145;
+
+    const maxY =
+        gameHeight - 120;
+
+
+    const progress =
+        Math.min(
+            1,
+            Math.max(
+                0,
+                (multiplier - 1) /
+                Math.max(
+                    .5,
+                    crashPoint - 1
+                )
+            )
+        );
+
+
+    const x =
+        20 +
+        progress * maxX;
+
+
+    const y =
+        gameHeight -
+        60 -
+        progress * maxY;
+
+
+    jetEl.style.left =
+        x + "px";
+
+
+    jetEl.style.bottom =
+        (
+            gameHeight -
+            y -
+            50
+        ) + "px";
 
 }
 
 
-/* START ROUND */
+/* ================= START ================= */
 
 function startRound(){
 
     running = true;
+
     multiplier = 1;
-    crashPoint = generateCrash();
 
-    explosionEl.classList.remove("show");
+    crashPoint =
+        generateCrash();
 
-    jetEl.style.left = "18px";
-    jetEl.style.bottom = "25px";
-    jetEl.style.display = "block";
 
-    statusEl.textContent = "در حال پرواز...";
-    roundInfo.textContent = "دور در حال اجرا";
+    createPlayers();
 
-    joinBtn.disabled = true;
+    renderPlayers();
 
-    const start = performance.now();
+
+    explosionEl.classList.remove(
+        "show"
+    );
+
+
+    jetEl.style.display =
+        "block";
+
+    jetEl.style.left =
+        "20px";
+
+    jetEl.style.bottom =
+        "18px";
+
+
+    statusEl.textContent =
+        "در حال پرواز...";
+
+
+    roundInfo.textContent =
+        "دور در حال اجرا";
+
+
+    joinBtn.disabled =
+        true;
+
+
+    const start =
+        performance.now();
+
 
     function frame(now){
 
         if(!running){
+
             return;
         }
 
-        const elapsed = (now - start) / 1000;
 
-        /*
-          رشد نرم ضریب
-        */
+        const elapsed =
+            (now - start) /
+            1000;
+
+
         multiplier =
-            Math.pow(1.115, elapsed);
+            Math.pow(
+                1.115,
+                elapsed
+            );
 
-        multiplier = Math.max(1, multiplier);
+
+        multiplier =
+            Math.max(
+                1,
+                multiplier
+            );
+
 
         multiplierEl.textContent =
-            multiplier.toFixed(2) + "x";
+            multiplier.toFixed(2) +
+            "x";
+
 
         animateJet();
 
-        if(multiplier >= crashPoint){
+        updatePlayerValues();
+
+
+        if(
+            multiplier >=
+            crashPoint
+        ){
 
             crash();
 
             return;
-
         }
 
+
         animationFrame =
-            requestAnimationFrame(frame);
+            requestAnimationFrame(
+                frame
+            );
 
     }
 
+
     animationFrame =
-        requestAnimationFrame(frame);
+        requestAnimationFrame(
+            frame
+        );
 
 }
 
 
-/* CRASH */
+/* ================= CRASH ================= */
 
 function crash(){
 
     running = false;
 
+
     if(animationFrame){
-        cancelAnimationFrame(animationFrame);
+
+        cancelAnimationFrame(
+            animationFrame
+        );
+
     }
 
+
     multiplierEl.textContent =
-        crashPoint.toFixed(2) + "x";
+        crashPoint.toFixed(2) +
+        "x";
 
-    statusEl.textContent = "CRASH";
-
-    const rect =
-        jetEl.getBoundingClientRect();
-
-    const gameRect =
-        document.getElementById("game").getBoundingClientRect();
-
-    explosionEl.style.left =
-        (rect.left - gameRect.left + rect.width / 2) + "px";
-
-    explosionEl.style.top =
-        (rect.top - gameRect.top + rect.height / 2) + "px";
-
-    explosionEl.classList.remove("show");
-
-    void explosionEl.offsetWidth;
-
-    explosionEl.classList.add("show");
-
-    jetEl.style.display = "none";
-
-    joinBtn.disabled = true;
-
-    let seconds = 10;
-
-    roundInfo.textContent =
-        `دور بعدی ${seconds} ثانیه دیگر`;
 
     statusEl.textContent =
         "CRASH";
 
 
-    const timer = setInterval(() => {
+    const rect =
+        jetEl.getBoundingClientRect();
 
-        seconds--;
 
-        if(seconds > 0){
+    const gameRect =
+        document
+        .getElementById("game")
+        .getBoundingClientRect();
 
-            roundInfo.textContent =
-                `دور بعدی ${seconds} ثانیه دیگر`;
 
-        }else{
+    explosionEl.style.left =
+        (
+            rect.left -
+            gameRect.left +
+            rect.width / 2
+        ) + "px";
 
-            clearInterval(timer);
 
-            resetEntry();
+    explosionEl.style.top =
+        (
+            rect.top -
+            gameRect.top +
+            rect.height / 2
+        ) + "px";
 
-            multiplierEl.textContent = "1.00x";
 
-            statusEl.textContent =
-                "در انتظار شروع...";
+    explosionEl.classList.remove(
+        "show"
+    );
 
-            roundInfo.textContent =
-                "دور جدید شروع شد";
 
-            joinBtn.disabled = false;
+    void explosionEl.offsetWidth;
 
-            startRound();
 
-        }
+    explosionEl.classList.add(
+        "show"
+    );
 
-    },1000);
+
+    jetEl.style.display =
+        "none";
+
+
+    joinBtn.disabled =
+        true;
+
+
+    let seconds = 10;
+
+
+    roundInfo.textContent =
+        `دور بعدی ${seconds} ثانیه دیگر`;
+
+
+    const timer =
+        setInterval(
+            () => {
+
+                seconds--;
+
+
+                if(seconds > 0){
+
+                    roundInfo.textContent =
+                        `دور بعدی ${seconds} ثانیه دیگر`;
+
+                }
+                else{
+
+                    clearInterval(timer);
+
+
+                    resetEntry();
+
+
+                    multiplierEl.textContent =
+                        "1.00x";
+
+
+                    statusEl.textContent =
+                        "در انتظار شروع...";
+
+
+                    roundInfo.textContent =
+                        "دور جدید شروع شد";
+
+
+                    joinBtn.disabled =
+                        false;
+
+
+                    startRound();
+
+                }
+
+            },
+            1000
+        );
 
 }
 
 
-/* INIT */
+/* ================= INITIAL ================= */
 
 saveBalance();
+
+createPlayers();
+
 renderPlayers();
 
+
 /*
-  شروع خودکار
+   شروع خودکار اولین دور
 */
-setTimeout(() => {
 
-    startRound();
+setTimeout(
+    () => {
 
-},1200);
+        startRound();
+
+    },
+    1200
+);
 
 </script>
 
