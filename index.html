@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#050b14">
+
 <title>UTRUX ROCKET</title>
 
 <style>
@@ -13,33 +15,52 @@
 }
 
 :root{
-    --blue:#268cff;
-    --blue2:#55adff;
-    --green:#20d486;
-    --green2:#55efa9;
-    --red:#ff4d64;
-    --red2:#ff7182;
-    --yellow:#ffc94d;
-    --bg:#030811;
-    --panel:#091522;
+    --bg:#030810;
+    --bg2:#07121e;
+    --panel:#0a1625;
     --line:rgba(255,255,255,.065);
-    --muted:#73859b;
+
+    --blue:#258cff;
+    --blue2:#58b0ff;
+
+    --green:#20d486;
+    --green2:#59eeaa;
+
+    --red:#ff4e67;
+    --red2:#ff7a89;
+
+    --yellow:#ffc94d;
+
+    --muted:#78899f;
+}
+
+html,
+body{
+    min-height:100%;
 }
 
 body{
     min-height:100vh;
+
     color:#fff;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
     background:
         radial-gradient(
-            circle at 50% -10%,
-            #183c69 0%,
-            transparent 43%
+            circle at 50% -15%,
+            #19416e 0%,
+            transparent 44%
         ),
         linear-gradient(
-            #050b14,
-            #02060c
+            180deg,
+            var(--bg2),
+            var(--bg)
         );
-    font-family:Arial,Helvetica,sans-serif;
+
     overflow-x:hidden;
 }
 
@@ -55,15 +76,21 @@ input{
 
 .header{
     height:64px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     padding:0 16px;
 
-    background:rgba(4,10,19,.93);
-    border-bottom:1px solid var(--line);
+    background:
+        rgba(3,9,17,.95);
 
-    backdrop-filter:blur(18px);
+    border-bottom:
+        1px solid var(--line);
+
+    backdrop-filter:
+        blur(18px);
 
     position:sticky;
     top:0;
@@ -81,19 +108,26 @@ input{
     align-items:center;
     gap:7px;
 
-    padding:7px 12px;
+    padding:
+        7px
+        12px;
 
-    border-radius:50px;
+    border-radius:999px;
 
     background:#0d1928;
-    border:1px solid rgba(255,255,255,.07);
 
+    border:
+        1px solid
+        rgba(255,255,255,.06);
+
+    font-size:15px;
     font-weight:900;
 }
 
 .coin{
-    width:22px;
-    height:22px;
+    width:23px;
+    height:23px;
+    flex:none;
 }
 
 
@@ -102,7 +136,7 @@ input{
 ===================================================== */
 
 .container{
-    width:min(100%,900px);
+    width:min(920px,100%);
     margin:auto;
     padding:12px;
 }
@@ -114,31 +148,42 @@ input{
 
 .game{
     position:relative;
+
+    width:100%;
     height:480px;
+
     overflow:hidden;
 
-    border-radius:23px;
-    border:1px solid rgba(255,255,255,.07);
+    border-radius:24px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
 
     background:
         radial-gradient(
-            circle at 50% 52%,
-            rgba(38,140,255,.20),
-            transparent 34%
+            circle at 50% 54%,
+            rgba(38,140,255,.19),
+            transparent 36%
         ),
         linear-gradient(
             180deg,
-            #08192d,
+            #081a2e,
             #040a12
         );
+
+    isolation:isolate;
 }
 
 
-/* stars */
+/* =====================================================
+   BACKGROUND
+===================================================== */
 
 .stars{
     position:absolute;
     inset:0;
+
     opacity:.21;
 
     background-image:
@@ -149,75 +194,101 @@ input{
         ),
         radial-gradient(
             circle,
-            #72baff 1px,
+            #61b6ff 1px,
             transparent 1px
         );
 
     background-size:
-        87px 91px,
-        143px 127px;
+        89px 93px,
+        145px 131px;
 
     background-position:
-        12px 22px,
-        45px 65px;
+        12px 18px,
+        42px 60px;
+
+    z-index:0;
 }
-
-
-/* grid */
 
 .grid{
     position:absolute;
 
     left:-20%;
     right:-20%;
+
     bottom:-125px;
 
-    height:330px;
+    height:340px;
 
     opacity:.13;
 
     transform:
-        perspective(380px)
+        perspective(390px)
         rotateX(58deg);
 
     background-image:
+
         linear-gradient(
-            rgba(38,140,255,.65) 1px,
+            rgba(38,140,255,.65)
+            1px,
             transparent 1px
         ),
+
         linear-gradient(
             90deg,
-            rgba(38,140,255,.65) 1px,
+            rgba(38,140,255,.65)
+            1px,
             transparent 1px
         );
 
     background-size:45px 45px;
+
+    z-index:1;
 }
 
 
 /* =====================================================
-   STATUS
+   TOP TEXT
 ===================================================== */
 
 .status{
     position:absolute;
+
     top:18px;
     left:50%;
 
-    transform:translateX(-50%);
+    transform:
+        translateX(-50%);
 
     color:var(--muted);
 
     font-size:11px;
     font-weight:900;
+
     letter-spacing:1.5px;
+
+    z-index:30;
+
+    white-space:nowrap;
+}
+
+.round-id{
+    position:absolute;
+
+    top:18px;
+    left:17px;
+
+    color:
+        rgba(255,255,255,.34);
+
+    font-size:10px;
+    font-weight:800;
 
     z-index:30;
 }
 
 
 /* =====================================================
-   MULTIPLIER
+   CENTER MULTIPLIER
 ===================================================== */
 
 .multiplier{
@@ -230,98 +301,116 @@ input{
         translate(-50%,-50%);
 
     font-size:76px;
+
     line-height:1;
 
     font-weight:900;
-    letter-spacing:-3px;
 
-    z-index:25;
+    letter-spacing:-3px;
 
     color:#fff;
 
-    text-shadow:
-        0 0 25px rgba(38,140,255,.25),
-        0 0 55px rgba(38,140,255,.15);
+    z-index:35;
 
-    transition:
-        color .15s;
+    user-select:none;
+
+    text-shadow:
+        0 0 25px
+        rgba(38,140,255,.24),
+
+        0 0 60px
+        rgba(38,140,255,.13);
 }
 
 .multiplier.crashed{
-    color:var(--red);
+    color:
+        var(--red);
 
     text-shadow:
-        0 0 25px rgba(255,77,100,.5),
-        0 0 60px rgba(255,77,100,.25);
+        0 0 30px
+        rgba(255,78,103,.55);
 }
 
 
 /* =====================================================
-   ROCKET CENTER
+   ROCKET
 ===================================================== */
 
 /*
-    خود کانتینر دقیقاً مرکز بازی است.
+   شروع:
+   پایین چپ
 
-    راکت از مرکز بیرون نمی‌رود.
-    اما با rotate و translate
-    طوری حرکت می‌کند که انگار
-    به سمت بالا-راست پرواز می‌کند.
+   پایان مسیر:
+   مرکز
+
+   در مرکز:
+   رو به بالا-راست و در حالت پرواز
 */
 
 .rocket-wrap{
-
     position:absolute;
 
     left:50%;
     top:50%;
 
-    width:115px;
-    height:115px;
+    width:124px;
+    height:124px;
 
-    z-index:22;
+    opacity:0;
 
-    transform:
-        translate(-50%,-50%);
+    z-index:24;
 
     pointer-events:none;
 
+    transform:
+        translate(-50%,-50%)
+        translate(-350px,185px);
+
     transition:
-        opacity .2s;
+        transform 1.8s
+        cubic-bezier(.16,.80,.22,1),
+
+        opacity .30s;
 }
 
 
-/*
-    مسیر ظاهری پرواز:
-    حرکت خیلی کوچک بالا-راست
-    و برگشت به مرکز.
-*/
+/* ورود به مرکز */
+
+.rocket-wrap.entering{
+
+    opacity:1;
+
+    transform:
+        translate(-50%,-50%)
+        translate(0,0);
+}
+
+
+/* در مرکز */
+
+.rocket-wrap.hovering{
+
+    opacity:1;
+}
+
+
+/* پرواز داخلی */
 
 .rocket-flight{
-
     position:absolute;
 
     inset:0;
-
-    animation:
-        flightMotion
-        .75s
-        ease-in-out
-        infinite;
-
 }
 
 
-/*
-    خود راکت
-    دماغه به سمت بالا-راست
-*/
+/* =====================================================
+   ROCKET BODY
+===================================================== */
 
 .rocket{
-
     position:absolute;
 
-    left:38px;
+    left:40px;
     top:22px;
 
     width:42px;
@@ -333,27 +422,37 @@ input{
         44%
         44%;
 
+    /*
+        جهت بالا-راست
+    */
+
     transform:
         rotate(35deg);
 
     background:
         linear-gradient(
             90deg,
-            #71879a 0%,
-            #edf6ff 35%,
-            #ffffff 53%,
-            #8a9eaf 100%
+            #70879b 0%,
+            #edf6ff 34%,
+            #fff 54%,
+            #8399aa 100%
         );
 
     box-shadow:
-        inset -6px 0 10px rgba(0,0,0,.2),
-        0 0 20px rgba(255,255,255,.13);
+        inset
+        -6px
+        0
+        10px
+        rgba(0,0,0,.2),
+
+        0
+        0
+        22px
+        rgba(255,255,255,.12);
 }
 
 
-/*
-    nose
-*/
+/* nose */
 
 .rocket::before{
 
@@ -361,84 +460,80 @@ input{
 
     position:absolute;
 
-    width:42px;
-    height:36px;
-
     left:0;
     top:-18px;
+
+    width:42px;
+    height:37px;
 
     border-radius:
         50%
         50%
-        20%
-        20%;
+        19%
+        19%;
 
     background:
         linear-gradient(
             90deg,
-            #91a5b7,
-            #ffffff 50%,
+            #91a6b7,
+            #fff 50%,
             #8195a7
         );
 }
 
 
-/*
-    پنجره
-*/
+/* window */
 
 .window{
 
     position:absolute;
 
-    width:17px;
-    height:17px;
-
     left:12px;
     top:21px;
+
+    width:17px;
+    height:17px;
 
     border-radius:50%;
 
     background:
         radial-gradient(
             circle at 35% 30%,
-            #e5f7ff,
-            #268fff 45%,
-            #064b91
+            #e7f8ff,
+            #268fff 44%,
+            #064c91
         );
 
     border:
-        3px solid #526a81;
+        3px solid
+        #526a81;
 
     box-shadow:
-        0 0 13px rgba(38,140,255,.9);
+        0 0 13px
+        rgba(38,140,255,.9);
 }
 
 
-/*
-    خط بدنه
-*/
+/* body line */
 
 .body-line{
 
     position:absolute;
 
-    width:4px;
-    height:57px;
-
     left:19px;
     top:17px;
+
+    width:4px;
+    height:57px;
 
     border-radius:10px;
 
     background:
-        rgba(80,110,135,.32);
+        rgba(78,109,134,.32);
 }
 
 
-/*
-    بال‌ها
-*/
+/* fins */
 
 .fin-left{
 
@@ -453,8 +548,8 @@ input{
     background:
         linear-gradient(
             135deg,
-            #3c566d,
-            #7890a5
+            #3b566d,
+            #7890a4
         );
 
     clip-path:
@@ -478,8 +573,8 @@ input{
     background:
         linear-gradient(
             225deg,
-            #3c566d,
-            #7890a5
+            #3b566d,
+            #7890a4
         );
 
     clip-path:
@@ -491,9 +586,7 @@ input{
 }
 
 
-/*
-    موتور
-*/
+/* engine */
 
 .engine{
 
@@ -512,24 +605,22 @@ input{
 }
 
 
-/*
-    شعله
-*/
+/* flame */
 
 .flame{
 
     position:absolute;
 
     left:8px;
-    bottom:-64px;
+    bottom:-65px;
 
     width:27px;
-    height:66px;
+    height:67px;
 
     background:
         linear-gradient(
             180deg,
-            #ffffff 0%,
+            #fff 0%,
             #ffe15a 20%,
             #ff9c21 52%,
             #ff3d5d 100%
@@ -547,7 +638,8 @@ input{
 
     filter:
         drop-shadow(
-            0 0 13px #ff7b28
+            0 0 13px
+            #ff7b28
         );
 
     animation:
@@ -557,35 +649,45 @@ input{
 }
 
 
-/*
-    حرکت ظاهری راکت
-*/
+/* =====================================================
+   CENTER HOVER
+===================================================== */
 
-@keyframes flightMotion{
+.rocket-wrap.hovering .rocket-flight{
+
+    animation:
+        rocketFloat
+        .72s
+        ease-in-out
+        infinite;
+}
+
+
+@keyframes rocketFloat{
 
     0%{
         transform:
-            translate(7px,7px);
+            translate(0,2px);
     }
 
     25%{
         transform:
-            translate(-2px,-6px);
+            translate(2px,-2px);
     }
 
     50%{
         transform:
-            translate(8px,-13px);
+            translate(1px,-6px);
     }
 
     75%{
         transform:
-            translate(-5px,-5px);
+            translate(-2px,-2px);
     }
 
     100%{
         transform:
-            translate(7px,7px);
+            translate(0,2px);
     }
 }
 
@@ -615,25 +717,27 @@ input{
     left:50%;
     top:50%;
 
-    width:200px;
-    height:200px;
+    width:210px;
+    height:210px;
 
     transform:
         translate(-50%,-50%)
         scale(.1);
 
-    border-radius:50%;
-
     opacity:0;
 
-    z-index:60;
+    border-radius:50%;
+
+    z-index:70;
+
+    pointer-events:none;
 
     background:
         radial-gradient(
             circle,
             #fff 0 5%,
-            #ffe56c 8%,
-            #ff9d22 25%,
+            #ffe56b 8%,
+            #ff9e22 25%,
             #ff4e3d 45%,
             rgba(255,55,65,.15) 67%,
             transparent 73%
@@ -686,17 +790,18 @@ input{
 
     inset:0;
 
-    z-index:80;
-
     display:none;
 
     align-items:center;
     justify-content:center;
 
     background:
-        rgba(2,7,13,.5);
+        rgba(2,7,13,.53);
 
-    backdrop-filter:blur(5px);
+    backdrop-filter:
+        blur(5px);
+
+    z-index:90;
 }
 
 .count-number{
@@ -708,16 +813,41 @@ input{
     text-shadow:
         0 0 55px
         rgba(38,140,255,.75);
+
+    animation:
+        countPop
+        .65s
+        ease;
+}
+
+@keyframes countPop{
+
+    from{
+        transform:
+            scale(1.30);
+
+        opacity:0;
+    }
+
+    to{
+        transform:
+            scale(1);
+
+        opacity:1;
+    }
 }
 
 
 /* =====================================================
-   BETTING
+   CONTROLS
 ===================================================== */
 
 .controls{
     margin-top:10px;
 }
+
+
+/* BETTING / WITHDRAW */
 
 .betting-btn{
 
@@ -746,9 +876,17 @@ input{
 
     box-shadow:
         0 8px 28px
-        rgba(38,140,255,.2);
+        rgba(38,140,255,.18);
 
-    transition:.2s;
+    transition:
+        transform .15s,
+        opacity .15s,
+        background .2s;
+}
+
+.betting-btn:active{
+    transform:
+        scale(.99);
 }
 
 .betting-btn.withdraw{
@@ -757,7 +895,7 @@ input{
         linear-gradient(
             135deg,
             #ffc94d,
-            #ed9e14
+            #e69a12
         );
 
     color:#241700;
@@ -772,7 +910,7 @@ input{
 
 
 /* =====================================================
-   INPUT PANEL
+   BET PANEL
 ===================================================== */
 
 .bet-panel{
@@ -785,7 +923,8 @@ input{
 
     border-radius:16px;
 
-    background:#0b1625;
+    background:
+        var(--panel);
 
     border:
         1px solid
@@ -811,16 +950,17 @@ input{
 
     padding:14px;
 
-    border-radius:11px;
-
-    border:
-        1px solid #263c55;
-
-    outline:none;
+    color:#fff;
 
     background:#050c15;
 
-    color:white;
+    border:
+        1px solid
+        #263c55;
+
+    border-radius:11px;
+
+    outline:none;
 
     font-weight:800;
 }
@@ -849,6 +989,10 @@ input{
     cursor:pointer;
 }
 
+.start:disabled{
+    opacity:.45;
+}
+
 .message{
 
     min-height:20px;
@@ -857,9 +1001,10 @@ input{
 
     text-align:center;
 
-    font-size:12px;
+    color:
+        var(--muted);
 
-    color:var(--muted);
+    font-size:12px;
 }
 
 
@@ -875,15 +1020,15 @@ input{
 
     border-radius:18px;
 
-    background:#0b1625;
+    background:
+        var(--panel);
 
     border:
         1px solid
         rgba(255,255,255,.07);
 }
 
-.players-head,
-.player{
+.players-head{
 
     display:grid;
 
@@ -899,11 +1044,9 @@ input{
     padding:
         13px
         14px;
-}
 
-.players-head{
-
-    color:#617087;
+    color:
+        #617087;
 
     font-size:10px;
 
@@ -916,6 +1059,23 @@ input{
 
 .player{
 
+    display:grid;
+
+    grid-template-columns:
+        1fr
+        95px
+        125px;
+
+    gap:8px;
+
+    align-items:center;
+
+    min-height:47px;
+
+    padding:
+        12px
+        14px;
+
     font-size:13px;
 
     border-bottom:
@@ -923,8 +1083,8 @@ input{
         rgba(255,255,255,.045);
 
     transition:
-        background .3s,
-        color .3s;
+        background .25s,
+        color .25s;
 }
 
 .player:last-child{
@@ -932,20 +1092,25 @@ input{
 }
 
 
-/* =====================================================
-   USER
-===================================================== */
+/* YOU */
 
 .player.you{
 
     background:
-        rgba(38,140,255,.09);
+        rgba(38,140,255,.08);
 }
 
 
-/* =====================================================
-   GREEN = CASHED OUT
-===================================================== */
+/* ACTIVE */
+
+.player.active .player-value{
+
+    color:
+        var(--blue2);
+}
+
+
+/* GREEN */
 
 .player.cashed{
 
@@ -953,12 +1118,7 @@ input{
         rgba(32,212,134,.10);
 }
 
-.player.cashed .player-name{
-
-    color:
-        var(--green2);
-}
-
+.player.cashed .player-name,
 .player.cashed .player-value{
 
     color:
@@ -966,28 +1126,15 @@ input{
 }
 
 
-/* =====================================================
-   RED = CRASHED
-===================================================== */
+/* RED */
 
 .player.crashed{
 
     background:
-        rgba(255,77,100,.10);
+        rgba(255,78,103,.10);
 }
 
-.player.crashed .player-name{
-
-    color:
-        var(--red2);
-}
-
-.player.crashed .player-bet{
-
-    color:
-        #e98995;
-}
-
+.player.crashed .player-name,
 .player.crashed .player-value{
 
     color:
@@ -995,17 +1142,23 @@ input{
 }
 
 
-/* =====================================================
-   PLAYER TEXT
-===================================================== */
+/* player text */
 
 .player-name{
+
     font-weight:900;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    white-space:nowrap;
 }
 
 .player-bet{
 
-    color:#a4b1c0;
+    color:
+        #a4b1c0;
 
     text-align:right;
 }
@@ -1018,6 +1171,8 @@ input{
     text-align:right;
 
     font-weight:900;
+
+    white-space:nowrap;
 }
 
 
@@ -1027,8 +1182,19 @@ input{
 
 @media(max-width:600px){
 
+    .header{
+        padding:
+            0 12px;
+    }
+
+    .container{
+        padding:
+            10px;
+    }
+
     .game{
         height:425px;
+        border-radius:20px;
     }
 
     .multiplier{
@@ -1044,23 +1210,44 @@ input{
 
         grid-template-columns:
             1fr
-            70px
+            72px
             105px;
 
         padding:
             12px 10px;
+    }
 
+    .player{
         font-size:11px;
     }
 
-}
+    .rocket-wrap{
 
+        transform:
+            translate(-50%,-50%)
+            translate(-275px,160px);
+
+    }
+
+    .rocket-wrap.entering{
+
+        transform:
+            translate(-50%,-50%)
+            translate(0,0);
+
+    }
+
+}
 </style>
 </head>
 
 
 <body>
 
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <header class="header">
 
@@ -1076,25 +1263,76 @@ input{
         </span>
 
 
+        <!-- TON STYLE COIN -->
+
         <svg
             class="coin"
             viewBox="0 0 100 100">
+
+            <defs>
+
+                <linearGradient
+                    id="tonGradient"
+                    x1="0"
+                    y1="0"
+                    x2="1"
+                    y2="1">
+
+                    <stop
+                        offset="0%"
+                        stop-color="#38a8ff"/>
+
+                    <stop
+                        offset="100%"
+                        stop-color="#0875d8"/>
+
+                </linearGradient>
+
+            </defs>
+
 
             <circle
                 cx="50"
                 cy="50"
                 r="47"
-                fill="#1689e8"/>
+                fill="url(#tonGradient)"/>
 
-            <circle
-                cx="50"
-                cy="50"
-                r="38"
-                fill="#0b70c7"/>
+
+            <!-- TON-like geometric symbol -->
 
             <path
-                d="M35 24h30v9H56v35h-9V33H35zM30 45h40v9H30z"
-                fill="white"/>
+                d="
+                    M21 28
+                    L39 28
+                    L50 47
+                    L61 28
+                    L79 28
+                    L50 77
+                    Z
+                "
+                fill="#fff"/>
+
+
+            <path
+                d="
+                    M39 28
+                    L50 47
+                    L50 77
+                    L21 28
+                    Z
+                "
+                fill="#dff2ff"/>
+
+
+            <path
+                d="
+                    M61 28
+                    L50 47
+                    L50 77
+                    L79 28
+                    Z
+                "
+                fill="#b9ddff"/>
 
         </svg>
 
@@ -1106,12 +1344,25 @@ input{
 <main class="container">
 
 
+<!-- =====================================================
+     GAME
+===================================================== -->
+
 <section class="game">
 
 
     <div class="stars"></div>
 
     <div class="grid"></div>
+
+
+    <div
+        class="round-id"
+        id="roundId">
+
+        ROUND #1
+
+    </div>
 
 
     <div
@@ -1123,7 +1374,7 @@ input{
     </div>
 
 
-    <!-- ضریب همیشه مرکز بازی -->
+    <!-- ضریب همیشه وسط -->
 
     <div
         class="multiplier"
@@ -1134,35 +1385,54 @@ input{
     </div>
 
 
-    <!--
-        راکت:
-        مرکز صفحه
-        ولی رو به بالا-راست
-    -->
+    <!-- ROCKET -->
 
     <div
         class="rocket-wrap"
         id="rocketWrap">
 
+
         <div class="rocket-flight">
+
 
             <div class="rocket">
 
-                <div class="body-line"></div>
 
-                <div class="window"></div>
+                <div
+                    class="body-line">
+                </div>
 
-                <div class="fin-left"></div>
 
-                <div class="fin-right"></div>
+                <div
+                    class="window">
+                </div>
 
-                <div class="engine"></div>
 
-                <div class="flame"></div>
+                <div
+                    class="fin-left">
+                </div>
+
+
+                <div
+                    class="fin-right">
+                </div>
+
+
+                <div
+                    class="engine">
+                </div>
+
+
+                <div
+                    class="flame">
+                </div>
+
 
             </div>
 
+
         </div>
+
 
     </div>
 
@@ -1181,6 +1451,7 @@ input{
         class="countdown"
         id="countdown">
 
+
         <div
             class="count-number"
             id="countNumber">
@@ -1189,18 +1460,25 @@ input{
 
         </div>
 
+
     </div>
 
 
 </section>
 
 
-<!-- =================================================
-     CONTROLS
-================================================== -->
+<!-- =====================================================
+     CONTROL
+===================================================== -->
 
 <section class="controls">
 
+
+    <!--
+        BETTING
+        ↓
+        WITHDRAW
+    -->
 
     <button
         id="bettingBtn"
@@ -1211,6 +1489,8 @@ input{
     </button>
 
 
+    <!-- مقدار TON -->
+
     <div
         id="betPanel"
         class="bet-panel">
@@ -1218,12 +1498,14 @@ input{
 
         <div class="bet-row">
 
+
             <input
                 id="amountInput"
                 class="amount"
                 type="number"
                 min="0.1"
                 step="0.1"
+                inputmode="decimal"
                 placeholder="Amount TON">
 
 
@@ -1234,6 +1516,7 @@ input{
                 START
 
             </button>
+
 
         </div>
 
@@ -1250,9 +1533,9 @@ input{
 </section>
 
 
-<!-- =================================================
+<!-- =====================================================
      PLAYERS
-================================================== -->
+===================================================== -->
 
 <section class="players">
 
@@ -1263,12 +1546,14 @@ input{
             PLAYER
         </div>
 
+
         <div
             style="text-align:right">
 
             BET
 
         </div>
+
 
         <div
             style="text-align:right">
@@ -1280,7 +1565,9 @@ input{
     </div>
 
 
-    <div id="playersList"></div>
+    <div
+        id="playersList">
+    </div>
 
 
 </section>
@@ -1296,40 +1583,74 @@ input{
 ===================================================== */
 
 const balanceEl =
-    document.getElementById("balance");
+    document.getElementById(
+        "balance"
+    );
 
 const bettingBtn =
-    document.getElementById("bettingBtn");
+    document.getElementById(
+        "bettingBtn"
+    );
 
 const betPanel =
-    document.getElementById("betPanel");
+    document.getElementById(
+        "betPanel"
+    );
 
 const amountInput =
-    document.getElementById("amountInput");
+    document.getElementById(
+        "amountInput"
+    );
 
 const startBtn =
-    document.getElementById("startBtn");
+    document.getElementById(
+        "startBtn"
+    );
 
 const message =
-    document.getElementById("message");
-
-const multiplierEl =
-    document.getElementById("multiplier");
+    document.getElementById(
+        "message"
+    );
 
 const statusEl =
-    document.getElementById("status");
+    document.getElementById(
+        "status"
+    );
+
+const multiplierEl =
+    document.getElementById(
+        "multiplier"
+    );
+
+const roundIdEl =
+    document.getElementById(
+        "roundId"
+    );
+
+const rocketWrap =
+    document.getElementById(
+        "rocketWrap"
+    );
 
 const explosion =
-    document.getElementById("explosion");
+    document.getElementById(
+        "explosion"
+    );
 
 const countdown =
-    document.getElementById("countdown");
+    document.getElementById(
+        "countdown"
+    );
 
 const countNumber =
-    document.getElementById("countNumber");
+    document.getElementById(
+        "countNumber"
+    );
 
 const playersList =
-    document.getElementById("playersList");
+    document.getElementById(
+        "playersList"
+    );
 
 
 /* =====================================================
@@ -1343,8 +1664,14 @@ let balance =
         )
     );
 
-if(!Number.isFinite(balance)){
+
+if(
+    !Number.isFinite(balance) ||
+    balance < 0
+){
+
     balance = 100;
+
 }
 
 
@@ -1367,15 +1694,16 @@ function updateBalance(){
 
 }
 
+
 updateBalance();
 
 
 /* =====================================================
-   GAME STATE
+   STATE
 ===================================================== */
 
 let phase =
-    "betting";
+    "idle";
 
 let multiplier =
     1;
@@ -1383,10 +1711,13 @@ let multiplier =
 let crashPoint =
     0;
 
+let roundNumber =
+    0;
+
 let roundTimer =
     null;
 
-let waitTimer =
+let bettingTimer =
     null;
 
 let countdownTimer =
@@ -1400,10 +1731,61 @@ let betAmount =
 
 
 /* =====================================================
-   FAKE PLAYERS
+   TIMER CLEANUP
+===================================================== */
+
+function clearTimers(){
+
+    if(
+        roundTimer !== null
+    ){
+
+        clearInterval(
+            roundTimer
+        );
+
+        roundTimer =
+            null;
+
+    }
+
+
+    if(
+        bettingTimer !== null
+    ){
+
+        clearInterval(
+            bettingTimer
+        );
+
+        bettingTimer =
+            null;
+
+    }
+
+
+    if(
+        countdownTimer !== null
+    ){
+
+        clearInterval(
+            countdownTimer
+        );
+
+        countdownTimer =
+            null;
+
+    }
+
+}
+
+
+/* =====================================================
+   PLAYERS
 ===================================================== */
 
 const names = [
+
     "Dark",
     "Nexus",
     "Hunter",
@@ -1422,7 +1804,9 @@ const names = [
     "Lucky",
     "King",
     "Max"
+
 ];
+
 
 let players = [];
 
@@ -1437,7 +1821,14 @@ function fakeBet(){
         Math.random();
 
 
-    if(r < .80){
+    /*
+        80%
+        0.1 - 1
+    */
+
+    if(
+        r < .80
+    ){
 
         return (
             .1 +
@@ -1447,7 +1838,14 @@ function fakeBet(){
     }
 
 
-    if(r < .93){
+    /*
+        13%
+        1 - 10
+    */
+
+    if(
+        r < .93
+    ){
 
         return (
             1 +
@@ -1457,7 +1855,14 @@ function fakeBet(){
     }
 
 
-    if(r < .98){
+    /*
+        5%
+        10 - 100
+    */
+
+    if(
+        r < .98
+    ){
 
         return (
             10 +
@@ -1466,6 +1871,11 @@ function fakeBet(){
 
     }
 
+
+    /*
+        2%
+        100 - 1000
+    */
 
     return (
         100 +
@@ -1485,48 +1895,56 @@ function fakeCashoutPoint(){
         Math.random();
 
 
-    if(r < .15){
+    if(
+        r < .18
+    ){
 
         return (
-            1.10 +
-            Math.random() * .50
+            1.15 +
+            Math.random() * .55
         );
 
     }
 
 
-    if(r < .40){
+    if(
+        r < .43
+    ){
 
         return (
-            1.50 +
-            Math.random() * 1.00
+            1.70 +
+            Math.random() * 1.10
         );
 
     }
 
 
-    if(r < .65){
+    if(
+        r < .68
+    ){
 
         return (
-            2.00 +
-            Math.random() * 2.00
+            2.50 +
+            Math.random() * 1.80
         );
 
     }
 
 
-    if(r < .85){
+    if(
+        r < .85
+    ){
 
         return (
-            4.00 +
-            Math.random() * 4.00
+            4.50 +
+            Math.random() * 3
         );
 
     }
 
 
     /*
-       این بازیکن تا Crash می‌ماند
+        تا Crash می‌ماند
     */
 
     return null;
@@ -1544,7 +1962,9 @@ function generateCrash(){
         Math.random();
 
 
-    if(r < .40){
+    if(
+        r < .40
+    ){
 
         return (
             1 +
@@ -1554,7 +1974,9 @@ function generateCrash(){
     }
 
 
-    if(r < .75){
+    if(
+        r < .75
+    ){
 
         return (
             1.30 +
@@ -1564,7 +1986,9 @@ function generateCrash(){
     }
 
 
-    if(r < .845){
+    if(
+        r < .845
+    ){
 
         return (
             2.50 +
@@ -1574,7 +1998,9 @@ function generateCrash(){
     }
 
 
-    if(r < .945){
+    if(
+        r < .945
+    ){
 
         return (
             5 +
@@ -1584,7 +2010,9 @@ function generateCrash(){
     }
 
 
-    if(r < .95){
+    if(
+        r < .95
+    ){
 
         return (
             100 +
@@ -1636,24 +2064,17 @@ function createPlayers(){
             cashoutAt:
                 fakeCashoutPoint(),
 
-            cashed:
-                false,
+            cashed:false,
 
-            crashed:
-                false,
+            crashed:false,
 
-            finalMultiplier:
-                0,
+            finalMultiplier:0,
 
-            finalValue:
-                0
+            finalValue:0
 
         });
 
     }
-
-
-    renderPlayers();
 
 }
 
@@ -1667,11 +2088,11 @@ function renderPlayers(){
     let html = "";
 
 
-    /*
-       USER
-    */
+    /* USER */
 
-    if(hasBet){
+    if(
+        hasBet
+    ){
 
         html += `
 
@@ -1700,19 +2121,22 @@ function renderPlayers(){
     }
 
 
-    /*
-       FAKE USERS
-    */
+    /* FAKE */
 
     players.forEach(
-        (player,index) => {
+        (
+            player,
+            index
+        ) => {
 
 
             let rowClass =
                 "player";
 
 
-            if(player.cashed){
+            if(
+                player.cashed
+            ){
 
                 rowClass +=
                     " cashed";
@@ -1720,7 +2144,9 @@ function renderPlayers(){
             }
 
 
-            if(player.crashed){
+            if(
+                player.crashed
+            ){
 
                 rowClass +=
                     " crashed";
@@ -1731,11 +2157,9 @@ function renderPlayers(){
             let value;
 
 
-            /*
-               سبز = برداشت
-            */
-
-            if(player.cashed){
+            if(
+                player.cashed
+            ){
 
                 value =
                     player.finalValue.toFixed(2)
@@ -1749,11 +2173,9 @@ function renderPlayers(){
             }
 
 
-            /*
-               قرمز = Crash
-            */
-
-            else if(player.crashed){
+            else if(
+                player.crashed
+            ){
 
                 value =
                     player.finalValue.toFixed(2)
@@ -1762,10 +2184,6 @@ function renderPlayers(){
 
             }
 
-
-            /*
-               عادی
-            */
 
             else{
 
@@ -1782,18 +2200,28 @@ function renderPlayers(){
 
             <div
                 class="${rowClass}"
-                id="player-${index}">
+                data-row="${index}">
 
                 <div class="player-name">
+
                     ${player.name}
+
                 </div>
+
 
                 <div class="player-bet">
+
                     ${player.bet.toFixed(2)}
+
                 </div>
 
-                <div class="player-value">
+
+                <div
+                    class="player-value"
+                    data-value="${index}">
+
                     ${value}
+
                 </div>
 
             </div>
@@ -1811,19 +2239,23 @@ function renderPlayers(){
 
 
 /* =====================================================
-   UPDATE PLAYERS
+   UPDATE ACTIVE PLAYERS
 ===================================================== */
 
 function updatePlayers(){
 
-    /*
-       بازیکن‌هایی که هنوز
-       تصمیم نگرفته‌اند.
-    */
-
     players.forEach(
-        player => {
+        (
+            player,
+            index
+        ) => {
 
+
+            /*
+                قبلاً برداشت کرده
+                یا Crash شده:
+                دیگر تغییر نکند.
+            */
 
             if(
                 player.cashed ||
@@ -1836,7 +2268,7 @@ function updatePlayers(){
 
 
             /*
-               برداشت شانسی
+                زمان برداشت فیک رسیده
             */
 
             if(
@@ -1857,35 +2289,108 @@ function updatePlayers(){
                     player.bet *
                     player.cashoutAt;
 
+
+                const row =
+                    document.querySelector(
+                        `[data-row="${index}"]`
+                    );
+
+
+                if(
+                    row
+                ){
+
+                    row.classList.remove(
+                        "active"
+                    );
+
+                    row.classList.add(
+                        "cashed"
+                    );
+
+                }
+
+
+                const valueEl =
+                    document.querySelector(
+                        `[data-value="${index}"]`
+                    );
+
+
+                if(
+                    valueEl
+                ){
+
+                    valueEl.textContent =
+                        player.finalValue
+                            .toFixed(2)
+                        +
+                        " · "
+                        +
+                        player.finalMultiplier
+                            .toFixed(2)
+                        +
+                        "x";
+
+                }
+
+
+                return;
+
+            }
+
+
+            /*
+                هنوز فعال است
+            */
+
+            const valueEl =
+                document.querySelector(
+                    `[data-value="${index}"]`
+                );
+
+
+            if(
+                valueEl
+            ){
+
+                valueEl.textContent =
+                    (
+                        player.bet *
+                        multiplier
+                    ).toFixed(2);
+
             }
 
         }
     );
 
 
-    renderPlayers();
-
-
     /*
-       USER VALUE
+        مقدار کاربر
     */
 
-    const userValue =
-        document.getElementById(
-            "userValue"
-        );
-
-
     if(
-        userValue &&
         hasBet
     ){
 
-        userValue.textContent =
-            (
-                betAmount *
-                multiplier
-            ).toFixed(2);
+        const userValue =
+            document.getElementById(
+                "userValue"
+            );
+
+
+        if(
+            userValue
+        ){
+
+            userValue.textContent =
+                (
+                    betAmount *
+                    multiplier
+                ).toFixed(2);
+
+        }
 
     }
 
@@ -1902,11 +2407,12 @@ bettingBtn.addEventListener(
 
 
         /*
-           اگر شرط فعال است:
-           WITHDRAW
+            اگر WITHDRAW است
         */
 
-        if(hasBet){
+        if(
+            hasBet
+        ){
 
             withdraw();
 
@@ -1916,7 +2422,7 @@ bettingBtn.addEventListener(
 
 
         /*
-           BETTING
+            اگر Betting نیست
         */
 
         if(
@@ -1931,6 +2437,10 @@ bettingBtn.addEventListener(
 
         }
 
+
+        /*
+            باز کردن پنل
+        */
 
         betPanel.classList.toggle(
             "show"
@@ -1973,7 +2483,16 @@ startBtn.addEventListener(
         }
 
 
-        const amount =
+        if(
+            hasBet
+        ){
+
+            return;
+
+        }
+
+
+        let amount =
             parseFloat(
                 amountInput.value
             );
@@ -1992,7 +2511,28 @@ startBtn.addEventListener(
         }
 
 
-        if(amount > balance){
+        if(
+            amount < .1
+        ){
+
+            message.textContent =
+                "Minimum is 0.1 TON.";
+
+            return;
+
+        }
+
+
+        amount =
+            Math.round(
+                amount * 100
+            ) / 100;
+
+
+        if(
+            amount >
+            balance + 0.000001
+        ){
 
             message.textContent =
                 "Not enough TON.";
@@ -2002,8 +2542,21 @@ startBtn.addEventListener(
         }
 
 
+        /*
+            کم کردن موجودی
+        */
+
         balance -=
             amount;
+
+
+        if(
+            balance < 0
+        ){
+
+            balance = 0;
+
+        }
 
 
         betAmount =
@@ -2017,10 +2570,18 @@ startBtn.addEventListener(
         updateBalance();
 
 
+        /*
+            پنل بسته شود
+        */
+
         betPanel.classList.remove(
             "show"
         );
 
+
+        /*
+            BETTING -> WITHDRAW
+        */
 
         bettingBtn.textContent =
             "WITHDRAW";
@@ -2029,6 +2590,10 @@ startBtn.addEventListener(
         bettingBtn.classList.add(
             "withdraw"
         );
+
+
+        message.textContent =
+            "";
 
 
         renderPlayers();
@@ -2043,17 +2608,98 @@ startBtn.addEventListener(
 
 function withdraw(){
 
-    if(!hasBet)
+    if(
+        !hasBet
+    ){
+
         return;
 
+    }
 
-    const value =
+
+    /*
+        مقدار فعلی
+    */
+
+    const currentValue =
         betAmount *
         multiplier;
 
 
+    /*
+        افزایش موجودی دمو
+    */
+
     balance +=
-        value;
+        currentValue;
+
+
+    /*
+        شرط بسته
+    */
+
+    hasBet =
+        false;
+
+
+    betAmount =
+        0;
+
+
+    updateBalance();
+
+
+    /*
+        دوباره BETTING
+    */
+
+    bettingBtn.textContent =
+        "BETTING";
+
+
+    bettingBtn.classList.remove(
+        "withdraw"
+    );
+
+
+    amountInput.value =
+        "";
+
+
+    message.textContent =
+        "Withdraw " +
+        currentValue.toFixed(2) +
+        " TON";
+
+
+    renderPlayers();
+
+}
+
+
+/* =====================================================
+   CRASH RESET USER
+===================================================== */
+
+/*
+    طبق چیزی که گفتی:
+
+    اگر کاربر تا Crash برداشت نکرده باشد،
+    بعد از ترکیدن اصل مبلغ به موجودی دمو
+    برمی‌گردد و همان لحظه دکمه
+    دوباره BETTING می‌شود.
+*/
+
+function resetUserAfterCrash(){
+
+    if(
+        hasBet
+    ){
+
+        balance +=
+            betAmount;
+
+    }
 
 
     hasBet =
@@ -2079,15 +2725,6 @@ function withdraw(){
     amountInput.value =
         "";
 
-
-    message.textContent =
-        "Withdraw " +
-        value.toFixed(2) +
-        " TON";
-
-
-    renderPlayers();
-
 }
 
 
@@ -2097,12 +2734,14 @@ function withdraw(){
 
 function startRound(){
 
-    clearInterval(roundTimer);
-    clearInterval(waitTimer);
+    clearTimers();
 
 
     phase =
         "betting";
+
+
+    roundNumber++;
 
 
     multiplier =
@@ -2111,6 +2750,15 @@ function startRound(){
 
     crashPoint =
         generateCrash();
+
+
+    /*
+        UI reset
+    */
+
+    roundIdEl.textContent =
+        "ROUND #" +
+        roundNumber;
 
 
     multiplierEl.textContent =
@@ -2126,37 +2774,69 @@ function startRound(){
         "BETTING OPEN";
 
 
-    bettingBtn.disabled =
-        false;
+    /*
+        راکت:
+        دوباره پایین چپ
+    */
+
+    rocketWrap.classList.remove(
+        "entering"
+    );
+
+    rocketWrap.classList.remove(
+        "hovering"
+    );
 
 
-    createPlayers();
-
-
-    message.textContent =
-        "";
+    rocketWrap.style.opacity =
+        "0";
 
 
     /*
-       5 seconds betting
+        انفجار پاک
+    */
+
+    explosion.classList.remove(
+        "active"
+    );
+
+
+    /*
+        بازیکنان جدید
+    */
+
+    createPlayers();
+
+    renderPlayers();
+
+
+    /*
+        Betting window
     */
 
     let seconds =
         5;
 
 
-    waitTimer =
+    bettingTimer =
         setInterval(
             () => {
+
 
                 seconds--;
 
 
-                if(seconds <= 0){
+                if(
+                    seconds <= 0
+                ){
 
                     clearInterval(
-                        waitTimer
+                        bettingTimer
                     );
+
+                    bettingTimer =
+                        null;
+
 
                     startFlight();
 
@@ -2175,6 +2855,16 @@ function startRound(){
 
 function startFlight(){
 
+    if(
+        phase !==
+        "betting"
+    ){
+
+        return;
+
+    }
+
+
     phase =
         "running";
 
@@ -2183,13 +2873,9 @@ function startFlight(){
         "ROCKET FLYING";
 
 
-    if(!hasBet){
-
-        bettingBtn.disabled =
-            true;
-
-    }
-
+    /*
+        پنل مقدار بسته بماند
+    */
 
     betPanel.classList.remove(
         "show"
@@ -2197,68 +2883,200 @@ function startFlight(){
 
 
     /*
-       ضریب از ابتدا شروع می‌شود.
-
-       سرعت افزایش ضریب
-       خودش با ضریب بیشتر می‌شود.
+        اگر کاربر شرط ندارد،
+        BETTING هنگام پرواز غیرفعال است.
     */
 
-    let lastTime =
-        performance.now();
+    if(
+        !hasBet
+    ){
+
+        bettingBtn.disabled =
+            true;
+
+    }
+
+
+    /*
+        راکت هر دور:
+        پایین چپ -> مرکز
+    */
+
+    rocketWrap.style.opacity =
+        "1";
+
+
+    requestAnimationFrame(
+        () => {
+
+            if(
+                phase !==
+                "running"
+            ){
+
+                return;
+
+            }
+
+
+            rocketWrap.classList.add(
+                "entering"
+            );
+
+        }
+    );
+
+
+    /*
+        بعد از رسیدن به مرکز
+    */
+
+    setTimeout(
+        () => {
+
+            if(
+                phase ===
+                "running"
+            ){
+
+                rocketWrap.classList.add(
+                    "hovering"
+                );
+
+            }
+
+        },
+        1800
+    );
+
+
+    /*
+        ==============================================
+        SPEED
+        ==============================================
+
+        1.00 - 1.50
+        0.035x / sec
+
+        1.50 - 2.50
+        0.06x / sec
+
+        2.50 - 5
+        0.08x / sec
+
+        5 - 10
+        0.10x / sec
+
+        10+
+        0.15x / sec
+    */
+
+
+    const tick =
+        50;
 
 
     roundTimer =
         setInterval(
             () => {
 
-                const now =
-                    performance.now();
+
+                if(
+                    phase !==
+                    "running"
+                ){
+
+                    return;
+
+                }
 
 
-                const delta =
-                    now -
-                    lastTime;
-
-
-                lastTime =
-                    now;
+                let speedPerSecond;
 
 
                 /*
-                   سرعت پویا
-
-                   ضریب پایین:
-                   آرام
-
-                   ضریب بالا:
-                   سریع‌تر
-
+                    1 -> 1.5
                 */
 
-                const acceleration =
-                    0.0000045;
+                if(
+                    multiplier < 1.5
+                ){
+
+                    speedPerSecond =
+                        0.035;
+
+                }
 
 
-                const baseSpeed =
-                    0.0028;
+                /*
+                    1.5 -> 2.5
+                */
+
+                else if(
+                    multiplier < 2.5
+                ){
+
+                    speedPerSecond =
+                        0.06;
+
+                }
 
 
-                const speed =
-                    baseSpeed +
+                /*
+                    2.5 -> 5
+                */
+
+                else if(
+                    multiplier < 5
+                ){
+
+                    speedPerSecond =
+                        0.08;
+
+                }
+
+
+                /*
+                    5 -> 10
+                */
+
+                else if(
+                    multiplier < 10
+                ){
+
+                    speedPerSecond =
+                        0.10;
+
+                }
+
+
+                /*
+                    10+
+                */
+
+                else{
+
+                    speedPerSecond =
+                        0.15;
+
+                }
+
+
+                /*
+                    تبدیل سرعت ثانیه‌ای
+                    به مقدار هر Tick
+                */
+
+                multiplier +=
+                    speedPerSecond *
                     (
-                        multiplier *
-                        multiplier *
-                        acceleration
+                        tick /
+                        1000
                     );
 
 
-                multiplier +=
-                    speed *
-                    delta;
-
-
                 /*
-                   نمایش ضریب
+                    نمایش
                 */
 
                 multiplierEl.textContent =
@@ -2267,14 +3085,14 @@ function startFlight(){
 
 
                 /*
-                   بازیکن‌ها
+                    بازیکن‌ها
                 */
 
                 updatePlayers();
 
 
                 /*
-                   Crash
+                    Crash
                 */
 
                 if(
@@ -2286,8 +3104,9 @@ function startFlight(){
 
                 }
 
+
             },
-            30
+            tick
         );
 
 }
@@ -2299,9 +3118,22 @@ function startFlight(){
 
 function crash(){
 
+    if(
+        phase !==
+        "running"
+    ){
+
+        return;
+
+    }
+
+
     clearInterval(
         roundTimer
     );
+
+    roundTimer =
+        null;
 
 
     phase =
@@ -2318,8 +3150,8 @@ function crash(){
 
 
     /*
-       هر بازیکنی که برداشت نکرده:
-       قرمز می‌شود.
+        کسانی که برداشت نکردند:
+        قرمز شوند.
     */
 
     players.forEach(
@@ -2332,8 +3164,10 @@ function crash(){
                 player.crashed =
                     true;
 
+
                 player.finalMultiplier =
                     multiplier;
+
 
                 player.finalValue =
                     player.bet *
@@ -2349,7 +3183,29 @@ function crash(){
 
 
     /*
-       انفجار در مرکز
+        اگر کاربر هنوز
+        Withdraw نکرده باشد:
+
+        اصل مبلغ دمو
+        همان موقع برگردد.
+
+        و دکمه بلافاصله
+        BETTING شود.
+    */
+
+    resetUserAfterCrash();
+
+
+    /*
+        راکت از نمایش ناپدید
+    */
+
+    rocketWrap.style.opacity =
+        "0";
+
+
+    /*
+        انفجار در مرکز
     */
 
     explosion.classList.remove(
@@ -2366,17 +3222,12 @@ function crash(){
 
 
     /*
-       بعد از انفجار
-       Countdown
+        بعد از انفجار countdown
     */
 
     setTimeout(
-        () => {
-
-            startCountdown();
-
-        },
-        850
+        startCountdown,
+        900
     );
 
 }
@@ -2388,31 +3239,60 @@ function crash(){
 
 function startCountdown(){
 
+    if(
+        phase !==
+        "crashed"
+    ){
+
+        return;
+
+    }
+
+
     countdown.style.display =
         "flex";
 
 
-    let n =
+    let number =
         10;
 
 
     countNumber.textContent =
-        n;
+        number;
 
 
     countdownTimer =
         setInterval(
             () => {
 
-                n--;
+
+                number--;
 
 
-                if(n >= 1){
+                if(
+                    number >= 1
+                ){
 
                     countNumber.textContent =
-                        n;
+                        number;
+
+
+                    /*
+                        انیمیشن دوباره
+                    */
+
+                    countNumber.style.animation =
+                        "none";
+
+
+                    void countNumber.offsetWidth;
+
+
+                    countNumber.style.animation =
+                        "countPop .65s ease";
 
                 }
+
 
                 else{
 
@@ -2420,50 +3300,16 @@ function startCountdown(){
                         countdownTimer
                     );
 
+                    countdownTimer =
+                        null;
+
 
                     countdown.style.display =
                         "none";
 
 
                     /*
-                       اگر کاربر Withdraw نکرده،
-                       اصل شرط دمو برمی‌گردد.
-                    */
-
-                    if(hasBet){
-
-                        balance +=
-                            betAmount;
-
-                    }
-
-
-                    hasBet =
-                        false;
-
-
-                    betAmount =
-                        0;
-
-
-                    updateBalance();
-
-
-                    bettingBtn.textContent =
-                        "BETTING";
-
-
-                    bettingBtn.classList.remove(
-                        "withdraw"
-                    );
-
-
-                    amountInput.value =
-                        "";
-
-
-                    /*
-                       دور جدید
+                        دور بعد
                     */
 
                     startRound();
