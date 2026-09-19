@@ -1606,33 +1606,49 @@ function startRound(){
        5 ثانیه زمان ورود
     */
 
-    let seconds = 5;
+   roundTimer = setInterval(() => {
 
+    // سرعت پایه
+    let speed = 0.085;
 
-    waitTimer =
-        setInterval(
-            ()=>{
+    // از 2x به بعد کمی سریع‌تر
+    if (multiplier >= 2) {
+        speed = 0.105;
+    }
 
-                seconds--;
+    // از 5x به بعد شتاب تدریجی
+    if (multiplier >= 5) {
+        const over5 = multiplier - 5;
 
+        speed =
+            0.13 +
+            (over5 * 0.018);
+    }
 
-                if(seconds <= 0){
+    // از 10x به بعد سریع‌تر
+    if (multiplier >= 10) {
+        const over10 = multiplier - 10;
 
-                    clearInterval(
-                        waitTimer
-                    );
+        speed =
+            0.22 +
+            (over10 * 0.025);
+    }
 
-                    startFlight();
+    // جلوگیری از پرش خیلی شدید
+    speed = Math.min(speed, 0.75);
 
-                }
+    multiplier += speed * 0.03;
 
-            },
-            1000
-        );
+    multiplierEl.textContent =
+        multiplier.toFixed(2) + "x";
 
-}
+    updatePlayers();
 
+    if (multiplier >= crashPoint) {
+        crash();
+    }
 
+}, 30);
 /* ================= ROCKET FLIGHT ================= */
 
 function startFlight(){
